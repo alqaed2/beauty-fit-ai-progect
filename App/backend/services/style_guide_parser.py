@@ -1,0 +1,274 @@
+"""Parses BeautyFit `.docx` style guides into a structured in-memory catalog.
+
+The docx files live in `app/backend/assets/style_guides/`. Each file covers
+one main style (Sweet, Natural, Sexy, Androgynous, Elegant, Mature) and
+contains 5 sub-styles. For every sub-style we extract:
+  - name                 (e.g. "Japanese Kawaii (日系可爱)")
+  - tools                List[str]   ≈ 8–12 items
+  - steps                List[{title, body}]  ≈ 5–9 items
+  - pro_tips             List[str]   ≈ 4–5 items
+
+Parsing happens ONCE at import time (and is cached) because the documents
+are static assets. Results are exposed via `get_catalog()`.
+"""
+
+from __future__ import annotations
+
+import logging
+import os
+import re
+from functools import lru_cache
+from typing import Dict, List, Optional, TypedDict
+
+logger = logging.getLogger(__name__)
+
+_FILES = ["Sweet", "Natural", "Sexy", "Androgynous", "Elegant", "Mature"]
+
+# Map frontend style ids -> internal catalog keys
+STYLE_ALIASES: Dict[str, str] = {
+    "powerful": "mature",
+}
+
+
+class ParsedStep(TypedDict):
+    title: str
+    body: str
+
+
+class ParsedSubStyle(TypedDict):
+    name: str
+    tools: List[str]
+    steps: List[ParsedStep]
+    pro_tips: List[str]
+
+
+class ParsedStyle(TypedDict):
+    sub_styles: List[ParsedSubStyle]
+
+
+def _guides_dir() -> str:
+    base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base, "assets", "style_guides")
+
+
+def _parse_one_docx(path: str) -> List[ParsedSubStyle]:
+    """Parse a single style-guide docx into a list of sub-style blocks."""
+    try:
+        from docx import Document  # type: ignore
+    except Exception as exc:  # pragma: no cover
+        logger.warning("python-docx not available: %s", exc)
+        return []
+
+    if not os.path.exists(path):
+        logger.warning("Style guide not found: %s", path)
+        return []
+
+    try:
+        doc = Document(path)
+    except Exception as exc:
+        logger.error("Failed to open style guide %s: %s", path, exc)
+        return []
+
+    # Flattened (style_name, text) in document order
+    items: List[tuple] = []
+    for p in doc.paragraphs:
+        text = (p.text or "").strip()
+        if not text:
+            continue
+        sty = p.style.name if p.style else ""
+        items.append((sty, text))
+
+    # Sub-style names come from table rows like "Style N · NAME"
+    sub_style_names: List[str] = []
+    for table in doc.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                cell_text = (cell.text or "").strip()
+                m = re.match(r"Style\s+(\d+)\s*[·\-]\s*(.+)", cell_text)
+                if m:
+                    sub_style_names.append(m.group(2).strip())
+
+    # Each sub-style tutorial section begins at "✦ Step-by-Step Tutorial"
+    # and contains "TOOLS YOU'LL NEED", "TUTORIAL STEPS", "PRO TIPS".
+    segments: List[Dict] = []
+    i = 0
+    while i < len(items):
+        _sty, t = items[i]
+        if "Step-by-Step Tutorial" in t:
+            seg: Dict = {"tools": [], "steps": [], "pro_tips": []}
+            j = i + 1
+            mode: Optional[str] = None
+            pending_title: Optional[str] = None
+            while j < len(items):
+                sty2, t2 = items[j]
+                if "Step-by-Step Tutorial" in t2:
+                    break
+                upper = t2.upper()
+                if "TOOLS YOU" in upper and "NEED" in upper:
+                    mode = "tools"
+                    pending_title = None
+                    j += 1
+                    continue
+                if upper == "TUTORIAL STEPS":
+                    mode = "steps"
+                    pending_title = None
+                    j += 1
+                    continue
+                if upper == "PRO TIPS":
+                    mode = "tips"
+                    pending_title = None
+                    j += 1
+                    continue
+
+                if mode == "tools" and sty2 == "List Paragraph":
+                    seg["tools"].append(t2)
+                elif mode == "steps":
+                    if sty2 == "List Paragraph":
+                        pending_title = t2
+                    else:
+                        if pending_title:
+                            seg["steps"].append({"title": pending_title, "body": t2})
+                            pending_title = None
+                elif mode == "tips" and sty2 == "List Paragraph":
+                    seg["pro_tips"].append(t2)
+                j += 1
+            segments.append(seg)
+            i = j
+            continue
+        i += 1
+
+    sub_styles: List[ParsedSubStyle] = []
+    for idx, name in enumerate(sub_style_names):
+        if idx < len(segments):
+            seg = segments[idx]
+        else:
+            seg = {"tools": [], "steps": [], "pro_tips": []}
+        sub_styles.append(
+            {
+                "name": name,
+                "tools": list(seg["tools"]),
+                "steps": [
+                    {"title": str(s["title"]), "body": str(s["body"])}
+                    for s in seg["steps"]
+                ],
+                "pro_tips": list(seg["pro_tips"]),
+            }
+        )
+    return sub_styles
+
+
+def _prebuilt_json_path() -> str:
+    return os.path.join(_guides_dir(), "parsed_guides.json")
+
+
+def _load_prebuilt_catalog() -> Optional[Dict[str, ParsedStyle]]:
+    """Load the pre-parsed JSON catalog that ships in the assets folder.
+
+    This is the fast path used at runtime. It does NOT require python-docx
+    (which may not be installed in the runtime image). The JSON is generated
+    offline by `scripts/build_style_catalog.py` and kept up to date whenever
+    the source .docx files change.
+    """
+    import json
+
+    path = _prebuilt_json_path()
+    if not os.path.exists(path):
+        return None
+    try:
+        with open(path, "r", encoding="utf-8") as fp:
+            raw = json.load(fp)
+    except Exception as exc:
+        logger.warning("Failed to load prebuilt catalog %s: %s", path, exc)
+        return None
+    if not isinstance(raw, dict):
+        return None
+
+    catalog: Dict[str, ParsedStyle] = {}
+    for key, value in raw.items():
+        sub_styles_raw = (value or {}).get("sub_styles") or []
+        sub_styles: List[ParsedSubStyle] = []
+        for s in sub_styles_raw:
+            if not isinstance(s, dict):
+                continue
+            steps_raw = s.get("steps") or []
+            steps: List[ParsedStep] = [
+                {"title": str(x.get("title", "")), "body": str(x.get("body", ""))}
+                for x in steps_raw
+                if isinstance(x, dict)
+            ]
+            sub_styles.append(
+                {
+                    "name": str(s.get("name", "")),
+                    "tools": [str(t) for t in (s.get("tools") or [])],
+                    "steps": steps,
+                    "pro_tips": [str(t) for t in (s.get("pro_tips") or [])],
+                }
+            )
+        catalog[str(key).lower()] = {"sub_styles": sub_styles}
+    return catalog
+
+
+@lru_cache(maxsize=1)
+def get_catalog() -> Dict[str, ParsedStyle]:
+    """Return the fully parsed catalog: `{style_key: {sub_styles: [...]}}`.
+
+    Load order:
+      1. Pre-built JSON at `assets/style_guides/parsed_guides.json` (runtime path,
+         does not require python-docx).
+      2. Fallback to on-the-fly docx parsing (dev/rebuild path, requires
+         python-docx).
+    Cached for the lifetime of the process.
+    """
+    prebuilt = _load_prebuilt_catalog()
+    if prebuilt and any(v["sub_styles"] for v in prebuilt.values()):
+        logger.info(
+            "[style_guide_parser] loaded prebuilt catalog for %d styles: %s",
+            len(prebuilt),
+            {k: len(v["sub_styles"]) for k, v in prebuilt.items()},
+        )
+        return prebuilt
+
+    # Fallback: parse docx at startup (requires python-docx)
+    catalog: Dict[str, ParsedStyle] = {}
+    for f in _FILES:
+        path = os.path.join(_guides_dir(), f"{f}.docx")
+        sub_styles = _parse_one_docx(path)
+        catalog[f.lower()] = {"sub_styles": sub_styles}
+    logger.info(
+        "[style_guide_parser] loaded catalog from docx for %d styles: %s",
+        len(catalog),
+        {k: len(v["sub_styles"]) for k, v in catalog.items()},
+    )
+    return catalog
+
+
+def get_style_entry(style: str) -> Optional[ParsedStyle]:
+    """Return the parsed entry for a given frontend style id (with aliasing)."""
+    key = STYLE_ALIASES.get(style.lower(), style.lower())
+    return get_catalog().get(key)
+
+
+def find_sub_style(
+    style: str, sub_style_name: str
+) -> Optional[ParsedSubStyle]:
+    """Case-insensitive sub-style lookup inside a main style.
+
+    Matches either on full name or the leading English portion.
+    """
+    entry = get_style_entry(style)
+    if not entry:
+        return None
+
+    target = (sub_style_name or "").strip().lower()
+    target_prefix = target.split("(")[0].strip()
+    for sub in entry["sub_styles"]:
+        name_l = sub["name"].strip().lower()
+        name_prefix = name_l.split("(")[0].strip()
+        if name_l == target or name_prefix == target_prefix:
+            return sub
+        if target_prefix and (
+            name_prefix.startswith(target_prefix)
+            or target_prefix.startswith(name_prefix)
+        ):
+            return sub
+    return None
