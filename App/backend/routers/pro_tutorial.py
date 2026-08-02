@@ -1,6 +1,7 @@
 """Pro tutorial router — personalized makeup tutorials for paid users."""
 
 import logging
+from typing import Any, Dict
 
 from fastapi import APIRouter, HTTPException, status
 from schemas.pro_tutorial import (
@@ -47,21 +48,61 @@ async def post_stylize(req: StylizeRequest) -> StylizeResponse:
     with the requested style + sub-style applied via img2img.
     """
     try:
+        sub_style_key = req.sub_style or "overall"
         logger.info(
             "Stylize request: style=%s sub_style=%s",
             req.style,
-            req.sub_style or "overall",
+            sub_style_key,
         )
-        image_ref = await stylize_user_photo(
+
+        # 1. Execute stylize process
+        raw_result: Any = await stylize_user_photo(
             style=req.style,
-            sub_style=req.sub_style,
+            sub_style=sub_style_key,
             image=req.image,
         )
+
+        # 2. Extract base64 image string cleanly regardless of dict nested structure or string type
+        image_b64: str = ""
+
+        if isinstance(raw_result, str):
+            image_b64 = raw_result
+        elif isinstance(raw_result, dict):
+            # Try fetching from top-level keys first
+            image_b64 = (
+                raw_result.get("image")
+                or raw_result.get("url")
+                or raw_result.get("b64")
+                or ""
+            )
+            # Fallback to nested 'images' dict if top-level is empty
+            if not image_b64 and "images" in raw_result:
+                images_dict = raw_result["images"]
+                if isinstance(images_dict, dict):
+                    image_b64 = (
+                        images_dict.get(sub_style_key)
+                        or images_dict.get("overall")
+                        or next(iter(images_dict.values()), "")
+                    )
+
+        # 3. Ensure base64 Data URI header is present
+        if image_b64 and not image_b64.startswith("data:image/"):
+            image_b64 = f"data:image/jpeg;base64,{image_b64}"
+
+        # 4. Fail explicitly if image generation produced empty output instead of returning tiny empty JSON
+        if not image_b64:
+            logger.error("[Stylize Error] Empty image payload generated for style=%s", req.style)
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Stylize engine returned an empty image payload.",
+            )
+
         return StylizeResponse(
             style=req.style,
-            sub_style=req.sub_style,
-            image=image_ref,
+            sub_style=sub_style_key,
+            image=image_b64,
         )
+
     except HTTPException:
         raise
     except ValueError as exc:
@@ -71,9 +112,6 @@ async def post_stylize(req: StylizeRequest) -> StylizeResponse:
             detail=str(exc),
         )
     except RuntimeError as exc:
-        # Surface platform-level conditions (timeout, insufficient balance)
-        # with their original human-readable message and a 503 so the UI can
-        # show it instead of a generic "failed" toast.
         msg = str(exc)
         logger.warning("Stylize unavailable: %s", msg)
         raise HTTPException(
