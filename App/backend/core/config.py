@@ -12,6 +12,8 @@ class Settings(BaseSettings):
     app_name: str = "FastAPI Modular Template"
     debug: bool = False
     version: str = "1.0.0"
+    app_ai_base_url: str | None = None
+    app_ai_key: str | None = None
 
     # Server
     host: str = "0.0.0.0"
