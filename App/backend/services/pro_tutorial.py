@@ -131,20 +131,9 @@ def _extract_json(text: str) -> Dict[str, Any]:
 
 
 def _extract_content(raw: Any) -> str:
-    """Extract the text content from any of the gentxt response shapes we've seen.
-
-    Known shapes:
-      - `GenTxtResponse` pydantic model with a plain `.content` attribute
-        (this is what Atoms AIHubService returns).
-      - OpenAI-style dict with `choices[0].message.content`.
-      - OpenAI-style object with `.choices[0].message.content`.
-      - Plain string.
-    """
     try:
-        # Atoms GenTxtResponse (pydantic)
         if hasattr(raw, "content") and isinstance(getattr(raw, "content"), str):
             return str(raw.content)
-        # Pydantic models with model_dump
         if hasattr(raw, "model_dump"):
             dumped = raw.model_dump()
             if isinstance(dumped, dict) and isinstance(dumped.get("content"), str):
@@ -153,7 +142,6 @@ def _extract_content(raw: Any) -> str:
                 msg = (dumped["choices"][0] or {}).get("message") or {}
                 if msg.get("content"):
                     return str(msg["content"])
-        # OpenAI-style dict
         if isinstance(raw, dict):
             if isinstance(raw.get("content"), str):
                 return raw["content"]
@@ -162,9 +150,8 @@ def _extract_content(raw: Any) -> str:
                 msg = choices[0].get("message") or {}
                 if msg.get("content"):
                     return str(msg["content"])
-        # OpenAI-style object
         if hasattr(raw, "choices"):
-            choices = raw.choices  # type: ignore[attr-defined]
+            choices = raw.choices
             if choices:
                 msg = getattr(choices[0], "message", None)
                 if msg is not None:
@@ -179,11 +166,6 @@ def _extract_content(raw: Any) -> str:
 async def _personalize(
     req: ProTutorialRequest, sub_names: List[str]
 ) -> Dict[str, Any]:
-    """Call DeepSeek for a lightweight personalization pass.
-
-    Returns a dict with overview/personalized_analysis/recommended_sub_style or
-    an empty dict on any failure (caller handles fallback).
-    """
     messages = [
         ChatMessage(role="system", content=PERSONALIZATION_SYSTEM),
         ChatMessage(
@@ -245,22 +227,18 @@ def _default_personalization(req: ProTutorialRequest, sub_names: List[str]) -> D
 
 
 def _sub_style_summary(sub: Dict[str, Any]) -> str:
-    """Short 1-2 sentence summary pulled from the first tutorial step, if any."""
     steps = sub.get("steps") or []
     if not steps:
         return ""
     first_body = str(steps[0].get("body", ""))
-    # Keep first sentence, capped at 200 chars.
     first_sentence = re.split(r"(?<=[.!?])\s+", first_body, maxsplit=1)[0]
     return first_sentence[:200]
 
 
 def _best_for_text(sub: Dict[str, Any]) -> str:
-    """Pick a concise 'best for' blurb from the tools/steps text (fallback only)."""
     tools = sub.get("tools") or []
     if not tools:
         return ""
-    # Most guides list defining items first; summarize in one short line.
     sample = tools[0]
     return f"Recommended toolkit: {sample[:120]}"
 
@@ -269,8 +247,6 @@ def _build_steps(sub: Dict[str, Any]) -> List[TutorialStep]:
     tools: List[str] = list(sub.get("tools") or [])
     steps_raw: List[Dict[str, str]] = list(sub.get("steps") or [])
 
-    # Distribute tools across steps as "products" chips. We try to spread
-    # evenly so every step has 2–3 product chips that feel contextual.
     distributed: List[List[str]] = [[] for _ in steps_raw]
     if tools and steps_raw:
         for i, tool in enumerate(tools):
@@ -280,8 +256,6 @@ def _build_steps(sub: Dict[str, Any]) -> List[TutorialStep]:
     for idx, s in enumerate(steps_raw):
         title = str(s.get("title", f"Step {idx + 1}")).strip()
         body = str(s.get("body", "")).strip()
-        # Split body into description vs technique: first sentence = description,
-        # rest = technique (falls back gracefully when there's only one sentence).
         parts = re.split(r"(?<=[.!?])\s+", body, maxsplit=1)
         description = parts[0] if parts else body
         technique = parts[1] if len(parts) > 1 else ""
@@ -349,7 +323,7 @@ def _fallback_response(style: str) -> ProTutorialResponse:
 
 
 async def generate_pro_tutorial(req: ProTutorialRequest) -> ProTutorialResponse:
-    """Assemble a Pro tutorial from pre-parsed docx content + a lightweight LLM pass."""
+    """Assemble a Pro tutorial from pre-parsed docx content + lightweight LLM + image generation."""
     t0 = time.monotonic()
 
     entry = get_style_entry(req.style)
@@ -357,7 +331,16 @@ async def generate_pro_tutorial(req: ProTutorialRequest) -> ProTutorialResponse:
         logger.warning(
             "[pro_tutorial] no catalog entry for style=%s — using fallback", req.style
         )
-        return _fallback_response(req.style)
+        res = _fallback_response(req.style)
+        # Attempt stylize if photo provided
+        if req.image:
+            try:
+                img_data = await stylize_user_photo(req.style, req.sub_style, req.image)
+                res.image = img_data
+                res.images = {"overall": img_data}
+            except Exception as exc:
+                logger.warning("[pro_tutorial] fallback image gen failed: %s", exc)
+        return res
 
     sub_styles_raw = entry["sub_styles"]
     sub_names: List[str] = [s["name"] for s in sub_styles_raw]
@@ -366,7 +349,7 @@ async def generate_pro_tutorial(req: ProTutorialRequest) -> ProTutorialResponse:
         "[pro_tutorial] start style=%s sub_styles=%d", req.style, len(sub_names)
     )
 
-    # 1. Ask the LLM ONLY for the personalization layer (small prompt, fast).
+    # 1. Ask the LLM ONLY for the personalization layer.
     personalization = await _personalize(req, sub_names)
     if not personalization:
         personalization = _default_personalization(req, sub_names)
@@ -376,7 +359,6 @@ async def generate_pro_tutorial(req: ProTutorialRequest) -> ProTutorialResponse:
 
     recommended_name: Optional[str] = personalization.get("recommended_sub_style")
     if not recommended_name or recommended_name not in sub_names:
-        # Coerce to closest match if the LLM returned something unexpected.
         if sub_names:
             lower = (recommended_name or "").lower()
             match = next(
@@ -390,11 +372,11 @@ async def generate_pro_tutorial(req: ProTutorialRequest) -> ProTutorialResponse:
         chosen = sub_styles_raw[0]
         recommended_name = chosen["name"]
 
-    # 2. Build step-by-step content from the pre-parsed docx for the chosen sub-style.
+    # 2. Build step-by-step content.
     steps = _build_steps(chosen)
     pro_tips = list(chosen.get("pro_tips") or [])
 
-    # 3. Build the sub-styles list (all 5, for user exploration).
+    # 3. Build sub-styles list.
     sub_styles: List[SubStyle] = []
     for sub in sub_styles_raw:
         sub_styles.append(
@@ -405,8 +387,21 @@ async def generate_pro_tutorial(req: ProTutorialRequest) -> ProTutorialResponse:
             )
         )
 
-    # 4. Hard-coded color palette for the chosen sub-style.
+    # 4. Hard-coded color palette.
     palette = get_palette_for_sub_style(recommended_name or "")
+
+    # 5. Image Generation (Stylize embedded in tutorial)
+    generated_image: Optional[str] = None
+    if req.image:
+        try:
+            target_sub = req.sub_style or recommended_name
+            generated_image = await stylize_user_photo(
+                style=req.style,
+                sub_style=target_sub,
+                image=req.image,
+            )
+        except Exception as exc:
+            logger.warning("[pro_tutorial] image stylize failed during tutorial generation: %s", exc)
 
     elapsed = time.monotonic() - t0
     logger.info(
@@ -424,31 +419,26 @@ async def generate_pro_tutorial(req: ProTutorialRequest) -> ProTutorialResponse:
             personalization.get("personalized_analysis", "")
         ).strip()
         or _default_personalization(req, sub_names)["personalized_analysis"],
-        steps=steps
-        or _fallback_response(req.style).steps,
+        steps=steps or _fallback_response(req.style).steps,
         sub_styles=sub_styles,
         recommended_sub_style=recommended_name,
         color_palette=palette,
         pro_tips=pro_tips[:6],
-        simulation_prompt="",  # image generation not used in current report flow
+        simulation_prompt="",
+        image=generated_image,
+        images={"overall": generated_image} if generated_image else {},
     )
 
 # ---------------------------------------------------------------------------
 # Stylize: img2img makeup transformation for the Pro report.
 # ---------------------------------------------------------------------------
 
-# Default image-gen model for stylize (Gemini 3.1 Flash Image: supports img2img, cost effective).
 _STYLIZE_MODEL = "gemini-3.1-flash-image-preview"
-
-# Max edge length (pixels) for the image we hand to the img2img endpoint.
 _STYLIZE_MAX_EDGE = 1024
-
-# Per-request timeout for the upstream genimg call.
 _STYLIZE_TIMEOUT_SECONDS = 180.0
 
 
 def _downscale_data_uri(data_uri: str, max_edge: int = _STYLIZE_MAX_EDGE) -> str:
-    """Downscale a base64 ``data:image/...;base64,...`` URI if it exceeds ``max_edge``."""
     try:
         if not data_uri.startswith("data:image/"):
             return data_uri
@@ -461,7 +451,7 @@ def _downscale_data_uri(data_uri: str, max_edge: int = _STYLIZE_MAX_EDGE) -> str
             w, h = im.size
             long_edge = max(w, h)
             if long_edge <= max_edge:
-                return data_uri  # already small enough
+                return data_uri
             scale = max_edge / float(long_edge)
             new_size = (max(1, int(round(w * scale))), max(1, int(round(h * scale))))
             rgb = im.convert("RGB")
@@ -479,7 +469,7 @@ def _downscale_data_uri(data_uri: str, max_edge: int = _STYLIZE_MAX_EDGE) -> str
                 len(out_buf.getvalue()) / 1024,
             )
             return f"data:image/jpeg;base64,{out_b64}"
-    except Exception as exc:  # defensive: never break stylize on downscale
+    except Exception as exc:
         logger.warning("[stylize] downscale failed, using original: %s", exc)
         return data_uri
 
@@ -489,9 +479,7 @@ async def stylize_user_photo(
     sub_style: Optional[str],
     image: str,
 ) -> str:
-    """
-    Generate a stylized version of the user's photo for the given (style, sub_style).
-    """
+    """Generate a stylized version of the user's photo for the given (style, sub_style)."""
     if not image or not isinstance(image, str):
         raise ValueError("image is required and must be a string.")
     image_stripped = image.strip()
@@ -574,8 +562,6 @@ async def stylize_user_photo(
         elapsed,
     )
 
-    # 🎯 الضمان المطلق لتنسيق الصورة الراجعة:
-    # 1. إذا كانت تبدأ بالفعل ببادئة data:image/ أو رابط شبكي http(s):// يتم إرجاعها كالمعتاد.
     if (
         raw_image_data.startswith("data:image/")
         or raw_image_data.startswith("http://")
@@ -583,5 +569,4 @@ async def stylize_user_photo(
     ):
         return raw_image_data
 
-    # 2. إذا كانت سلسلة Base64 نقية مجردة، يُضاف إليها البادئة القياسية للتوافق مع وسم <img src="..." />
     return f"data:image/jpeg;base64,{raw_image_data}"
