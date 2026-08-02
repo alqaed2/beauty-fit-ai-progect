@@ -9,12 +9,15 @@ import base64
 import io
 import json
 import logging
+import os
 from pathlib import Path
 from typing import AsyncGenerator, Optional
 
 import fitz
 from core.config import settings
 import httpx
+from google import genai
+from google.genai import types
 from openai import AsyncOpenAI
 from schemas.aihub import AnalyzePdfRequest, AnalyzePdfResponse
 from schemas.aihub import (
@@ -89,18 +92,31 @@ class AIHubService:
     """AI Hub service class that wraps AI SDK calls."""
 
     def __init__(self):
-        self.client: Optional[AsyncOpenAI] = None
+        api_key = settings.app_ai_key or os.getenv("GEMINI_API_KEY")
+        if api_key:
+            self.client = genai.Client(api_key=api_key.strip())
+        else:
+            self.client = None
+
+        # العميل المتوافق لخدمات النص والأنواع الأخرى التي تعتمد على OpenAI SDK
+        self.openai_client: Optional[AsyncOpenAI] = None
         if settings.app_ai_base_url and settings.app_ai_key:
-            self.client = AsyncOpenAI(
+            self.openai_client = AsyncOpenAI(
                 api_key=settings.app_ai_key,
                 base_url=settings.app_ai_base_url.rstrip("/"),
             )
 
-    def _require_ai_client(self) -> AsyncOpenAI:
+    def _require_ai_client(self) -> genai.Client:
         """Return the configured AI client or raise a configuration error."""
         if not self.client:
-            raise ValueError("AI service not configured. Set APP_AI_BASE_URL and APP_AI_KEY.")
+            raise ValueError("AI service not configured. Set GEMINI_API_KEY or APP_AI_KEY.")
         return self.client
+
+    def _require_openai_client(self) -> AsyncOpenAI:
+        """Return the configured OpenAI-compatible client or raise an error."""
+        if not self.openai_client:
+            raise ValueError("OpenAI service not configured. Set APP_AI_BASE_URL and APP_AI_KEY.")
+        return self.openai_client
 
     def _convert_message(self, msg) -> dict:
         """Convert message format and support multimodal content."""
@@ -113,15 +129,9 @@ class AIHubService:
     async def gentxt(self, request: GenTxtRequest) -> GenTxtResponse:
         """
         Generate Text API (non-streaming), supports text and image input.
-
-        Args:
-            request: Generate text request parameters.
-
-        Returns:
-            Txt2TxtResponse: generated text response.
         """
         try:
-            client = self._require_ai_client()
+            client = self._require_openai_client()
             messages = [self._convert_message(msg) for msg in request.messages]
 
             response = await client.chat.completions.create(
@@ -154,15 +164,9 @@ class AIHubService:
     async def gentxt_stream(self, request: GenTxtRequest) -> AsyncGenerator[str, None]:
         """
         Generate Text API (streaming), supports text and image input.
-
-        Args:
-            request: Generate text request parameters.
-
-        Yields:
-            str: Generated text content chunk (plain text, not JSON).
         """
         try:
-            client = self._require_ai_client()
+            client = self._require_openai_client()
             messages = [self._convert_message(msg) for msg in request.messages]
 
             stream = await client.chat.completions.create(
@@ -184,11 +188,7 @@ class AIHubService:
     @staticmethod
     def _extract_image_ref(item: object) -> str:
         """
-        Extract an image reference from an OpenAI-compatible genimg response item.
-
-        Prefer `url` (to avoid huge response bodies); if url is not available, fall back to `b64_json`
-        and wrap it as a base64 data URI.
-        Compatible with both dict items and SDK object items.
+        Extract an image reference from a genimg response item.
         """
         if isinstance(item, dict):
             url = item.get("url")
@@ -217,7 +217,6 @@ class AIHubService:
         content_type = "image/png"
         if header.startswith("data:"):
             meta = header[5:]
-            # Typical header: "image/png;base64"
             if ";" in meta:
                 maybe_type = meta.split(";", 1)[0].strip()
                 if maybe_type:
@@ -261,32 +260,19 @@ class AIHubService:
             return fallback
         return Path(ref).name or fallback
 
-    async def _image_str_to_upload_file(self, image: str, name_prefix: str = "image") -> io.BytesIO:
-        """
-        Convert image input (base64 data URI or HTTP URL) into an in-memory file object for uploads.
-
-        The OpenAI `images.edit` endpoint expects multipart file uploads; we keep the API JSON-only
-        by allowing clients to pass a base64 data URI or HTTP URL, and converting it here.
-        """
+    async def _image_str_to_bytes(self, image: str) -> tuple[bytes, str]:
+        """Extract raw bytes and content-type from an image data URI or URL."""
         image = (image or "").strip()
         if not image:
             raise InvalidImageInputError("Input image is empty.")
 
-        # Handle HTTP URL: download content
         if image.startswith(("http://", "https://")):
-            import httpx
-
             try:
                 async with httpx.AsyncClient(timeout=60.0, trust_env=True) as client:
                     resp = await client.get(image)
                     resp.raise_for_status()
-                    image_bytes = resp.content
-
-                # Extract filename from URL (fallback if missing)
-                name = image.split("?")[0].rstrip("/").split("/")[-1] or f"{name_prefix}.png"
-                upload = io.BytesIO(image_bytes)
-                upload.name = name  # type: ignore[attr-defined]
-                return upload
+                    ct = resp.headers.get("content-type", "image/jpeg")
+                    return resp.content, ct
             except Exception as e:
                 raise InvalidImageInputError(f"Failed to download image from URL: {e}") from e
 
@@ -295,40 +281,10 @@ class AIHubService:
                 "Only base64 data URI or HTTP URL is supported. Example: `data:image/png;base64,...` or `https://...`."
             )
 
-        image_bytes, content_type = self._parse_data_uri(image)
-
-        upload = io.BytesIO(image_bytes)
-        # openai SDK uses this name for multipart filename
-        upload.name = self._filename_from_content_type(  # type: ignore[attr-defined]
-            content_type,
-            name_prefix=name_prefix,
-            default_ext="png",
-        )
-        return upload
-
-    async def _image_input_to_upload_files(self, image_input: str | list[str]) -> list[io.BytesIO]:
-        """
-        Convert image input (single data URI or list of data URIs) into uploadable file objects.
-
-        Some OpenAI-compatible `images/edits` implementations support multiple input images.
-        """
-        images = [image_input] if isinstance(image_input, str) else image_input
-        if not images:
-            raise InvalidImageInputError("Input image list is empty.")
-
-        upload_files: list[io.BytesIO] = []
-        for idx, img in enumerate(images):
-            if not isinstance(img, str):
-                raise InvalidImageInputError("Each image must be a base64 data URI string.")
-            upload_files.append(await self._image_str_to_upload_file(img, name_prefix=f"image_{idx + 1}"))
-        return upload_files
+        return self._parse_data_uri(image)
 
     async def _audio_str_to_upload_file(self, audio: str, name_prefix: str = "audio") -> io.BytesIO:
-        """
-        Convert audio input (base64 data URI, HTTP URL, or absolute path) into an in-memory file object.
-
-        This keeps the API JSON-only while still supporting OpenAI-compatible multipart upload semantics.
-        """
+        """Convert audio input into an in-memory file object."""
         audio = (audio or "").strip()
         if not audio:
             raise InvalidAudioInputError("Input audio is empty.")
@@ -427,7 +383,7 @@ class AIHubService:
 
     @staticmethod
     def _extract_chat_text_content(content: object) -> str:
-        """Extract text from OpenAI-compatible chat message content."""
+        """Extract text from chat message content."""
         if isinstance(content, str):
             return content.strip()
 
@@ -560,7 +516,7 @@ User instruction:
         if not request.instruction or not request.instruction.strip():
             raise InvalidPdfInputError("instruction is required for PDF analysis.")
 
-        client = self._require_ai_client()
+        client = self._require_openai_client()
         pdf_bytes, pdf_name = await self._pdf_source_to_bytes(request.pdf)
         pdf_b64, start, end, total_pages = self._prepare_pdf_attachment(
             pdf_bytes=pdf_bytes,
@@ -610,49 +566,51 @@ User instruction:
 
     async def genimg(self, request: GenImgRequest) -> GenImgResponse:
         """
-        Generate Image API.
-
-        Args:
-            request: Generate image request parameters.
-
-        Returns:
-            GenImgResponse: generated image response, where `images` is a list of image refs (URL preferred; fallback to base64 data URI).
+        Generate Image API using official Google GenAI library.
         """
         try:
             client = self._require_ai_client()
-            # If an input image is provided, use the image editing endpoint (img2img).
+
+            # في حال وجود صورة مدخلة (تعديل صورة / Image-to-Image)
             if request.image:
-                image_files = await self._image_input_to_upload_files(request.image)
-                image_param = image_files[0] if len(image_files) == 1 else image_files
-                response = await client.images.edit(
-                    model=request.model,
-                    image=image_param,
-                    prompt=request.prompt,
-                    size=request.size,
-                    n=request.n,
+                image_bytes, mime_type = await self._image_str_to_bytes(request.image)
+                image_part = types.Part.from_bytes(
+                    data=image_bytes,
+                    mime_type=mime_type,
                 )
+
+                response = await client.aio.models.generate_content(
+                    model='gemini-2.5-flash',
+                    contents=[request.prompt, image_part],
+                )
+
+                res_text = response.text or ""
+                image_ref = res_text if res_text.startswith(("http://", "https://", "data:")) else f"data:image/jpeg;base64,{res_text}"
+                return GenImgResponse(
+                    images=[image_ref],
+                    model=request.model,
+                )
+
+            # في حال توليد صورة جديدة من النص (Text-to-Image)
             else:
-                response = await client.images.generate(
-                    model=request.model,
+                result = await client.aio.models.generate_images(
+                    model='imagen-3.0-generate-002',
                     prompt=request.prompt,
-                    size=request.size,
-                    quality=request.quality,
-                    n=request.n,
+                    config=types.GenerateImagesConfig(
+                        number_of_images=request.n or 1,
+                        output_mime_type="image/jpeg",
+                        aspect_ratio="1:1",
+                    ),
                 )
+                generated_images = []
+                for img in result.generated_images:
+                    b64_str = base64.b64encode(img.image.image_bytes).decode("utf-8")
+                    generated_images.append(f"data:image/jpeg;base64,{b64_str}")
 
-            revised_prompt = response.data[0].revised_prompt if response.data else None
-
-            if not response.data:
-                raise RuntimeError("Image generation returned empty result")
-
-            # Prefer URL to avoid huge response bodies; fallback to base64 data URI.
-            images = [self._extract_image_ref(item) for item in response.data]
-
-            return GenImgResponse(
-                images=images,
-                model=request.model,
-                revised_prompt=revised_prompt,
-            )
+                return GenImgResponse(
+                    images=generated_images,
+                    model=request.model,
+                )
 
         except Exception as e:
             logger.error(f"genimg error: {e}")
@@ -668,43 +626,34 @@ User instruction:
 
     @staticmethod
     def _extract_cdn_url(obj: object) -> Optional[str]:
-        """
-        Extract CDN URL from response object (supports multiple platform formats).
-        Works for both video and audio responses.
-        """
-        # Try: obj.url
+        """Extract CDN URL from response object."""
         url = getattr(obj, "url", None)
         if isinstance(url, str) and url.startswith(("http://", "https://")):
             return url
 
-        # Try: obj.videos[0].url (video format)
         videos = getattr(obj, "videos", None)
         if videos and isinstance(videos, (list, tuple)) and len(videos) > 0:
             out_url = getattr(videos[0], "url", None)
             if isinstance(out_url, str) and out_url.startswith(("http://", "https://")):
                 return out_url
 
-        # Try: obj.video_url or obj.audio_url
         for attr in ("video_url", "audio_url"):
             attr_url = getattr(obj, attr, None)
             if isinstance(attr_url, str) and attr_url.startswith(("http://", "https://")):
                 return attr_url
 
-        # Try: obj.output.url
         output = getattr(obj, "output", None)
         if output:
             out_url = getattr(output, "url", None)
             if isinstance(out_url, str) and out_url.startswith(("http://", "https://")):
                 return out_url
 
-        # Try: obj.meta_data['url']
         meta_data = getattr(obj, "meta_data", None)
         if isinstance(meta_data, dict):
             meta_url = meta_data.get("url")
             if isinstance(meta_url, str) and meta_url.startswith(("http://", "https://")):
                 return meta_url
 
-        # Try parsing JSON body from HttpxBinaryResponseContent (proxy platform returns JSON instead of binary)
         try:
             data = json.loads(getattr(obj, "content", b""))
             logger.debug(f"Parsed response JSON body: {data}")
@@ -718,26 +667,18 @@ User instruction:
         return None
 
     async def genvideo(self, request: GenVideoRequest) -> GenVideoResponse:
-        """
-        Generate Video API.
-
-        Flow: 1) Create task -> 2) Poll until complete -> 3) Return CDN URL.
-        Note: Different models have different `seconds` param support.
-        """
+        """Generate Video API."""
         try:
-            client = self._require_ai_client()
+            client = self._require_openai_client()
             create_params: dict[str, object] = {
                 "model": request.model,
                 "prompt": request.prompt,
                 "size": request.size,
-                "seconds": request.seconds
+                "seconds": request.seconds,
             }
 
-            # Image-to-Video: use input_reference as the first frame
             if request.image:
-                create_params["input_reference"] = await self._image_str_to_upload_file(
-                    request.image, name_prefix="input_reference"
-                )
+                create_params["input_reference"] = await self._image_str_to_bytes(request.image)
 
             video = await client.videos.create(**create_params)  # type: ignore[arg-type]
             video_id = getattr(video, "id", None)
@@ -746,7 +687,6 @@ User instruction:
 
             logger.info(f"Video generation started: {video_id}")
 
-            # Poll for completion
             status = getattr(video, "status", None)
             while status in ("in_progress", "queued"):
                 logger.info(f"Video {video_id} progress: {getattr(video, 'progress', 0)}%")
@@ -758,7 +698,6 @@ User instruction:
                 error_msg = getattr(getattr(video, "error", None), "message", None) or "Video generation failed"
                 raise RuntimeError(error_msg)
 
-            # Extract CDN URL
             cdn_url = self._extract_cdn_url(video)
             if not cdn_url:
                 raise RuntimeError("Video generation completed but missing CDN url")
@@ -788,9 +727,9 @@ User instruction:
         return DEFAULT_VOICE.get(gender, "alloy")
 
     async def genaudio(self, request: GenAudioRequest) -> GenAudioResponse:
-        """Generate Audio (TTS) API using OpenAI-compatible endpoint."""
+        """Generate Audio (TTS) API."""
         try:
-            client = self._require_ai_client()
+            client = self._require_openai_client()
             voice = self._get_voice(request.model, request.gender)
             params: dict[str, object] = {
                 "model": request.model,
@@ -826,12 +765,12 @@ User instruction:
             raise
 
     async def transcribe(self, request: TranscribeAudioRequest) -> TranscribeAudioResponse:
-        """Transcribe audio to text using OpenAI-compatible speech transcription endpoint."""
+        """Transcribe audio to text."""
         source_name = self._get_source_name(request.audio, fallback="input_audio")
         audio_file = await self._audio_str_to_upload_file(request.audio, name_prefix="input_audio")
 
         try:
-            client = self._require_ai_client()
+            client = self._require_openai_client()
             logger.info(f"Audio transcription started: model={request.model}, source={source_name}")
             resp = await client.audio.transcriptions.create(
                 file=audio_file,
