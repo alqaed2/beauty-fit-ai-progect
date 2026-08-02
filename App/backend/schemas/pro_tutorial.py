@@ -1,6 +1,6 @@
 """Schemas for Pro tutorial generation."""
 
-from typing import Optional, List, Dict, Any
+from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -12,6 +12,11 @@ class ProTutorialRequest(BaseModel):
     facial_tags: Optional[List[str]] = Field(default_factory=list)
     metrics: Optional[Dict[str, Any]] = Field(default=None)
     score: Optional[float] = Field(default=None, description="Style match score 0-100.")
+    image: Optional[str] = Field(
+        default=None,
+        description="User photo as base64 data URI or HTTP URL for direct stylization.",
+    )
+    sub_style: Optional[str] = Field(default=None, description="Optional target sub-style.")
 
 
 class TutorialStep(BaseModel):
@@ -40,6 +45,15 @@ class ProTutorialResponse(BaseModel):
         default="",
         description="A prompt suitable for image generation to simulate the final look.",
     )
+    # --- التعديل المباشر لدعم الصورة فوراً في الـ Frontend ---
+    image: Optional[str] = Field(
+        default=None,
+        description="Base64 data URI or URL of the generated overall stylized look.",
+    )
+    images: Optional[Dict[str, str]] = Field(
+        default_factory=dict,
+        description="Dictionary mapping sub-style names or 'overall' to base64/URL images.",
+    )
 
 
 class StylizeRequest(BaseModel):
@@ -66,3 +80,7 @@ class StylizeResponse(BaseModel):
     style: str
     sub_style: Optional[str] = None
     image: str = Field(..., description="Generated image URL or base64 data URI.")
+    images: Optional[Dict[str, str]] = Field(
+        default_factory=dict,
+        description="Dictionary of sub-style images for frontend compatibility.",
+    )
