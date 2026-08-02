@@ -441,31 +441,14 @@ async def generate_pro_tutorial(req: ProTutorialRequest) -> ProTutorialResponse:
 _STYLIZE_MODEL = "gemini-3.1-flash-image-preview"
 
 # Max edge length (pixels) for the image we hand to the img2img endpoint.
-# 1024 is plenty for face-level detail and keeps upload + model processing
-# time short. Without this, raw 4K phone photos (often 3–8MB base64) spent
-# 40–70s just uploading to the AI platform, on top of generation.
 _STYLIZE_MAX_EDGE = 1024
 
-# Per-request timeout for the upstream genimg call. Was 120s, which in
-# practice was too tight for the first "overall" look of a session —
-# cold-start + long prompt + large image combined pushed past 120s and
-# users saw the overlay stuck at 120s+. 180s gives real headroom while
-# still surfacing a clear error for genuinely broken upstream calls.
+# Per-request timeout for the upstream genimg call.
 _STYLIZE_TIMEOUT_SECONDS = 180.0
 
 
 def _downscale_data_uri(data_uri: str, max_edge: int = _STYLIZE_MAX_EDGE) -> str:
-    """Downscale a base64 ``data:image/...;base64,...`` URI if it exceeds ``max_edge``.
-
-    Large source photos (3–8MB 4K selfies) dominate end-to-end stylize latency:
-    both the upload to the AI platform and the platform's own preprocessing
-    scale with image size. 1024px on the long edge is more than enough for
-    face-level stylization and cuts total latency roughly in half.
-
-    Returns the (possibly re-encoded) data URI. On any failure to parse /
-    decode / re-encode, returns the original URI unchanged so stylize can
-    still proceed.
-    """
+    """Downscale a base64 ``data:image/...;base64,...`` URI if it exceeds ``max_edge``."""
     try:
         if not data_uri.startswith("data:image/"):
             return data_uri
@@ -481,8 +464,6 @@ def _downscale_data_uri(data_uri: str, max_edge: int = _STYLIZE_MAX_EDGE) -> str
                 return data_uri  # already small enough
             scale = max_edge / float(long_edge)
             new_size = (max(1, int(round(w * scale))), max(1, int(round(h * scale))))
-            # Convert to RGB so JPEG encoding is always valid (the source
-            # might be RGBA/P from PNG).
             rgb = im.convert("RGB")
             rgb = rgb.resize(new_size, Image.LANCZOS)
             out_buf = io.BytesIO()
@@ -510,30 +491,6 @@ async def stylize_user_photo(
 ) -> str:
     """
     Generate a stylized version of the user's photo for the given (style, sub_style).
-
-    Parameters
-    ----------
-    style:
-        Style id (e.g. "sweet", "elegant", "sexy", "mature", "powerful",
-        "natural", "androgynous").
-    sub_style:
-        Sub-style display name (e.g. "Quiet Luxury"). Pass None / "overall" to
-        use the overall style prompt.
-    image:
-        User photo as a base64 data URI (``data:image/...;base64,...``) or an
-        http(s) URL. AIHub's genimg endpoint accepts either.
-
-    Returns
-    -------
-    str
-        A reference (URL or base64 data URI) to the generated image. The
-        frontend can embed this directly in an ``<img>`` tag.
-
-    Raises
-    ------
-    ValueError
-        If ``image`` is missing/invalid or if ``(style, sub_style)`` has no
-        matching prompt.
     """
     if not image or not isinstance(image, str):
         raise ValueError("image is required and must be a string.")
@@ -562,8 +519,6 @@ async def stylize_user_photo(
         _STYLIZE_MODEL,
     )
 
-    # Downscale large source photos before upload — the single biggest win
-    # for latency on this endpoint.
     if image_stripped.startswith("data:image/"):
         image_stripped = _downscale_data_uri(image_stripped)
 
@@ -576,8 +531,6 @@ async def stylize_user_photo(
         n=1,
     )
     try:
-        # Hard upper bound so a stalled upstream call surfaces as an error
-        # instead of hanging the user's "Generating..." UI indefinitely.
         resp = await asyncio.wait_for(
             service.genimg(req), timeout=_STYLIZE_TIMEOUT_SECONDS
         )
@@ -594,10 +547,6 @@ async def stylize_user_photo(
             "Please try again."
         ) from exc
     except Exception as exc:
-        # Detect the platform-level "insufficient AI balance" 403 so we can
-        # surface an actionable message instead of a generic 500. The OpenAI
-        # client raises this as PermissionDeniedError; the error body contains
-        # `code: "insufficient_ai_balance"`.
         msg = str(exc).lower()
         if "insufficient_ai_balance" in msg or "insufficient ai balance" in msg:
             logger.warning(
@@ -611,8 +560,11 @@ async def stylize_user_photo(
                 "Atoms AI credits (Settings → Billing) and try again."
             ) from exc
         raise
-    if not resp.images:
+
+    if not resp or not getattr(resp, "images", None) or not resp.images:
         raise RuntimeError("Stylize generation returned no images.")
+
+    raw_image_data = str(resp.images[0]).strip()
 
     elapsed = time.monotonic() - t0
     logger.info(
@@ -622,4 +574,14 @@ async def stylize_user_photo(
         elapsed,
     )
 
-    return resp.images[0]
+    # 🎯 الضمان المطلق لتنسيق الصورة الراجعة:
+    # 1. إذا كانت تبدأ بالفعل ببادئة data:image/ أو رابط شبكي http(s):// يتم إرجاعها كالمعتاد.
+    if (
+        raw_image_data.startswith("data:image/")
+        or raw_image_data.startswith("http://")
+        or raw_image_data.startswith("https://")
+    ):
+        return raw_image_data
+
+    # 2. إذا كانت سلسلة Base64 نقية مجردة، يُضاف إليها البادئة القياسية للتوافق مع وسم <img src="..." />
+    return f"data:image/jpeg;base64,{raw_image_data}"
