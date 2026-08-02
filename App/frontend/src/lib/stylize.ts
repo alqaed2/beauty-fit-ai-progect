@@ -21,6 +21,27 @@ export interface StylizeResponse {
   sub_style?: string | null;
   /** Generated image URL or base64 data URI — embed directly in <img>. */
   image: string;
+  image_url?: string;
+}
+
+/**
+ * Helper to ensure the returned image string is a fully qualified URL or Base64 URI,
+ * preventing Vercel 404 relative-path fallbacks.
+ */
+function normalizeImageUrl(data: any): string {
+  const rawImage = data?.image || data?.image_url || data?.preview_url;
+  if (!rawImage) return '';
+
+  // Return immediately if it's already a base64 data URI or absolute HTTP(S) URL
+  if (rawImage.startsWith('data:') || rawImage.startsWith('http://') || rawImage.startsWith('https://')) {
+    return rawImage;
+  }
+
+  // Prepend backend base URL to relative paths to direct requests to Render instead of Vercel
+  const baseURL = getAPIBaseURL();
+  const cleanBase = baseURL.replace(/\/$/, '');
+  const cleanPath = rawImage.replace(/^\//, '');
+  return `${cleanBase}/${cleanPath}`;
 }
 
 /**
@@ -97,8 +118,16 @@ export async function stylizeImage(
   }
 
   const data = (await res.json()) as StylizeResponse;
-  if (!data?.image) {
+  
+  // Normalize image string to handle Base64, relative paths, and key variations safely
+  const validImage = normalizeImageUrl(data);
+  if (!validImage) {
     throw new Error('Stylize response missing image field.');
   }
-  return data;
+
+  return {
+    ...data,
+    image: validImage,
+    image_url: validImage,
+  };
 }
