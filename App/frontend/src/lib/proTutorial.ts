@@ -35,11 +35,47 @@ export interface ProTutorialResponse {
   simulation_prompt: string;
 }
 
+// 👈 أضفنا أنواع البيانات ودعم الصورة (image و image_url)
+export interface StylizeRequest {
+  style: string;
+  sub_style?: string;
+  user_image?: string;
+}
+
+export interface StylizeResponse {
+  style: string;
+  sub_style?: string | null;
+  image?: string;       // المفتاح القادم من Render
+  image_url?: string;   // المفتاح الاحتياطي
+  preview_url?: string;
+}
+
 const httpClient = axios.create({
   withCredentials: true,
   headers: { 'Content-Type': 'application/json' },
   timeout: 90_000,
 });
+
+/**
+ * دالة مساعدة معالجة رابط الصورة لتجنب طلبات الـ 404 من Vercel
+ */
+export function normalizeImageUrl(data: any): string {
+  if (!data) return '';
+  
+  const rawImage = data.image || data.image_url || data.preview_url;
+  if (!rawImage) return '';
+
+  // إذا كانت البيانات Base64 أو رابطاً كاملاً من البداية
+  if (rawImage.startsWith('data:') || rawImage.startsWith('http')) {
+    return rawImage;
+  }
+
+  // ربط المسار النسبي بدومين الـ Backend (Render)
+  const baseURL = getAPIBaseURL();
+  const cleanBase = baseURL.replace(/\/$/, '');
+  const cleanPath = rawImage.replace(/^\//, '');
+  return `${cleanBase}/${cleanPath}`;
+}
 
 /**
  * Call the backend Pro tutorial endpoint. Requires the user to be
@@ -67,8 +103,39 @@ export async function generateProTutorial(
 }
 
 /**
- * Safely turn an arbitrary axios error (including FastAPI's 422 validation
- * error, where `detail` is an array of objects) into a human-readable string.
+ * 👈 دالة توليد الصورة (Stylize) وحل مشكلة العرض
+ */
+export async function stylizeProLook(
+  req: StylizeRequest
+): Promise<StylizeResponse> {
+  try {
+    const resp = await httpClient.post<StylizeResponse>(
+      `${getAPIBaseURL()}/api/v1/pro/stylize`,
+      req
+    );
+    
+    const result = resp.data;
+    const validUrl = normalizeImageUrl(result);
+
+    return {
+      ...result,
+      image: validUrl,
+      image_url: validUrl,
+    };
+  } catch (err) {
+    const anyErr = err as {
+      response?: { status?: number; data?: { detail?: unknown } };
+      message?: string;
+    };
+    if (anyErr.response?.status === 401) {
+      throw new Error('AUTH_REQUIRED');
+    }
+    throw new Error(extractErrorMessage(anyErr));
+  }
+}
+
+/**
+ * Safely turn an arbitrary axios error into a human-readable string.
  */
 function extractErrorMessage(anyErr: {
   response?: { status?: number; data?: { detail?: unknown } };
@@ -101,10 +168,6 @@ function extractErrorMessage(anyErr: {
   return anyErr.message || 'Failed to generate Pro tutorial';
 }
 
-/**
- * LocalStorage key used to simulate a "Pro subscription" flag. In production
- * this should be replaced with real entitlements from the backend.
- */
 const PRO_FLAG_KEY = 'beautyfit_pro_entitlement_v1';
 
 export function hasProEntitlement(): boolean {
