@@ -266,6 +266,7 @@ export default function ProTutorialPage() {
             : snap.style?.match;
         const resp = await generateProTutorial({
           style: styleId,
+          image: userImage, // 👈 تم التعديل هنا: إرسال الصورة في الطلب
           face_shape: snap.faceShape,
           eye_tags: snap.eyeTags,
           facial_tags: snap.facialTags,
