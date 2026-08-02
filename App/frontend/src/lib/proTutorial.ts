@@ -3,6 +3,7 @@ import { getAPIBaseURL } from './config';
 
 export interface ProTutorialRequest {
   style: string;
+  image?: string; // 👈 تم إضافة حقل الصورة هنا لكي يقبله الـ interface
   face_shape?: string;
   eye_tags?: string[];
   facial_tags?: string[];
