@@ -24,9 +24,11 @@ logger = logging.getLogger(__name__)
 
 _FILES = ["Sweet", "Natural", "Sexy", "Androgynous", "Elegant", "Mature"]
 
-# Map frontend style ids -> internal catalog keys
+# Map frontend style ids / variations -> internal catalog keys
 STYLE_ALIASES: Dict[str, str] = {
     "powerful": "mature",
+    "mature / powerful": "mature",
+    "mature_powerful": "mature",
 }
 
 
@@ -88,8 +90,6 @@ def _parse_one_docx(path: str) -> List[ParsedSubStyle]:
                 if m:
                     sub_style_names.append(m.group(2).strip())
 
-    # Each sub-style tutorial section begins at "✦ Step-by-Step Tutorial"
-    # and contains "TOOLS YOU'LL NEED", "TUTORIAL STEPS", "PRO TIPS".
     segments: List[Dict] = []
     i = 0
     while i < len(items):
@@ -162,13 +162,7 @@ def _prebuilt_json_path() -> str:
 
 
 def _load_prebuilt_catalog() -> Optional[Dict[str, ParsedStyle]]:
-    """Load the pre-parsed JSON catalog that ships in the assets folder.
-
-    This is the fast path used at runtime. It does NOT require python-docx
-    (which may not be installed in the runtime image). The JSON is generated
-    offline by `scripts/build_style_catalog.py` and kept up to date whenever
-    the source .docx files change.
-    """
+    """Load the pre-parsed JSON catalog that ships in the assets folder."""
     import json
 
     path = _prebuilt_json_path()
@@ -204,21 +198,13 @@ def _load_prebuilt_catalog() -> Optional[Dict[str, ParsedStyle]]:
                     "pro_tips": [str(t) for t in (s.get("pro_tips") or [])],
                 }
             )
-        catalog[str(key).lower()] = {"sub_styles": sub_styles}
+        catalog[str(key).strip().lower()] = {"sub_styles": sub_styles}
     return catalog
 
 
 @lru_cache(maxsize=1)
 def get_catalog() -> Dict[str, ParsedStyle]:
-    """Return the fully parsed catalog: `{style_key: {sub_styles: [...]}}`.
-
-    Load order:
-      1. Pre-built JSON at `assets/style_guides/parsed_guides.json` (runtime path,
-         does not require python-docx).
-      2. Fallback to on-the-fly docx parsing (dev/rebuild path, requires
-         python-docx).
-    Cached for the lifetime of the process.
-    """
+    """Return the fully parsed catalog: `{style_key: {sub_styles: [...]}}`."""
     prebuilt = _load_prebuilt_catalog()
     if prebuilt and any(v["sub_styles"] for v in prebuilt.values()):
         logger.info(
@@ -228,7 +214,6 @@ def get_catalog() -> Dict[str, ParsedStyle]:
         )
         return prebuilt
 
-    # Fallback: parse docx at startup (requires python-docx)
     catalog: Dict[str, ParsedStyle] = {}
     for f in _FILES:
         path = os.path.join(_guides_dir(), f"{f}.docx")
@@ -243,23 +228,39 @@ def get_catalog() -> Dict[str, ParsedStyle]:
 
 
 def get_style_entry(style: str) -> Optional[ParsedStyle]:
-    """Return the parsed entry for a given frontend style id (with aliasing)."""
-    key = STYLE_ALIASES.get(style.lower(), style.lower())
-    return get_catalog().get(key)
+    """Return the parsed entry for a given frontend style id (with enhanced aliasing and normalization)."""
+    if not style:
+        return None
+
+    normalized_style = style.strip().lower()
+    key = STYLE_ALIASES.get(normalized_style, normalized_style)
+    
+    catalog = get_catalog()
+    
+    # Direct match
+    if key in catalog:
+        return catalog[key]
+
+    # Flexible matching fallback (handles extra spaces or partial matches)
+    for cat_key, cat_val in catalog.items():
+        if cat_key == key or cat_key in key or key in cat_key:
+            return cat_val
+
+    return None
 
 
 def find_sub_style(
     style: str, sub_style_name: str
 ) -> Optional[ParsedSubStyle]:
-    """Case-insensitive sub-style lookup inside a main style.
-
-    Matches either on full name or the leading English portion.
-    """
+    """Case-insensitive sub-style lookup inside a main style."""
     entry = get_style_entry(style)
     if not entry:
         return None
 
     target = (sub_style_name or "").strip().lower()
+    if not target:
+        return entry["sub_styles"][0] if entry["sub_styles"] else None
+
     target_prefix = target.split("(")[0].strip()
     for sub in entry["sub_styles"]:
         name_l = sub["name"].strip().lower()
@@ -271,4 +272,5 @@ def find_sub_style(
             or target_prefix.startswith(name_prefix)
         ):
             return sub
-    return None
+            
+    return entry["sub_styles"][0] if entry["sub_styles"] else None
