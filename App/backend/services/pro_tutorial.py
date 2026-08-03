@@ -105,11 +105,18 @@ STYLE_DISPLAY = {
 }
 
 
-def _clean_image_url(raw_image: Optional[str]) -> Optional[str]:
+def _clean_image_url(raw_image: Optional[Any]) -> Optional[str]:
     """Helper to ensure image URLs or Base64 data strings are valid and non-empty.
-    Prevents returning 'data:image/jpeg;base64,' without actual payload.
+    Prevents returning empty base64 strings or unparsed dict payloads.
     """
-    if not raw_image or not isinstance(raw_image, str):
+    if not raw_image:
+        return None
+        
+    # Handle dict response formats if images are returned as dicts
+    if isinstance(raw_image, dict):
+        raw_image = raw_image.get("url") or raw_image.get("b64_json") or raw_image.get("data")
+        
+    if not isinstance(raw_image, str):
         return None
     
     cleaned = raw_image.strip()
@@ -119,7 +126,7 @@ def _clean_image_url(raw_image: Optional[str]) -> Optional[str]:
     # Check if base64 data URI has actual payload after header
     if cleaned.startswith("data:image/"):
         parts = cleaned.split(",", 1)
-        if len(parts) < 2 or not parts[1].strip():
+        if len(parts) < 2 or not parts[1].strip() or len(parts[1].strip()) < 100:
             logger.warning("[pro_tutorial] Discarded empty or malformed base64 image payload")
             return None
         return cleaned
@@ -128,7 +135,10 @@ def _clean_image_url(raw_image: Optional[str]) -> Optional[str]:
         return cleaned
 
     # Raw base64 string provided without prefix
-    return f"data:image/jpeg;base64,{cleaned}"
+    if len(cleaned) > 100:
+        return f"data:image/jpeg;base64,{cleaned}"
+
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -411,7 +421,6 @@ async def generate_pro_tutorial(req: ProTutorialRequest) -> ProTutorialResponse:
             "[pro_tutorial] no catalog entry for style=%s — using fallback", req.style
         )
         res = _fallback_response(req.style)
-        # Attempt stylize if photo provided
         if req.image:
             try:
                 img_data = await stylize_user_photo(req.style, req.sub_style, req.image)
@@ -610,15 +619,30 @@ async def stylize_user_photo(
             active_key = gemini_key_manager.get_current_key()
             
             try:
-                resp = await asyncio.wait_for(
-                    service.genimg(req, api_key=active_key) if hasattr(service, 'genimg_with_key') else service.genimg(req),
-                    timeout=_STYLIZE_TIMEOUT_SECONDS
-                )
+                # Compatibility check for AIHubService method signature
+                if hasattr(service, "genimg_with_key"):
+                    resp = await asyncio.wait_for(
+                        service.genimg_with_key(req, api_key=active_key),
+                        timeout=_STYLIZE_TIMEOUT_SECONDS
+                    )
+                else:
+                    # Dynamically set active key into environment or service context if needed
+                    if active_key:
+                        os.environ["GEMINI_API_KEY"] = active_key
+                    resp = await asyncio.wait_for(
+                        service.genimg(req),
+                        timeout=_STYLIZE_TIMEOUT_SECONDS
+                    )
 
                 if not resp or not getattr(resp, "images", None) or not resp.images:
                     raise RuntimeError(f"Model {target_model} returned no images.")
 
-                raw_image_data = str(resp.images[0]).strip()
+                raw_image_data = resp.images[0]
+                cleaned_url = _clean_image_url(raw_image_data)
+                
+                if not cleaned_url:
+                    raise RuntimeError("Returned image payload is invalid or empty.")
+
                 elapsed = time.monotonic() - t0
                 logger.info(
                     "[stylize] SUCCESS! model=%s style=%s elapsed=%.2fs (key_index=%d)",
@@ -627,7 +651,7 @@ async def stylize_user_photo(
                     elapsed,
                     gemini_key_manager.current_index,
                 )
-                return _clean_image_url(raw_image_data)
+                return cleaned_url
 
             except asyncio.TimeoutError:
                 logger.warning(
