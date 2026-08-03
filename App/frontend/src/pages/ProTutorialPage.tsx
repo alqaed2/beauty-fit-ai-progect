@@ -124,7 +124,6 @@ const STYLE_SLOGANS: Record<string, string> = {
 function getSlogan(name: string, fallback?: string): string {
   const key = name.toLowerCase().trim();
   if (STYLE_SLOGANS[key]) return STYLE_SLOGANS[key];
-  // Try partial match — check if any key is contained in the name or vice versa
   for (const [k, v] of Object.entries(STYLE_SLOGANS)) {
     if (key.includes(k) || k.includes(key)) return v;
   }
@@ -161,20 +160,15 @@ export default function ProTutorialPage() {
   const [progress, setProgress] = useState(0);
   const [progressMsg, setProgressMsg] = useState<string>('Contacting the AI stylist…');
   const [elapsed, setElapsed] = useState(0);
-  /** Increments to force the fetch effect to re-run on "Try again". */
   const [retryKey, setRetryKey] = useState(0);
 
-  // Stylized image states: key 'overall' = hero image; other keys = sub-style names.
   const [stylizedImages, setStylizedImages] = useState<
     Record<string, StylizedImageState>
   >({});
-  // userImage: prefer location.state, fall back to cached version
   const [cachedUserImage, setCachedUserImage] = useState<string | undefined>(undefined);
   const userImage = state.userImage || cachedUserImage;
-  // Track whether stylized images were restored from cache (to skip re-generation)
   const stylizedRestoredFromCache = useRef(false);
 
-  // Social media card modal state
   const [socialCardOpen, setSocialCardOpen] = useState(false);
   const [socialCardData, setSocialCardData] = useState<{
     imageUrl: string;
@@ -182,20 +176,17 @@ export default function ProTutorialPage() {
     slogan: string;
   } | null>(null);
 
-  /** Open the social media card generator for a given image */
   const openSocialCard = (imageUrl: string, name: string, slogan: string) => {
     setSocialCardData({ imageUrl, styleName: name, slogan });
     setSocialCardOpen(true);
   };
 
   useEffect(() => {
-    // If we have no styleId at all, bounce back to analyze.
     if (!styleId) {
       navigate('/analyze', { replace: true });
     }
   }, [styleId, navigate]);
 
-  // Cache integration: check if we have a cached result for this style
   const [fromCache, setFromCache] = useState(false);
 
   useEffect(() => {
@@ -204,11 +195,9 @@ export default function ProTutorialPage() {
     if (cached) {
       setTutorial(cached.tutorial);
       setFromCache(true);
-      // Restore userImage from cache if not in location.state
       if (cached.userImage && !state.userImage) {
         setCachedUserImage(cached.userImage);
       }
-      // Restore stylized image URLs from cache so we don't re-generate
       if (cached.stylizedImageUrls) {
         const restored: Record<string, StylizedImageState> = {};
         for (const [key, url] of Object.entries(cached.stylizedImageUrls)) {
@@ -222,10 +211,8 @@ export default function ProTutorialPage() {
     }
   }, [styleId, tutorial, state.userImage]);
 
-  // Testing phase: bypass auth and Pro entitlement — always fetch tutorial
   const canFetch = Boolean(styleId) && !fromCache;
 
-  // Simulated progress + elapsed timer while loading.
   useEffect(() => {
     if (!loading) return;
     const start = Date.now();
@@ -248,7 +235,6 @@ export default function ProTutorialPage() {
     return () => window.clearInterval(id);
   }, [loading]);
 
-  // Fire the tutorial fetch exactly once per styleId.
   useEffect(() => {
     if (!canFetch || tutorial) return;
     let cancelled = false;
@@ -266,7 +252,7 @@ export default function ProTutorialPage() {
             : snap.style?.match;
         const resp = await generateProTutorial({
           style: styleId,
-          image: userImage, // 👈 تم التعديل هنا: إرسال الصورة في الطلب
+          image: userImage,
           face_shape: snap.faceShape,
           eye_tags: snap.eyeTags,
           facial_tags: snap.facialTags,
@@ -275,7 +261,6 @@ export default function ProTutorialPage() {
         });
         if (!cancelled) {
           setTutorial(resp);
-          // Cache the result for future visits (include userImage for re-display)
           cacheTutorial({
             styleId,
             styleName,
@@ -301,7 +286,7 @@ export default function ProTutorialPage() {
           }
           if (msg === 'AUTH_REQUIRED') {
             setError(
-              'The tutorial API requires authentication on the backend. (Testing mode: frontend gates have been bypassed, but the backend still enforces auth. Please sign in via the header to complete the test.)'
+              'The tutorial API requires authentication on the backend.'
             );
           } else {
             setError(msg);
@@ -314,14 +299,8 @@ export default function ProTutorialPage() {
     return () => {
       cancelled = true;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [canFetch, styleId, retryKey]);
 
-  // NOTE: `selectedSubStyle` MUST be declared BEFORE the stylization effect
-  // below, because that effect reads it in its body and closes over it in
-  // its dependency array. Declaring it after would trigger a JS temporal
-  // dead zone error: "Cannot access 'selectedSubStyle' before initialization".
-  /** Resolve the selected sub-style object from the URL slug, if any. */
   const selectedSubStyle = useMemo(() => {
     if (!isSubStyleView || !tutorial) return null;
     return (
@@ -331,28 +310,14 @@ export default function ProTutorialPage() {
     );
   }, [isSubStyleView, tutorial, subStyleSlugParam]);
 
-  // Kick off image stylization with a prioritized queue so the hero image
-  // finishes first, then sub-style thumbnails stream in 2-at-a-time. Firing
-  // all 6 images at once would hit browser/HTTP connection caps (6 per
-  // origin) AND upstream AI-platform per-account concurrency throttling,
-  // which in practice made the last thumbnail land 150s+ after click. With
-  // this queue the hero arrives in ~30s and each thumbnail follows shortly.
   useEffect(() => {
     if (!tutorial || !styleId) return;
 
-    // Skip stylization if we already restored images from localStorage cache.
-    // The ref is set synchronously in the cache-loading effect above, so it's
-    // guaranteed to be true before this effect's first execution when cached.
     if (stylizedRestoredFromCache.current) {
-      stylizedRestoredFromCache.current = false; // allow future re-runs (e.g. retry)
+      stylizedRestoredFromCache.current = false;
       return;
     }
 
-    // If we have no user image, don't silently hang the loading overlay —
-    // surface a clear error state instead so the user knows why nothing
-    // is generating. This is the single most common cause of a "stuck
-    // on Generating…" report (e.g. when navigating directly to the Pro
-    // page without going through the Results page with a real upload).
     if (!userImage) {
       const key =
         isSubStyleView && selectedSubStyle ? selectedSubStyle.name : 'overall';
@@ -364,20 +329,9 @@ export default function ProTutorialPage() {
             'No source photo was provided for stylization. Please go back and re-upload your photo on the Analyze page.',
         },
       }));
-      console.warn(
-        '[ProTutorial] stylize skipped: userImage missing. styleId=%s isSubStyleView=%s',
-        styleId,
-        isSubStyleView
-      );
       return;
     }
 
-    // Build the full target list:
-    //   - Sub-style detail page: generate ONLY that single sub-style.
-    //   - Main Pro page: generate the overall hero PLUS every sub-style
-    //     thumbnail. All requests are fired in parallel (no queue) so the
-    //     user sees images stream in as soon as each one finishes, rather
-    //     than waiting through a serial 1-at-a-time pipeline.
     const allTargets: Array<{ key: string; subStyle: string | null }> =
       isSubStyleView && selectedSubStyle
         ? [{ key: selectedSubStyle.name, subStyle: selectedSubStyle.name }]
@@ -389,18 +343,6 @@ export default function ProTutorialPage() {
             })),
           ];
 
-    // Diagnostic logging so we can confirm in the browser console that
-    // the stylize request is actually being fired (helps debugging
-    // "stuck on Generating…" when the request isn't even reaching the
-    // backend).
-    console.info(
-      '[ProTutorial] starting stylize: style=%s targets=%o userImageLen=%d',
-      styleId,
-      allTargets.map((t) => t.key),
-      userImage.length
-    );
-
-    // Initialize loading state for every target we plan to fetch.
     setStylizedImages((prev) => {
       const next = { ...prev };
       for (const t of allTargets) {
@@ -412,27 +354,17 @@ export default function ProTutorialPage() {
     const controller = new AbortController();
     let cancelled = false;
 
-    // Fetch one target with full error handling.
     const runOne = async (t: { key: string; subStyle: string | null }) => {
-      const t0 = performance.now();
-      console.info('[ProTutorial] stylize request -> %s', t.key);
       try {
         const resp = await stylizeImage(
           { style: styleId, sub_style: t.subStyle, image: userImage },
           { signal: controller.signal }
         );
         if (cancelled) return;
-        const elapsed = ((performance.now() - t0) / 1000).toFixed(1);
-        console.info(
-          '[ProTutorial] stylize success <- %s in %ss',
-          t.key,
-          elapsed
-        );
         setStylizedImages((prev) => ({
           ...prev,
           [t.key]: { status: 'ready', url: resp.image },
         }));
-        // Persist the stylized URL to cache
         if (resp.image) {
           updateCachedStylizedUrls(styleId, { [t.key]: resp.image });
         }
@@ -441,13 +373,6 @@ export default function ProTutorialPage() {
         if (err instanceof DOMException && err.name === 'AbortError') return;
         const msg =
           err instanceof Error ? err.message : 'Failed to generate image';
-        const elapsed = ((performance.now() - t0) / 1000).toFixed(1);
-        console.warn(
-          '[ProTutorial] stylize FAILED <- %s in %ss: %s',
-          t.key,
-          elapsed,
-          msg
-        );
         setStylizedImages((prev) => ({
           ...prev,
           [t.key]: { status: 'error', error: msg },
@@ -455,17 +380,12 @@ export default function ProTutorialPage() {
       }
     };
 
-    // Full parallel fan-out: fire every stylize request at the same time
-    // so all images generate concurrently on the AI platform. Each image
-    // resolves independently and updates its own tile as soon as it
-    // finishes — no serial queue, no artificial throttling.
     void Promise.all(allTargets.map((t) => runOne(t)));
 
     return () => {
       cancelled = true;
       controller.abort();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tutorial, userImage, styleId, isSubStyleView, selectedSubStyle?.name]);
 
   const bgGradient =
@@ -606,10 +526,6 @@ export default function ProTutorialPage() {
               <p className="font-body text-sm text-[#5C4A42] mb-3">{error}</p>
               <button
                 onClick={() => {
-                  // Reset all relevant state and bump retryKey to refire the
-                  // fetch effect. Without bumping retryKey, clearing `tutorial`
-                  // alone won't retrigger the effect since its deps haven't
-                  // changed.
                   setError(null);
                   setTutorial(null);
                   setProgress(0);
@@ -629,19 +545,14 @@ export default function ProTutorialPage() {
         {/* Tutorial content */}
         {tutorial && (
           <div className="space-y-8 animate-fade-in-up">
-            {/* ============================================================ */}
-            {/* SUB-STYLE VIEW: single sub-style tutorial with its image     */}
-            {/* ============================================================ */}
             {isSubStyleView && selectedSubStyle && (
               <>
-                {/* Sub-style hero image — FULL, not cropped. Always rendered;
-                    StylizedImageBlock handles its own loading/empty state. */}
                 <section className="rounded-2xl overflow-hidden bg-white/85 backdrop-blur border border-[#E8DDD6]/60 shadow-lg">
                     <div className="w-full bg-[#F3EAD9] flex items-center justify-center p-4 sm:p-6">
                       <StylizedImageBlock
                         state={stylizedImages[selectedSubStyle.name]}
                         alt={`${selectedSubStyle.name} — ${styleName} look`}
-                        fallback={userImage}
+                        fallback={userImage || ''}
                         label={`${selectedSubStyle.name}`}
                       />
                     </div>
@@ -666,7 +577,6 @@ export default function ProTutorialPage() {
                             </p>
                           )}
                         </div>
-                        {/* Social Media Card button — only when image is ready */}
                         {stylizedImages[selectedSubStyle.name]?.status === 'ready' &&
                           stylizedImages[selectedSubStyle.name]?.url && (
                           <button
@@ -690,7 +600,6 @@ export default function ProTutorialPage() {
                     </div>
                   </section>
 
-                {/* Overview for this sub-style (falls back to main overview) */}
                 <section className="rounded-2xl p-8 bg-white/85 backdrop-blur border border-[#E8DDD6]/60 shadow-lg relative overflow-hidden">
                   <div className="absolute left-0 top-0 bottom-0 w-[3px]"
                     style={{ background: 'linear-gradient(180deg, #B8706A, #8E9CC3)' }} />
@@ -738,19 +647,14 @@ export default function ProTutorialPage() {
               </>
             )}
 
-            {/* ============================================================ */}
-            {/* MAIN (OVERALL) VIEW: hero + sub-styles list + full tutorial */}
-            {/* ============================================================ */}
             {!isSubStyleView && (
               <>
-                {/* Hero: AI-generated OVERALL look photo — displayed in FULL.
-                    Always rendered; StylizedImageBlock handles its own state. */}
                 <section className="rounded-2xl overflow-hidden bg-white/85 backdrop-blur border border-[#E8DDD6]/60 shadow-lg">
                     <div className="w-full bg-[#F3EAD9] flex items-center justify-center p-4 sm:p-6">
                       <StylizedImageBlock
                         state={stylizedImages['overall']}
                         alt={`${styleName} — overall look`}
-                        fallback={userImage}
+                        fallback={userImage || ''}
                         label={`overall ${styleName.toLowerCase()} look`}
                       />
                     </div>
@@ -772,7 +676,6 @@ export default function ProTutorialPage() {
                             is preserved.
                           </p>
                         </div>
-                        {/* Social Media Card button — only when image is ready */}
                         {stylizedImages['overall']?.status === 'ready' &&
                           stylizedImages['overall']?.url && (
                           <button
@@ -796,7 +699,6 @@ export default function ProTutorialPage() {
                     </div>
                   </section>
 
-                {/* Overview */}
                 <section className="rounded-2xl p-8 bg-white/85 backdrop-blur border border-[#E8DDD6]/60 shadow-lg relative overflow-hidden">
                   <div className="absolute left-0 top-0 bottom-0 w-[3px]"
                     style={{ background: 'linear-gradient(180deg, #B8706A, #8E9CC3)' }} />
@@ -817,7 +719,6 @@ export default function ProTutorialPage() {
                   </div>
                 </section>
 
-                {/* Sub-styles — VERTICAL stacked, each clickable, each with its own AI image */}
                 {tutorial.sub_styles.length > 0 && (
                   <section>
                     <h2 className="font-display text-2xl font-bold text-[#2D2226] mb-2">
@@ -846,13 +747,11 @@ export default function ProTutorialPage() {
                             }}
                           >
                             <div className="flex flex-col sm:flex-row">
-                              {/* Sub-style AI-generated image (non-cropped: contains full face).
-                                  Always rendered; StylizedImageBlock handles its own state. */}
                               <div className="relative w-full sm:w-[280px] sm:flex-shrink-0 bg-[#F3EAD9] flex items-center justify-center p-3">
                                 <StylizedImageBlock
                                   state={stylizedImages[s.name]}
                                   alt={`${s.name} look`}
-                                  fallback={userImage}
+                                  fallback={userImage || ''}
                                   label={s.name}
                                   compact
                                 />
@@ -944,7 +843,6 @@ export default function ProTutorialPage() {
         )}
       </div>
 
-      {/* Social Media Card Modal */}
       {socialCardData && (
         <SocialMediaCard
           imageUrl={socialCardData.imageUrl}
@@ -957,10 +855,6 @@ export default function ProTutorialPage() {
     </div>
   );
 }
-
-/* ------------------------------------------------------------------------- */
-/* Shared section renderers                                                  */
-/* ------------------------------------------------------------------------- */
 
 function renderColorPalette(tutorial: ProTutorialResponse) {
   if (tutorial.color_palette.length === 0) return null;
@@ -1070,8 +964,7 @@ function renderProTips(tutorial: ProTutorialResponse) {
 }
 
 /* ------------------------------------------------------------------------- */
-/* Image block: FULL image (no cropping). Uses natural aspect ratio via      */
-/* `object-contain` with a max height so layout stays stable.                */
+/* Enhanced Image block with Image Load Error Fallback                       */
 /* ------------------------------------------------------------------------- */
 
 function StylizedImageBlock({
@@ -1087,57 +980,53 @@ function StylizedImageBlock({
   label: string;
   compact?: boolean;
 }) {
-  // When no stylization was attempted (state === undefined), treat the
-  // image as "idle": show the fallback photo without any loading overlay.
-  // This is the state sub-style thumbnails are in during the testing
-  // phase where sub-style generation is disabled.
+  const [imgError, setImgError] = useState(false);
+
   const status: StylizedImageState['status'] | 'idle' =
     state === undefined ? 'idle' : state.status;
-  const isReady = status === 'ready' && !!state?.url;
-  const isError = status === 'error';
+  const isReady = status === 'ready' && !!state?.url && !imgError;
+  const isError = status === 'error' || imgError;
   const isLoading = status === 'loading';
+
+  // Fallback cleanly to user image if stylized image errored out
   const srcToUse = isReady ? state!.url! : fallback;
 
-  // Height caps: keep layout stable but NEVER crop the face.
-  const maxH = compact ? 'max-h-[320px]' : 'max-h-[640px]';
+  const maxH = compact ? 'max-h-[320px] min-h-[180px]' : 'max-h-[640px] min-h-[300px]';
 
   return (
     <div className="relative w-full flex items-center justify-center">
-      <img
-        src={srcToUse}
-        alt={alt}
-        className={[
-          'block w-auto h-auto max-w-full',
-          maxH,
-          'object-contain rounded-xl transition-opacity duration-500',
-          // Only dim+blur while actively loading/erroring. In "idle"
-          // (sub-style thumbs during testing) or "ready" state, show
-          // the image at full clarity.
-          isReady || status === 'idle' ? 'opacity-100' : 'opacity-60 blur-[2px]',
-        ].join(' ')}
-      />
+      {srcToUse ? (
+        <img
+          src={srcToUse}
+          alt={alt}
+          onError={() => {
+            console.warn(`[StylizedImageBlock] Failed to render image, falling back to original: ${label}`);
+            setImgError(true);
+          }}
+          className={[
+            'block w-auto h-auto max-w-full',
+            maxH,
+            'object-contain rounded-xl transition-all duration-500',
+            isReady || status === 'idle' || imgError ? 'opacity-100' : 'opacity-60 blur-[2px]',
+          ].join(' ')}
+        />
+      ) : (
+        <div className={`w-full ${maxH} bg-[#E8DDD6]/30 flex items-center justify-center rounded-xl`}>
+          <span className="text-xs text-[#5C4A42]">No Preview Available</span>
+        </div>
+      )}
 
-      {/* Loading overlay — includes elapsed-time counter so users know it's
-          actually working (AI image generation can take 30–90s per image). */}
       {isLoading && <LoadingOverlay label={label} compact={compact} />}
 
-      {/* Error overlay */}
       {isError && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#2D2226]/40 rounded-xl px-3 text-center">
-          <AlertCircle
-            className={`${compact ? 'w-5 h-5' : 'w-6 h-6'} text-red-200 mb-1`}
-          />
-          <span
-            className={`font-body text-white/90 ${
-              compact ? 'text-[10px]' : 'text-xs'
-            }`}
-          >
-            Image generation failed
+        <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-red-900/80 backdrop-blur shadow flex items-center gap-1.5">
+          <AlertCircle className="w-3 h-3 text-red-200" />
+          <span className="font-body text-[10px] font-medium text-white">
+            Stylize Failed (Original Shown)
           </span>
         </div>
       )}
 
-      {/* AI Generated pill (ready, full-size only) */}
       {isReady && !compact && (
         <div className="absolute bottom-3 left-3 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur shadow">
           <span className="font-body text-[10px] font-bold tracking-wider uppercase text-[#B8706A]">
@@ -1149,14 +1038,6 @@ function StylizedImageBlock({
   );
 }
 
-/**
- * Loading overlay for StylizedImageBlock.
- *
- * Shows an elapsed-second counter so users can see the request is still in
- * flight (AI image generation commonly takes 30–90s per image, and without
- * feedback users can't tell the difference between "still generating" and
- * "stuck"). After 60s, we switch to a softer "still working" message.
- */
 function LoadingOverlay({
   label,
   compact,
@@ -1174,7 +1055,7 @@ function LoadingOverlay({
   const textSize = compact ? 'text-[10px]' : 'text-xs';
 
   return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#2D2226]/25 rounded-xl px-3 text-center">
+    <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#2D2226]/25 rounded-xl px-3 text-center backdrop-blur-[1px]">
       <Loader2
         className={`${compact ? 'w-5 h-5' : 'w-7 h-7'} animate-spin text-white mb-2`}
       />
