@@ -14,6 +14,7 @@ export interface StylizeRequest {
   sub_style?: string | null;
   /** User photo as data URI (data:image/...;base64,...) or http(s) URL. */
   image: string;
+  user_image?: string;
 }
 
 export interface StylizeResponse {
@@ -29,7 +30,7 @@ export interface StylizeResponse {
  * preventing Vercel 404 relative-path fallbacks.
  */
 function normalizeImageUrl(data: any): string {
-  const rawImage = data?.image || data?.image_url || data?.preview_url;
+  const rawImage = typeof data === 'string' ? data : (data?.image || data?.image_url || data?.preview_url);
   if (!rawImage) return '';
 
   // Return immediately if it's already a base64 data URI or absolute HTTP(S) URL
@@ -71,13 +72,17 @@ export async function stylizeImage(
 
   let res: Response;
   try {
+    const userImg = req.image || req.user_image || '';
+
     res = await fetch(`${getAPIBaseURL()}/api/v1/pro/stylize`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include', // 👈 ضروري جداً لإرسال جلسة المستخدم (Cookies)
       body: JSON.stringify({
         style: req.style,
         sub_style: req.sub_style ?? null,
-        image: req.image,
+        image: userImg,
+        user_image: userImg,
       }),
       signal: timeoutCtl.signal,
     });
@@ -96,6 +101,10 @@ export async function stylizeImage(
     if (opts?.signal) {
       opts.signal.removeEventListener('abort', onExternalAbort);
     }
+  }
+
+  if (res.status === 401) {
+    throw new Error('AUTH_REQUIRED');
   }
 
   if (!res.ok) {
