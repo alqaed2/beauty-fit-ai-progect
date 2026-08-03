@@ -139,6 +139,16 @@ function subStyleSlug(name: string): string {
     .replace(/^-+|-+$/g, '');
 }
 
+/** Helper function to ensure base64 image strings and URLs are properly formatted. */
+function getCleanImageSrc(raw: string | undefined): string {
+  if (!raw) return '';
+  const trimmed = raw.trim().replace(/(\r\n|\n|\r)/gm, '');
+  if (!trimmed.startsWith('data:') && !trimmed.startsWith('http://') && !trimmed.startsWith('https://')) {
+    return `data:image/jpeg;base64,${trimmed}`;
+  }
+  return trimmed;
+}
+
 export default function ProTutorialPage() {
   const { styleId: styleIdParam, subStyleSlug: subStyleSlugParam } = useParams<{
     styleId: string;
@@ -299,12 +309,12 @@ export default function ProTutorialPage() {
     return () => {
       cancelled = true;
     };
-  }, [canFetch, styleId, retryKey]);
+  }, [canFetch, styleId, retryKey, userImage, location.state, styleName]);
 
   const selectedSubStyle = useMemo(() => {
     if (!isSubStyleView || !tutorial) return null;
     return (
-      tutorial.sub_styles.find(
+      tutorial.sub_styles?.find(
         (s) => subStyleSlug(s.name) === subStyleSlugParam
       ) || null
     );
@@ -337,7 +347,7 @@ export default function ProTutorialPage() {
         ? [{ key: selectedSubStyle.name, subStyle: selectedSubStyle.name }]
         : [
             { key: 'overall', subStyle: null },
-            ...tutorial.sub_styles.map((s) => ({
+            ...(tutorial.sub_styles || []).map((s) => ({
               key: s.name,
               subStyle: s.name,
             })),
@@ -386,7 +396,7 @@ export default function ProTutorialPage() {
       cancelled = true;
       controller.abort();
     };
-  }, [tutorial, userImage, styleId, isSubStyleView, selectedSubStyle?.name]);
+  }, [tutorial, userImage, styleId, isSubStyleView, selectedSubStyle]);
 
   const bgGradient =
     'radial-gradient(ellipse at top left, #FDF6EE 0%, #F7EFE5 40%, #F3EAD9 100%)';
@@ -719,7 +729,7 @@ export default function ProTutorialPage() {
                   </div>
                 </section>
 
-                {tutorial.sub_styles.length > 0 && (
+                {tutorial.sub_styles && tutorial.sub_styles.length > 0 && (
                   <section>
                     <h2 className="font-display text-2xl font-bold text-[#2D2226] mb-2">
                       Sub-styles to explore
@@ -857,7 +867,7 @@ export default function ProTutorialPage() {
 }
 
 function renderColorPalette(tutorial: ProTutorialResponse) {
-  if (tutorial.color_palette.length === 0) return null;
+  if (!tutorial.color_palette || tutorial.color_palette.length === 0) return null;
   return (
     <section className="rounded-2xl p-6 bg-white/85 backdrop-blur border border-[#E8DDD6]/60 shadow-md">
       <div className="flex items-center gap-2 mb-4">
@@ -880,6 +890,7 @@ function renderColorPalette(tutorial: ProTutorialResponse) {
 }
 
 function renderSteps(tutorial: ProTutorialResponse) {
+  if (!tutorial.steps || tutorial.steps.length === 0) return null;
   return (
     <section>
       <div className="flex items-center gap-2 mb-4">
@@ -916,7 +927,7 @@ function renderSteps(tutorial: ProTutorialResponse) {
                     </span>
                   </div>
                 )}
-                {step.products.length > 0 && (
+                {step.products && step.products.length > 0 && (
                   <div className="flex flex-wrap gap-2">
                     {step.products.map((p, j) => (
                       <span
@@ -938,7 +949,7 @@ function renderSteps(tutorial: ProTutorialResponse) {
 }
 
 function renderProTips(tutorial: ProTutorialResponse) {
-  if (tutorial.pro_tips.length === 0) return null;
+  if (!tutorial.pro_tips || tutorial.pro_tips.length === 0) return null;
   return (
     <section className="rounded-2xl p-8 relative overflow-hidden text-white"
       style={{ background: 'linear-gradient(135deg, #1E1518 0%, #2D2226 100%)' }}>
@@ -982,14 +993,20 @@ function StylizedImageBlock({
 }) {
   const [imgError, setImgError] = useState(false);
 
+  // Sync / reset error state when state URL or fallback changes
+  useEffect(() => {
+    setImgError(false);
+  }, [state?.url, fallback]);
+
   const status: StylizedImageState['status'] | 'idle' =
     state === undefined ? 'idle' : state.status;
   const isReady = status === 'ready' && !!state?.url && !imgError;
   const isError = status === 'error' || imgError;
   const isLoading = status === 'loading';
 
-  // Fallback cleanly to user image if stylized image errored out
-  const srcToUse = isReady ? state!.url! : fallback;
+  // Format the image source cleanly
+  const rawTargetSrc = isReady ? state!.url! : fallback;
+  const srcToUse = getCleanImageSrc(rawTargetSrc);
 
   const maxH = compact ? 'max-h-[320px] min-h-[180px]' : 'max-h-[640px] min-h-[300px]';
 
@@ -999,6 +1016,7 @@ function StylizedImageBlock({
         <img
           src={srcToUse}
           alt={alt}
+          onLoad={() => setImgError(false)}
           onError={() => {
             console.warn(`[StylizedImageBlock] Failed to render image, falling back to original: ${label}`);
             setImgError(true);
