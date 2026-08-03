@@ -90,7 +90,8 @@ gemini_key_manager = GeminiKeyManager()
 PREFERED_IMAGE_MODELS: List[str] = [
     "gemini-2.5-flash",       # Top tier: Highest quality & accuracy
     "gemini-3.5-flash",       # High tier: Excellent speed & quality
-    "gemini-1.5-flash",       # Standard tier: High reliability backup
+    "gemini-flash-latest",       # High tier: Excellent speed & quality
+    "gemini-3.6-flash",       # Standard tier: High reliability backup
 ]
 
 
