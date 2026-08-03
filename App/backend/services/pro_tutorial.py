@@ -54,6 +54,32 @@ STYLE_DISPLAY = {
 }
 
 
+def _clean_image_url(raw_image: Optional[str]) -> Optional[str]:
+    """Helper to ensure image URLs or Base64 data strings are valid and non-empty.
+    Prevents returning 'data:image/jpeg;base64,' without actual payload.
+    """
+    if not raw_image or not isinstance(raw_image, str):
+        return None
+    
+    cleaned = raw_image.strip()
+    if not cleaned:
+        return None
+        
+    # Check if base64 data URI has actual payload after header
+    if cleaned.startswith("data:image/"):
+        parts = cleaned.split(",", 1)
+        if len(parts) < 2 or not parts[1].strip():
+            logger.warning("[pro_tutorial] Discarded empty or malformed base64 image payload")
+            return None
+        return cleaned
+
+    if cleaned.startswith("http://") or cleaned.startswith("https://"):
+        return cleaned
+
+    # Raw base64 string provided without prefix
+    return f"data:image/jpeg;base64,{cleaned}"
+
+
 # ---------------------------------------------------------------------------
 # Lightweight personalization (LLM)
 # ---------------------------------------------------------------------------
@@ -319,6 +345,8 @@ def _fallback_response(style: str) -> ProTutorialResponse:
             f"{display.lower()} makeup look, clean complexion, refined features, "
             "balanced colors, elegant mood."
         ),
+        image=None,
+        images={},
     )
 
 
@@ -336,8 +364,9 @@ async def generate_pro_tutorial(req: ProTutorialRequest) -> ProTutorialResponse:
         if req.image:
             try:
                 img_data = await stylize_user_photo(req.style, req.sub_style, req.image)
-                res.image = img_data
-                res.images = {"overall": img_data}
+                valid_img = _clean_image_url(img_data)
+                res.image = valid_img
+                res.images = {"overall": valid_img} if valid_img else {}
             except Exception as exc:
                 logger.warning("[pro_tutorial] fallback image gen failed: %s", exc)
         return res
@@ -395,11 +424,12 @@ async def generate_pro_tutorial(req: ProTutorialRequest) -> ProTutorialResponse:
     if req.image:
         try:
             target_sub = req.sub_style or recommended_name
-            generated_image = await stylize_user_photo(
+            raw_img = await stylize_user_photo(
                 style=req.style,
                 sub_style=target_sub,
                 image=req.image,
             )
+            generated_image = _clean_image_url(raw_img)
         except Exception as exc:
             logger.warning("[pro_tutorial] image stylize failed during tutorial generation: %s", exc)
 
@@ -478,7 +508,7 @@ async def stylize_user_photo(
     style: str,
     sub_style: Optional[str],
     image: str,
-) -> str:
+) -> Optional[str]:
     """Generate a stylized version of the user's photo for the given (style, sub_style)."""
     if not image or not isinstance(image, str):
         raise ValueError("image is required and must be a string.")
@@ -562,11 +592,4 @@ async def stylize_user_photo(
         elapsed,
     )
 
-    if (
-        raw_image_data.startswith("data:image/")
-        or raw_image_data.startswith("http://")
-        or raw_image_data.startswith("https://")
-    ):
-        return raw_image_data
-
-    return f"data:image/jpeg;base64,{raw_image_data}"
+    return _clean_image_url(raw_image_data)
