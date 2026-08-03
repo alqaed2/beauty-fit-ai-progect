@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { getAPIBaseURL } from './config';
 
 export interface ProTutorialRequest {
   style: string;
-  image?: string; // 👈 تم إضافة حقل الصورة هنا لكي يقبله الـ interface
+  image?: string;
   face_shape?: string;
   eye_tags?: string[];
   facial_tags?: string[];
@@ -36,10 +36,10 @@ export interface ProTutorialResponse {
   simulation_prompt: string;
 }
 
-// 👈 أضفنا أنواع البيانات ودعم الصورة (image و image_url)
 export interface StylizeRequest {
   style: string;
-  sub_style?: string;
+  sub_style?: string | null;
+  image?: string;
   user_image?: string;
 }
 
@@ -58,12 +58,12 @@ const httpClient = axios.create({
 });
 
 /**
- * دالة مساعدة معالجة رابط الصورة لتجنب طلبات الـ 404 من Vercel
+ * دالة مساعدة لمعالجة رابط الصورة لتجنب طلبات الـ 404 من Vercel
  */
 export function normalizeImageUrl(data: any): string {
   if (!data) return '';
   
-  const rawImage = data.image || data.image_url || data.preview_url;
+  const rawImage = typeof data === 'string' ? data : (data.image || data.image_url || data.preview_url);
   if (!rawImage) return '';
 
   // إذا كانت البيانات Base64 أو رابطاً كاملاً من البداية
@@ -79,16 +79,17 @@ export function normalizeImageUrl(data: any): string {
 }
 
 /**
- * Call the backend Pro tutorial endpoint. Requires the user to be
- * authenticated via the Atoms auth system (cookie-based session).
+ * Call the backend Pro tutorial endpoint.
  */
 export async function generateProTutorial(
-  req: ProTutorialRequest
+  req: ProTutorialRequest,
+  options?: AxiosRequestConfig
 ): Promise<ProTutorialResponse> {
   try {
     const resp = await httpClient.post<ProTutorialResponse>(
       `${getAPIBaseURL()}/api/v1/pro/tutorial`,
-      req
+      req,
+      options
     );
     return resp.data;
   } catch (err) {
@@ -104,15 +105,24 @@ export async function generateProTutorial(
 }
 
 /**
- * 👈 دالة توليد الصورة (Stylize) وحل مشكلة العرض
+ * دالة توليد الصورة (Stylize)
  */
 export async function stylizeProLook(
-  req: StylizeRequest
+  req: StylizeRequest,
+  options?: AxiosRequestConfig
 ): Promise<StylizeResponse> {
   try {
+    // توحيد اسم مفتاح الصورة ليكون متوافقاً سواء أُرسل image أو user_image
+    const payload = {
+      ...req,
+      user_image: req.user_image || req.image,
+      image: req.image || req.user_image,
+    };
+
     const resp = await httpClient.post<StylizeResponse>(
       `${getAPIBaseURL()}/api/v1/pro/stylize`,
-      req
+      payload,
+      options
     );
     
     const result = resp.data;
@@ -134,6 +144,9 @@ export async function stylizeProLook(
     throw new Error(extractErrorMessage(anyErr));
   }
 }
+
+// تصدير باسم متوافق مع الاستيرادات الأخرى في المشروع
+export const stylizeImage = stylizeProLook;
 
 /**
  * Safely turn an arbitrary axios error into a human-readable string.
