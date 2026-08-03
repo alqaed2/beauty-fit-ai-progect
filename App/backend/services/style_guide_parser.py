@@ -29,6 +29,7 @@ STYLE_ALIASES: Dict[str, str] = {
     "powerful": "mature",
     "mature / powerful": "mature",
     "mature_powerful": "mature",
+    "mature/powerful": "mature",
 }
 
 
@@ -49,8 +50,32 @@ class ParsedStyle(TypedDict):
 
 
 def _guides_dir() -> str:
-    base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    return os.path.join(base, "assets", "style_guides")
+    """Find and return the style guides directory across different deployment environments."""
+    env_dir = os.getenv("STYLE_GUIDES_DIR")
+    if env_dir and os.path.exists(env_dir):
+        return env_dir
+
+    current_file_dir = os.path.dirname(os.path.abspath(__file__))
+    candidates = [
+        # Relative to current file: App/backend/services -> App/backend/assets/style_guides
+        os.path.join(os.path.dirname(current_file_dir), "assets", "style_guides"),
+        # Relative to project root
+        os.path.join(os.getcwd(), "App", "backend", "assets", "style_guides"),
+        os.path.join(os.getcwd(), "backend", "assets", "style_guides"),
+        os.path.join(os.getcwd(), "assets", "style_guides"),
+        # Render specific build path fallback
+        "/opt/render/project/src/App/backend/assets/style_guides",
+        "/opt/render/project/src/assets/style_guides",
+    ]
+
+    for cand in candidates:
+        if os.path.exists(cand):
+            logger.info("[style_guide_parser] Found style guides dir at: %s", cand)
+            return cand
+
+    default_path = os.path.join(os.path.dirname(current_file_dir), "assets", "style_guides")
+    logger.warning("[style_guide_parser] Directory not found in candidates, defaulting to: %s", default_path)
+    return default_path
 
 
 def _parse_one_docx(path: str) -> List[ParsedSubStyle]:
@@ -215,8 +240,9 @@ def get_catalog() -> Dict[str, ParsedStyle]:
         return prebuilt
 
     catalog: Dict[str, ParsedStyle] = {}
+    guides_dir = _guides_dir()
     for f in _FILES:
-        path = os.path.join(_guides_dir(), f"{f}.docx")
+        path = os.path.join(guides_dir, f"{f}.docx")
         sub_styles = _parse_one_docx(path)
         catalog[f.lower()] = {"sub_styles": sub_styles}
     logger.info(
@@ -254,7 +280,7 @@ def find_sub_style(
 ) -> Optional[ParsedSubStyle]:
     """Case-insensitive sub-style lookup inside a main style."""
     entry = get_style_entry(style)
-    if not entry:
+    if not entry or not entry.get("sub_styles"):
         return None
 
     target = (sub_style_name or "").strip().lower()
