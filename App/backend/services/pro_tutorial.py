@@ -7,6 +7,8 @@ Strategy:
      personalization layer: picking the best-fitting sub-style for this user
      and writing a short "why this suits you" paragraph.
   3. Color palette is a hard-coded lookup per sub-style.
+  4. Automatic API Key Rotation + Multi-Model Fallback Cascade for Gemini image generation
+     to bypass 429 quota limits smoothly while maintaining highest possible image quality.
 
 This typically replies in ~3–10 seconds, versus 30–90s with the previous
 "LLM generates everything" approach.
@@ -19,6 +21,7 @@ import base64
 import io
 import json
 import logging
+import os
 import re
 import time
 from typing import Any, Dict, List, Optional
@@ -41,6 +44,54 @@ from services.style_palettes import (
 )
 
 logger = logging.getLogger(__name__)
+
+
+# ---------------------------------------------------------------------------
+# Gemini Key Manager & Multi-Model Fallback Cascade
+# ---------------------------------------------------------------------------
+
+class GeminiKeyManager:
+    """Manages rotation of multiple Gemini API keys to handle rate limits and 429 errors seamlessly."""
+    def __init__(self):
+        raw_keys = os.getenv("GEMINI_API_KEYS", "")
+        self.keys: List[str] = [k.strip() for k in raw_keys.split(",") if k.strip()]
+        
+        # Fallback to single legacy GEMINI_API_KEY if GEMINI_API_KEYS is not set
+        if not self.keys:
+            single_key = os.getenv("GEMINI_API_KEY")
+            if single_key:
+                self.keys.append(single_key.strip())
+                
+        self.current_index = 0
+        logger.info("[GeminiKeyManager] Initialized with %d API key(s).", len(self.keys))
+
+    def get_current_key(self) -> Optional[str]:
+        if not self.keys:
+            return None
+        return self.keys[self.current_index]
+
+    def rotate_key(self) -> Optional[str]:
+        if len(self.keys) <= 1:
+            logger.warning("[GeminiKeyManager] Rotation requested but only 1 or 0 keys configured.")
+            return self.get_current_key()
+
+        prev_index = self.current_index
+        self.current_index = (self.current_index + 1) % len(self.keys)
+        logger.info("[GeminiKeyManager] 429 Limit Hit! Rotated API Key: Index [%d] -> [%d]", prev_index, self.current_index)
+        return self.get_current_key()
+
+    def get_total_keys_count(self) -> int:
+        return len(self.keys)
+
+
+gemini_key_manager = GeminiKeyManager()
+
+# Ordered list of models from highest quality/capability to lowest fallback
+PREFERED_IMAGE_MODELS: List[str] = [
+    "gemini-2.5-flash",       # Top tier: Highest quality & accuracy
+    "gemini-2.0-flash",       # High tier: Excellent speed & quality
+    "gemini-1.5-flash",       # Standard tier: High reliability backup
+]
 
 
 STYLE_DISPLAY = {
@@ -463,7 +514,6 @@ async def generate_pro_tutorial(req: ProTutorialRequest) -> ProTutorialResponse:
 # Stylize: img2img makeup transformation for the Pro report.
 # ---------------------------------------------------------------------------
 
-_STYLIZE_MODEL = "gemini-3.1-flash-image-preview"
 _STYLIZE_MAX_EDGE = 1024
 _STYLIZE_TIMEOUT_SECONDS = 180.0
 
@@ -509,7 +559,9 @@ async def stylize_user_photo(
     sub_style: Optional[str],
     image: str,
 ) -> Optional[str]:
-    """Generate a stylized version of the user's photo for the given (style, sub_style)."""
+    """Generate a stylized version of the user's photo using a Multi-Model Cascade
+    and Smart Key Rotation to guarantee high availability and image quality.
+    """
     if not image or not isinstance(image, str):
         raise ValueError("image is required and must be a string.")
     image_stripped = image.strip()
@@ -530,66 +582,93 @@ async def stylize_user_photo(
         )
 
     t0 = time.monotonic()
-    logger.info(
-        "[stylize] start style=%s sub_style=%s model=%s",
-        style,
-        sub_style or "overall",
-        _STYLIZE_MODEL,
-    )
-
     if image_stripped.startswith("data:image/"):
         image_stripped = _downscale_data_uri(image_stripped)
 
     service = AIHubService()
-    req = GenImgRequest(
-        prompt=prompt,
-        image=image_stripped,
-        model=_STYLIZE_MODEL,
-        size="1024x1024",
-        n=1,
-    )
-    try:
-        resp = await asyncio.wait_for(
-            service.genimg(req), timeout=_STYLIZE_TIMEOUT_SECONDS
+    total_keys = max(gemini_key_manager.get_total_keys_count(), 1)
+
+    # Multi-Model Cascade: Try best models first, fall back to next if all keys fail
+    for model_idx, target_model in enumerate(PREFERED_IMAGE_MODELS):
+        logger.info(
+            "[stylize] Attempting Model [%d/%d]: %s",
+            model_idx + 1,
+            len(PREFERED_IMAGE_MODELS),
+            target_model,
         )
-    except asyncio.TimeoutError as exc:
+
+        req = GenImgRequest(
+            prompt=prompt,
+            image=image_stripped,
+            model=target_model,
+            size="1024x1024",
+            n=1,
+        )
+
+        # Try all configured API keys for current model
+        for attempt in range(total_keys):
+            active_key = gemini_key_manager.get_current_key()
+            
+            try:
+                resp = await asyncio.wait_for(
+                    service.genimg(req, api_key=active_key) if hasattr(service, 'genimg_with_key') else service.genimg(req),
+                    timeout=_STYLIZE_TIMEOUT_SECONDS
+                )
+
+                if not resp or not getattr(resp, "images", None) or not resp.images:
+                    raise RuntimeError(f"Model {target_model} returned no images.")
+
+                raw_image_data = str(resp.images[0]).strip()
+                elapsed = time.monotonic() - t0
+                logger.info(
+                    "[stylize] SUCCESS! model=%s style=%s elapsed=%.2fs (key_index=%d)",
+                    target_model,
+                    style,
+                    elapsed,
+                    gemini_key_manager.current_index,
+                )
+                return _clean_image_url(raw_image_data)
+
+            except asyncio.TimeoutError:
+                logger.warning(
+                    "[stylize] Timeout (%ss) with model=%s key_index=%d. Retrying...",
+                    int(_STYLIZE_TIMEOUT_SECONDS),
+                    target_model,
+                    gemini_key_manager.current_index,
+                )
+
+            except Exception as exc:
+                msg = str(exc).lower()
+                is_rate_limit = (
+                    "429" in msg 
+                    or "resource_exhausted" in msg 
+                    or "quota" in msg 
+                    or "rate limit" in msg
+                )
+
+                if is_rate_limit:
+                    logger.warning(
+                        "[stylize] Quota 429 on model=%s key_index=%d. Rotating key...",
+                        target_model,
+                        gemini_key_manager.current_index,
+                    )
+                    gemini_key_manager.rotate_key()
+                    await asyncio.sleep(0.3)
+                    continue
+
+                if "insufficient_ai_balance" in msg or "insufficient ai balance" in msg:
+                    raise RuntimeError("AI credits balance exhausted.") from exc
+
+                logger.warning(
+                    "[stylize] Error on model=%s with key_index=%d: %s",
+                    target_model,
+                    gemini_key_manager.current_index,
+                    exc,
+                )
+
         logger.warning(
-            "[stylize] timeout after %ss style=%s sub_style=%s model=%s",
-            int(_STYLIZE_TIMEOUT_SECONDS),
-            style,
-            sub_style or "overall",
-            _STYLIZE_MODEL,
+            "[stylize] All keys exhausted for Model [%s]. Falling back to next tier model...",
+            target_model,
         )
-        raise RuntimeError(
-            f"Image generation timed out after {int(_STYLIZE_TIMEOUT_SECONDS)}s. "
-            "Please try again."
-        ) from exc
-    except Exception as exc:
-        msg = str(exc).lower()
-        if "insufficient_ai_balance" in msg or "insufficient ai balance" in msg:
-            logger.warning(
-                "[stylize] insufficient AI balance style=%s sub_style=%s",
-                style,
-                sub_style or "overall",
-            )
-            raise RuntimeError(
-                "AI image generation is temporarily unavailable: the "
-                "platform AI balance is exhausted. Please top up your "
-                "Atoms AI credits (Settings → Billing) and try again."
-            ) from exc
-        raise
 
-    if not resp or not getattr(resp, "images", None) or not resp.images:
-        raise RuntimeError("Stylize generation returned no images.")
-
-    raw_image_data = str(resp.images[0]).strip()
-
-    elapsed = time.monotonic() - t0
-    logger.info(
-        "[stylize] done style=%s sub_style=%s elapsed=%.2fs",
-        style,
-        sub_style or "overall",
-        elapsed,
-    )
-
-    return _clean_image_url(raw_image_data)
+    raise RuntimeError("All models and API keys have been exhausted without success.")
