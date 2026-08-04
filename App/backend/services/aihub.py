@@ -92,31 +92,62 @@ class AIHubService:
     """AI Hub service class that wraps AI SDK calls."""
 
     def __init__(self):
-        api_key = settings.app_ai_key or os.getenv("GEMINI_API_KEY")
-        if api_key:
-            self.client = genai.Client(api_key=api_key.strip())
+        # 1. تهيئة عميل Google Gemini باستخدام GEMINI_API_KEY أو المفتاح العام
+        gemini_key = os.getenv("GEMINI_API_KEY") or settings.app_ai_key
+        if gemini_key:
+            self.client = genai.Client(api_key=gemini_key.strip())
         else:
             self.client = None
 
-        # العميل المتوافق لخدمات النص والأنواع الأخرى التي تعتمد على OpenAI SDK
-        self.openai_client: Optional[AsyncOpenAI] = None
-        if settings.app_ai_base_url and settings.app_ai_key:
-            self.openai_client = AsyncOpenAI(
-                api_key=settings.app_ai_key,
-                base_url=settings.app_ai_base_url.rstrip("/"),
+        # 2. تهيئة العملاء المتوافقة مع OpenAI SDK (يدعم DeepSeek المباشر و OpenRouter كبديل)
+        self.deepseek_key = os.getenv("DEEPSEEK_API_KEY")
+        self.openrouter_key = os.getenv("OPENROUTER_API_KEY") or settings.app_ai_key
+        
+        # العميل المباشر لـ DeepSeek
+        self.deepseek_client: Optional[AsyncOpenAI] = None
+        if self.deepseek_key:
+            self.deepseek_client = AsyncOpenAI(
+                api_key=self.deepseek_key.strip(),
+                base_url="https://api.deepseek.com/v1",
             )
+
+        # العميل لمنصة OpenRouter أو أي مزود آخر عبر APP_AI_BASE_URL
+        self.openai_client: Optional[AsyncOpenAI] = None
+        openrouter_base_url = os.getenv("APP_AI_BASE_URL") or getattr(settings, "app_ai_base_url", None)
+        if not openrouter_base_url and self.openrouter_key:
+            openrouter_base_url = "https://openrouter.ai/api/v1"
+            
+        if openrouter_base_url and self.openrouter_key:
+            self.openai_client = AsyncOpenAI(
+                api_key=self.openrouter_key.strip(),
+                base_url=openrouter_base_url.rstrip("/"),
+            )
+
+    def _get_client_for_model(self, model_name: str) -> tuple[AsyncOpenAI, str]:
+        """اختر العميل والاسم الصحيح للنموذج بناءً على نوع الطلب."""
+        m_lower = (model_name or "").lower()
+        
+        # إذا كان الطلب يخص DeepSeek وكان لدينا مفتاح مباشر له
+        if "deepseek" in m_lower and self.deepseek_client:
+            # DeepSeek المباشر يقبل deepseek-chat أو deepseek-reasoner
+            resolved_model = "deepseek-chat" if "reasoner" not in m_lower else "deepseek-reasoner"
+            return self.deepseek_client, resolved_model
+            
+        # وإلا نستخدم العميل العام (OpenRouter أو البديل)
+        if self.openai_client:
+            return self.openai_client, model_name
+            
+        # كخيار أخير إذا توفر فقط DeepSeek
+        if self.deepseek_client:
+            return self.deepseek_client, "deepseek-chat"
+            
+        raise ValueError("No suitable OpenAI-compatible API client configured (Check DEEPSEEK_API_KEY or OPENROUTER_API_KEY).")
 
     def _require_ai_client(self) -> genai.Client:
         """Return the configured AI client or raise a configuration error."""
         if not self.client:
-            raise ValueError("AI service not configured. Set GEMINI_API_KEY or APP_AI_KEY.")
+            raise ValueError("AI service not configured. Set GEMINI_API_KEY.")
         return self.client
-
-    def _require_openai_client(self) -> AsyncOpenAI:
-        """Return the configured OpenAI-compatible client or raise an error."""
-        if not self.openai_client:
-            raise ValueError("OpenAI service not configured. Set APP_AI_BASE_URL and APP_AI_KEY.")
-        return self.openai_client
 
     def _convert_message(self, msg) -> dict:
         """Convert message format and support multimodal content."""
@@ -131,11 +162,11 @@ class AIHubService:
         Generate Text API (non-streaming), supports text and image input.
         """
         try:
-            client = self._require_openai_client()
+            client, target_model = self._get_client_for_model(request.model)
             messages = [self._convert_message(msg) for msg in request.messages]
 
             response = await client.chat.completions.create(
-                model=request.model,
+                model=target_model,
                 messages=messages,
                 temperature=request.temperature,
                 max_tokens=request.max_tokens,
@@ -166,11 +197,11 @@ class AIHubService:
         Generate Text API (streaming), supports text and image input.
         """
         try:
-            client = self._require_openai_client()
+            client, target_model = self._get_client_for_model(request.model)
             messages = [self._convert_message(msg) for msg in request.messages]
 
             stream = await client.chat.completions.create(
-                model=request.model,
+                model=target_model,
                 messages=messages,
                 temperature=request.temperature,
                 max_tokens=request.max_tokens,
@@ -516,7 +547,11 @@ User instruction:
         if not request.instruction or not request.instruction.strip():
             raise InvalidPdfInputError("instruction is required for PDF analysis.")
 
-        client = self._require_openai_client()
+        # نستخدم عميل OpenAI المتوافق لتحليل الـ PDF (مثل Claude أو النماذج الداعمة)
+        client = self.openai_client or self.deepseek_client
+        if not client:
+            raise ValueError("OpenAI-compatible service not configured for PDF analysis.")
+
         pdf_bytes, pdf_name = await self._pdf_source_to_bytes(request.pdf)
         pdf_b64, start, end, total_pages = self._prepare_pdf_attachment(
             pdf_bytes=pdf_bytes,
@@ -566,7 +601,7 @@ User instruction:
 
     async def genimg(self, request: GenImgRequest) -> GenImgResponse:
         """
-        Generate Image API using official Google GenAI library.
+        Generate Image API using official Google GenAI library (GEMINI_API_KEY).
         """
         try:
             client = self._require_ai_client()
@@ -669,7 +704,10 @@ User instruction:
     async def genvideo(self, request: GenVideoRequest) -> GenVideoResponse:
         """Generate Video API."""
         try:
-            client = self._require_openai_client()
+            client = self.openai_client or self.deepseek_client
+            if not client:
+                raise ValueError("OpenAI-compatible client not configured for video generation.")
+
             create_params: dict[str, object] = {
                 "model": request.model,
                 "prompt": request.prompt,
@@ -729,7 +767,10 @@ User instruction:
     async def genaudio(self, request: GenAudioRequest) -> GenAudioResponse:
         """Generate Audio (TTS) API."""
         try:
-            client = self._require_openai_client()
+            client = self.openai_client or self.deepseek_client
+            if not client:
+                raise ValueError("OpenAI-compatible client not configured for audio generation.")
+
             voice = self._get_voice(request.model, request.gender)
             params: dict[str, object] = {
                 "model": request.model,
@@ -770,7 +811,10 @@ User instruction:
         audio_file = await self._audio_str_to_upload_file(request.audio, name_prefix="input_audio")
 
         try:
-            client = self._require_openai_client()
+            client = self.openai_client or self.deepseek_client
+            if not client:
+                raise ValueError("OpenAI-compatible client not configured for transcription.")
+
             logger.info(f"Audio transcription started: model={request.model}, source={source_name}")
             resp = await client.audio.transcriptions.create(
                 file=audio_file,
