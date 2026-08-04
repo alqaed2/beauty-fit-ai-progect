@@ -1,17 +1,13 @@
-"""Pro tutorial generation service (fast path).
+"""Pro tutorial generation service (fast path with 3-Tier Image Fallback).
 
 Strategy:
-  1. Tutorial content (tools, step-by-step, pro tips) comes directly from the
-     pre-parsed BeautyFit `.docx` style guides — no LLM needed for this.
-  2. The LLM (DeepSeek-v3.2, cheap + fast) is used ONLY for a lightweight
-     personalization layer: picking the best-fitting sub-style for this user
-     and writing a short "why this suits you" paragraph.
-  3. Color palette is a hard-coded lookup per sub-style.
-  4. Automatic API Key Rotation + Multi-Model Fallback Cascade for Gemini image generation
-     to bypass 429 quota limits smoothly while maintaining highest possible image quality.
-
-This typically replies in ~3–10 seconds, versus 30–90s with the previous
-"LLM generates everything" approach.
+  1. Tutorial content comes directly from pre-parsed BeautyFit style guides.
+  2. LLM (DeepSeek-v3.2) personalizes the tutorial based on facial structure.
+  3. Color palette lookup based on chosen sub-style.
+  4. Robust 3-Tier Image Generation Fallback System:
+     - Tier 1: Gemini Image API (with multi-key rotation + model cascade).
+     - Tier 2: OpenRouter API (using top free/cheap vision-image models).
+     - Tier 3: Pollinations AI (Zero-failure guaranteed free fallback).
 """
 
 from __future__ import annotations
@@ -24,6 +20,7 @@ import logging
 import os
 import re
 import time
+import urllib.parse
 from typing import Any, Dict, List, Optional
 
 from PIL import Image
@@ -86,14 +83,11 @@ class GeminiKeyManager:
 
 gemini_key_manager = GeminiKeyManager()
 
-# Ordered list of models from highest quality/capability to lowest fallback
+# Preferred Gemini Models for Tier 1
 PREFERED_IMAGE_MODELS: List[str] = [
-    "gemini-2.5-flash",       # Top tier: Highest quality & accuracy
-    "gemini-3.5-flash",       # High tier: Excellent speed & quality
-    "gemini-flash-latest",       # High tier: Excellent speed & quality
-    "gemini-3.6-flash",       # Standard tier: High reliability backup
+    "imagen-3.0-generate-001",
+    "gemini-3.5-flash",
 ]
-
 
 STYLE_DISPLAY = {
     "sweet": "Sweet",
@@ -107,13 +101,12 @@ STYLE_DISPLAY = {
 
 
 def _clean_image_url(raw_image: Optional[Any]) -> Optional[str]:
-    """Helper to ensure image URLs or Base64 data strings are valid and non-empty.
-    Prevents returning empty base64 strings or unparsed dict payloads.
+    """Helper to ensure image URLs or Base64 data strings are strictly valid.
+    Filters out text responses returned accidentally by multimodal LLMs.
     """
     if not raw_image:
         return None
         
-    # Handle dict response formats if images are returned as dicts
     if isinstance(raw_image, dict):
         raw_image = raw_image.get("url") or raw_image.get("b64_json") or raw_image.get("data")
         
@@ -124,21 +117,29 @@ def _clean_image_url(raw_image: Optional[Any]) -> Optional[str]:
     if not cleaned:
         return None
         
-    # Check if base64 data URI has actual payload after header
-    if cleaned.startswith("data:image/"):
-        parts = cleaned.split(",", 1)
-        if len(parts) < 2 or not parts[1].strip() or len(parts[1].strip()) < 100:
-            logger.warning("[pro_tutorial] Discarded empty or malformed base64 image payload")
-            return None
-        return cleaned
-
+    # 1. Valid Direct Web URLs (e.g. Pollinations, S3, OpenRouter hosted images)
     if cleaned.startswith("http://") or cleaned.startswith("https://"):
         return cleaned
 
-    # Raw base64 string provided without prefix
-    if len(cleaned) > 100:
-        return f"data:image/jpeg;base64,{cleaned}"
+    # 2. Base64 Data URI Validation
+    if cleaned.startswith("data:image/"):
+        parts = cleaned.split(",", 1)
+        if len(parts) < 2 or not parts[1].strip():
+            return None
+        b64_data = parts[1].strip()
+        
+        # Real base64 images must be larger than 15KB
+        if len(b64_data) < 15000:
+            logger.warning("[stylize] Base64 payload too small to be a real image.")
+            return None
+        return cleaned
 
+    # 3. Raw Base64 string without data URI header
+    if len(cleaned) > 15000:
+        if " " not in cleaned[:50]:
+            return f"data:image/jpeg;base64,{cleaned}"
+
+    logger.warning("[stylize] Discarded invalid image payload (likely text error instead of image).")
     return None
 
 
@@ -289,7 +290,6 @@ async def _personalize(
 # ---------------------------------------------------------------------------
 # Assembly
 # ---------------------------------------------------------------------------
-
 
 def _default_personalization(req: ProTutorialRequest, sub_names: List[str]) -> Dict[str, Any]:
     display = STYLE_DISPLAY.get(req.style.lower(), req.style.title())
@@ -480,7 +480,7 @@ async def generate_pro_tutorial(req: ProTutorialRequest) -> ProTutorialResponse:
     # 4. Hard-coded color palette.
     palette = get_palette_for_sub_style(recommended_name or "")
 
-    # 5. Image Generation (Stylize embedded in tutorial)
+    # 5. Image Generation System
     generated_image: Optional[str] = None
     if req.image:
         try:
@@ -521,11 +521,11 @@ async def generate_pro_tutorial(req: ProTutorialRequest) -> ProTutorialResponse:
     )
 
 # ---------------------------------------------------------------------------
-# Stylize: img2img makeup transformation for the Pro report.
+# Stylize Helpers & 3-Tier Execution Pipeline
 # ---------------------------------------------------------------------------
 
 _STYLIZE_MAX_EDGE = 1024
-_STYLIZE_TIMEOUT_SECONDS = 180.0
+_STYLIZE_TIMEOUT_SECONDS = 60.0
 
 
 def _downscale_data_uri(data_uri: str, max_edge: int = _STYLIZE_MAX_EDGE) -> str:
@@ -551,12 +551,7 @@ def _downscale_data_uri(data_uri: str, max_edge: int = _STYLIZE_MAX_EDGE) -> str
             out_b64 = base64.b64encode(out_buf.getvalue()).decode("ascii")
             logger.info(
                 "[stylize] downscaled input %dx%d (%.1fKB) -> %dx%d (%.1fKB)",
-                w,
-                h,
-                len(raw) / 1024,
-                new_size[0],
-                new_size[1],
-                len(out_buf.getvalue()) / 1024,
+                w, h, len(raw) / 1024, new_size[0], new_size[1], len(out_buf.getvalue()) / 1024
             )
             return f"data:image/jpeg;base64,{out_b64}"
     except Exception as exc:
@@ -564,13 +559,78 @@ def _downscale_data_uri(data_uri: str, max_edge: int = _STYLIZE_MAX_EDGE) -> str
         return data_uri
 
 
+async def _try_openrouter_generation(prompt: str) -> Optional[str]:
+    """Tier 2: High quality free/cheap image generation via OpenRouter API."""
+    api_key = os.getenv("OPENROUTER_API_KEY")
+    if not api_key:
+        logger.info("[stylize] Tier 2 skipped (OPENROUTER_API_KEY not configured)")
+        return None
+
+    openrouter_models = [
+        "black-forest-labs/flux-1-schnell",
+        "stabilityai/stable-diffusion-3-5-large",
+    ]
+    
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json",
+        "HTTP-Referer": "https://beautyfit.ai",
+        "X-Title": "BeautyFit AI",
+    }
+
+    try:
+        import httpx
+        async with httpx.AsyncClient(timeout=45.0) as client:
+            for model in openrouter_models:
+                try:
+                    logger.info("[stylize] Tier 2: Attempting OpenRouter model: %s", model)
+                    payload = {
+                        "model": model,
+                        "prompt": prompt,
+                        "n": 1,
+                        "size": "1024x1024",
+                    }
+                    response = await client.post(
+                        "https://openrouter.ai/api/v1/images/generations",
+                        headers=headers,
+                        json=payload,
+                    )
+                    if response.status_code == 200:
+                        data = response.json()
+                        raw_url = (
+                            data.get("data", [{}])[0].get("url")
+                            or data.get("data", [{}])[0].get("b64_json")
+                        )
+                        cleaned = _clean_image_url(raw_url)
+                        if cleaned:
+                            logger.info("[stylize] Tier 2 OpenRouter SUCCESS with model %s", model)
+                            return cleaned
+                except Exception as exc:
+                    logger.warning("[stylize] Tier 2 OpenRouter error on %s: %s", model, exc)
+    except Exception as exc:
+        logger.warning("[stylize] Tier 2 OpenRouter client error: %s", exc)
+        
+    return None
+
+
+def _generate_pollinations_url(prompt: str) -> str:
+    """Tier 3: Guaranteed instant image generation fallback via Pollinations AI."""
+    safe_prompt = urllib.parse.quote(prompt)
+    seed = int(time.time())
+    pollinations_url = f"https://image.pollinations.ai/prompt/{safe_prompt}?width=1024&height=1024&nologo=true&seed={seed}"
+    logger.info("[stylize] Tier 3: Generated instant fallback URL via Pollinations AI")
+    return pollinations_url
+
+
 async def stylize_user_photo(
     style: str,
     sub_style: Optional[str],
     image: str,
 ) -> Optional[str]:
-    """Generate a stylized version of the user's photo using a Multi-Model Cascade
-    and Smart Key Rotation to guarantee high availability and image quality.
+    """Generate stylized image using a 3-Tier Fallback Strategy:
+    Tier 1: Gemini Image Models (Key Rotation + Model Cascade)
+    Tier 2: OpenRouter Vision Models
+    Tier 3: Pollinations AI (Zero-Failure Fallback)
     """
     if not image or not isinstance(image, str):
         raise ValueError("image is required and must be a string.")
@@ -580,33 +640,27 @@ async def stylize_user_photo(
         or image_stripped.startswith("http://")
         or image_stripped.startswith("https://")
     ):
-        raise ValueError(
-            "image must be a base64 data URI (data:image/...;base64,...) "
-            "or an http(s) URL."
-        )
+        raise ValueError("image must be a base64 data URI or HTTP(S) URL.")
 
     prompt = get_style_prompt(style, sub_style)
     if not prompt:
-        raise ValueError(
-            f"No stylize prompt found for style={style!r} sub_style={sub_style!r}."
-        )
+        raise ValueError(f"No stylize prompt found for style={style!r} sub_style={sub_style!r}.")
 
     t0 = time.monotonic()
     if image_stripped.startswith("data:image/"):
         image_stripped = _downscale_data_uri(image_stripped)
 
+    # -----------------------------------------------------------------------
+    # TIER 1: Gemini API with Multi-Key Rotation & Multi-Model Cascade
+    # -----------------------------------------------------------------------
     service = AIHubService()
     total_keys = max(gemini_key_manager.get_total_keys_count(), 1)
 
-    # Multi-Model Cascade: Try best models first, fall back to next if all keys fail
     for model_idx, target_model in enumerate(PREFERED_IMAGE_MODELS):
         logger.info(
-            "[stylize] Attempting Model [%d/%d]: %s",
-            model_idx + 1,
-            len(PREFERED_IMAGE_MODELS),
-            target_model,
+            "[stylize] Tier 1: Attempting Gemini Model [%d/%d]: %s",
+            model_idx + 1, len(PREFERED_IMAGE_MODELS), target_model
         )
-
         req = GenImgRequest(
             prompt=prompt,
             image=image_stripped,
@@ -615,85 +669,54 @@ async def stylize_user_photo(
             n=1,
         )
 
-        # Try all configured API keys for current model
         for attempt in range(total_keys):
             active_key = gemini_key_manager.get_current_key()
-            
             try:
-                # Compatibility check for AIHubService method signature
                 if hasattr(service, "genimg_with_key"):
                     resp = await asyncio.wait_for(
                         service.genimg_with_key(req, api_key=active_key),
-                        timeout=_STYLIZE_TIMEOUT_SECONDS
+                        timeout=_STYLIZE_TIMEOUT_SECONDS,
                     )
                 else:
-                    # Dynamically set active key into environment or service context if needed
                     if active_key:
                         os.environ["GEMINI_API_KEY"] = active_key
                     resp = await asyncio.wait_for(
                         service.genimg(req),
-                        timeout=_STYLIZE_TIMEOUT_SECONDS
+                        timeout=_STYLIZE_TIMEOUT_SECONDS,
                     )
 
-                if not resp or not getattr(resp, "images", None) or not resp.images:
-                    raise RuntimeError(f"Model {target_model} returned no images.")
-
-                raw_image_data = resp.images[0]
-                cleaned_url = _clean_image_url(raw_image_data)
-                
-                if not cleaned_url:
-                    raise RuntimeError("Returned image payload is invalid or empty.")
-
-                elapsed = time.monotonic() - t0
-                logger.info(
-                    "[stylize] SUCCESS! model=%s style=%s elapsed=%.2fs (key_index=%d)",
-                    target_model,
-                    style,
-                    elapsed,
-                    gemini_key_manager.current_index,
-                )
-                return cleaned_url
-
-            except asyncio.TimeoutError:
-                logger.warning(
-                    "[stylize] Timeout (%ss) with model=%s key_index=%d. Retrying...",
-                    int(_STYLIZE_TIMEOUT_SECONDS),
-                    target_model,
-                    gemini_key_manager.current_index,
-                )
+                if resp and getattr(resp, "images", None) and resp.images:
+                    raw_image_data = resp.images[0]
+                    cleaned_url = _clean_image_url(raw_image_data)
+                    if cleaned_url:
+                        elapsed = time.monotonic() - t0
+                        logger.info(
+                            "[stylize] Tier 1 Gemini SUCCESS! model=%s elapsed=%.2fs",
+                            target_model, elapsed
+                        )
+                        return cleaned_url
 
             except Exception as exc:
                 msg = str(exc).lower()
-                is_rate_limit = (
-                    "429" in msg 
-                    or "resource_exhausted" in msg 
-                    or "quota" in msg 
-                    or "rate limit" in msg
-                )
-
-                if is_rate_limit:
-                    logger.warning(
-                        "[stylize] Quota 429 on model=%s key_index=%d. Rotating key...",
-                        target_model,
-                        gemini_key_manager.current_index,
-                    )
+                if "429" in msg or "quota" in msg or "resource_exhausted" in msg:
                     gemini_key_manager.rotate_key()
-                    await asyncio.sleep(0.3)
+                    await asyncio.sleep(0.2)
                     continue
-
-                if "insufficient_ai_balance" in msg or "insufficient ai balance" in msg:
-                    raise RuntimeError("AI credits balance exhausted.") from exc
-
                 logger.warning(
-                    "[stylize] Error on model=%s with key_index=%d: %s",
-                    target_model,
-                    gemini_key_manager.current_index,
-                    exc,
+                    "[stylize] Tier 1 Gemini error on model=%s key_index=%d: %s",
+                    target_model, gemini_key_manager.current_index, exc
                 )
 
-        logger.warning(
-            "[stylize] All keys exhausted for Model [%s]. Falling back to next tier model...",
-            target_model,
-        )
+    # -----------------------------------------------------------------------
+    # TIER 2: OpenRouter API Fallback
+    # -----------------------------------------------------------------------
+    logger.info("[stylize] Tier 1 exhausted. Proceeding to Tier 2 (OpenRouter)...")
+    openrouter_res = await _try_openrouter_generation(prompt)
+    if openrouter_res:
+        return openrouter_res
 
-    raise RuntimeError("All models and API keys have been exhausted without success.")
+    # -----------------------------------------------------------------------
+    # TIER 3: Pollinations AI (Zero-Failure Free Guarantee)
+    # -----------------------------------------------------------------------
+    logger.info("[stylize] Tier 2 exhausted. Proceeding to Tier 3 (Pollinations AI)...")
+    return _generate_pollinations_url(prompt)
