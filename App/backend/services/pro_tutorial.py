@@ -5,9 +5,9 @@ Strategy:
   2. LLM (DeepSeek-v3.2) personalizes the tutorial based on facial structure.
   3. Color palette lookup based on chosen sub-style.
   4. Robust 3-Tier Image Generation Fallback System:
-     - Tier 1: Gemini Image API (with multi-key rotation + model cascade).
-     - Tier 2: OpenRouter API (using top free/cheap vision-image models).
-     - Tier 3: Pollinations AI (Zero-failure guaranteed free fallback).
+     - Tier 1: Gemini Image API (with multi-key rotation + Imagen model cascade).
+     - Tier 2: OpenRouter API (using top free/cheap vision-image models via Chat Completions).
+     - Tier 3: Pollinations AI (Zero-failure guaranteed free fallback with Flux model).
 """
 
 from __future__ import annotations
@@ -23,6 +23,7 @@ import time
 import urllib.parse
 from typing import Any, Dict, List, Optional
 
+import httpx
 from PIL import Image
 
 from schemas.aihub import ChatMessage, GenImgRequest, GenTxtRequest
@@ -83,10 +84,10 @@ class GeminiKeyManager:
 
 gemini_key_manager = GeminiKeyManager()
 
-# Preferred Gemini Models for Tier 1
+# Preferred Gemini Image Generation Models (Strictly Imagen Models)
 PREFERED_IMAGE_MODELS: List[str] = [
     "imagen-3.0-generate-001",
-    "gemini-3.5-flash",
+    "imagen-3.0-fast-generate-001",
 ]
 
 STYLE_DISPLAY = {
@@ -579,32 +580,43 @@ async def _try_openrouter_generation(prompt: str) -> Optional[str]:
     }
 
     try:
-        import httpx
         async with httpx.AsyncClient(timeout=45.0) as client:
             for model in openrouter_models:
                 try:
                     logger.info("[stylize] Tier 2: Attempting OpenRouter model: %s", model)
                     payload = {
                         "model": model,
-                        "prompt": prompt,
-                        "n": 1,
-                        "size": "1024x1024",
+                        "messages": [
+                            {
+                                "role": "user",
+                                "content": f"Generate a highly detailed portrait photograph of this makeup look: {prompt[:1000]}",
+                            }
+                        ],
                     }
                     response = await client.post(
-                        "https://openrouter.ai/api/v1/images/generations",
+                        "https://openrouter.ai/api/v1/chat/completions",
                         headers=headers,
                         json=payload,
                     )
                     if response.status_code == 200:
                         data = response.json()
-                        raw_url = (
-                            data.get("data", [{}])[0].get("url")
-                            or data.get("data", [{}])[0].get("b64_json")
-                        )
-                        cleaned = _clean_image_url(raw_url)
-                        if cleaned:
-                            logger.info("[stylize] Tier 2 OpenRouter SUCCESS with model %s", model)
-                            return cleaned
+                        content = data.get("choices", [{}])[0].get("message", {}).get("content", "")
+                        
+                        # OpenRouter markdown image format: ![image](URL)
+                        match = re.search(r"!\[.*?\]\((https?://[^\)]+)\)", content)
+                        if match:
+                            cleaned = _clean_image_url(match.group(1))
+                            if cleaned:
+                                logger.info("[stylize] Tier 2 OpenRouter SUCCESS with model %s", model)
+                                return cleaned
+                        else:
+                            # Direct URL extraction
+                            url_match = re.search(r"(https?://[^\s\)]+)", content)
+                            if url_match:
+                                cleaned = _clean_image_url(url_match.group(1))
+                                if cleaned:
+                                    logger.info("[stylize] Tier 2 OpenRouter SUCCESS (Raw URL) with model %s", model)
+                                    return cleaned
                 except Exception as exc:
                     logger.warning("[stylize] Tier 2 OpenRouter error on %s: %s", model, exc)
     except Exception as exc:
@@ -615,10 +627,17 @@ async def _try_openrouter_generation(prompt: str) -> Optional[str]:
 
 def _generate_pollinations_url(prompt: str) -> str:
     """Tier 3: Guaranteed instant image generation fallback via Pollinations AI."""
-    safe_prompt = urllib.parse.quote(prompt)
+    # 1. Clean complex special characters
+    clean_prompt = re.sub(r'[^a-zA-Z0-9\s,.-]', '', prompt)
+    
+    # 2. Limit prompt length to prevent HTTP 414 URI Too Long errors in frontend
+    if len(clean_prompt) > 400:
+        clean_prompt = clean_prompt[:400].strip() + " beautiful portrait elegant makeup"
+        
+    safe_prompt = urllib.parse.quote(clean_prompt)
     seed = int(time.time())
-    pollinations_url = f"https://image.pollinations.ai/prompt/{safe_prompt}?width=1024&height=1024&nologo=true&seed={seed}"
-    logger.info("[stylize] Tier 3: Generated instant fallback URL via Pollinations AI")
+    pollinations_url = f"https://image.pollinations.ai/prompt/{safe_prompt}?width=1024&height=1024&nologo=true&seed={seed}&model=flux"
+    logger.info("[stylize] Tier 3: Generated instant fallback URL via Pollinations AI (Length limited)")
     return pollinations_url
 
 
@@ -628,8 +647,8 @@ async def stylize_user_photo(
     image: str,
 ) -> Optional[str]:
     """Generate stylized image using a 3-Tier Fallback Strategy:
-    Tier 1: Gemini Image Models (Key Rotation + Model Cascade)
-    Tier 2: OpenRouter Vision Models
+    Tier 1: Gemini Imagen API (Key Rotation + Imagen Model Cascade)
+    Tier 2: OpenRouter API
     Tier 3: Pollinations AI (Zero-Failure Fallback)
     """
     if not image or not isinstance(image, str):
@@ -651,7 +670,7 @@ async def stylize_user_photo(
         image_stripped = _downscale_data_uri(image_stripped)
 
     # -----------------------------------------------------------------------
-    # TIER 1: Gemini API with Multi-Key Rotation & Multi-Model Cascade
+    # TIER 1: Gemini API with Multi-Key Rotation & Imagen Model Cascade
     # -----------------------------------------------------------------------
     service = AIHubService()
     total_keys = max(gemini_key_manager.get_total_keys_count(), 1)
