@@ -918,7 +918,8 @@ start_services_with_retry() {
         # Ensure IS_LAMBDA is always set to false for local development
         export IS_LAMBDA=false
         export ENVIRONMENT=dev
-        log_info "Ensured IS_LAMBDA=$IS_LAMBDA and ENVIRONMENT=$ENVIRONMENT for local development"
+        export DEBUG=false
+        log_info "Ensured IS_LAMBDA=$IS_LAMBDA, ENVIRONMENT=$ENVIRONMENT, and DEBUG=$DEBUG for local development"
 
         # Start backend service
         log_info "Starting Backend service...$BACKEND_PORT"

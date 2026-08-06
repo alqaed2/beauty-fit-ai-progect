@@ -132,7 +132,7 @@ export default function AnalyzePage() {
         // ─────────────────────────────────────────────────────────────────
         const MAX_RETRIES = 6;
         let lastError: unknown = null;
-        let response: { data: Record<string, unknown> } | null = null;
+        let response: unknown = null;
 
         // Delay schedule (ms): 2s, 4s, 8s, 15s, 22s, 30s → ~81s total worst-case
         const BACKOFF_MS = [2000, 4000, 8000, 15000, 22000, 30000];
@@ -201,7 +201,10 @@ export default function AnalyzePage() {
         clearInterval(interval);
         setProgress(100);
 
-        const result = response.data;
+        const result =
+          typeof response === "object" && response !== null && "data" in response
+            ? ((response as { data: Record<string, unknown> }).data ?? {})
+            : (response as Record<string, unknown>);
         setState("done");
 
         // Cache the successful upload + analysis for quick re-testing.
@@ -220,18 +223,22 @@ export default function AnalyzePage() {
         clearInterval(interval);
         setProgress(0);
         setState("error");
-        const errObj = err as Record<string, Record<string, unknown>>;
+        const errObj = err as Record<string, unknown> | null;
+        const errData = errObj?.data as Record<string, unknown> | undefined;
+        const errResponse = errObj?.response as Record<string, unknown> | undefined;
+        const errResponseData = errResponse?.data as Record<string, unknown> | undefined;
         const rawDetail =
-          errObj?.data?.detail ??
-          errObj?.data?.message ??
-          errObj?.response?.data?.detail ??
+          errData?.detail ??
+          errData?.message ??
+          errResponseData?.detail ??
           (err as Record<string, unknown>)?.message ??
           "";
         const detailStr = String(rawDetail);
         const lowerDetail = detailStr.toLowerCase();
         const status = Number(
           (err as Record<string, unknown>)?.status ??
-            errObj?.data?.status ??
+            errData?.status ??
+            errResponseData?.status ??
             0
         );
         const isTransient =

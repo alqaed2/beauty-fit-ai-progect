@@ -1,0 +1,74 @@
+• 问题基本已经定位到了：你的部署入口里有一层 Python/Lambda 路由，它只把 .js/.css/.html/... 这些后缀当成静态文件处理，没
+  有包含 .txt。所以本地 dist/ads.txt 虽然存在，线上请求 /ads.txt 还是不会去读这个文件。现在我把这层路由补上。
+
+• Ran git -C /Users/liuyan/beautyfit status --short
+  └ fatal: not a git repository (or any of the parent directories): .git
+
+• Explored
+  └ Search serve_static_file\(|path\.endswith\(|ads\.txt|robots\.txt|sitemap\.xml in backend
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+• 我要改 backend/lambda_handler.py，让线上路由把 .txt 文件当静态资源返回，并给 ads.txt 正确的 text/plain MIME 类型。这样
+  重新部署后，/ads.txt 就会直接命中构建产物。
+
+• Edited beautyfit/backend/lambda_handler.py (+17 -1)
+    245          elif path.endswith(
+    246 -            (".js", ".css", ".html", ".png", ".jpg", ".jpeg", ".gif", ".ico", ".svg", ".woff", ".woff2", ".ttf"
+         , ".eot")
+    246 +            (
+    247 +                ".js",
+    248 +                ".css",
+    249 +                ".html",
+    250 +                ".txt",
+    251 +                ".png",
+    252 +                ".jpg",
+    253 +                ".jpeg",
+    254 +                ".gif",
+    255 +                ".ico",
+    256 +                ".svg",
+    257 +                ".woff",
+    258 +                ".woff2",
+    259 +                ".ttf",
+    260 +                ".eot",
+    261 +            )
+    262          ):
+        ⋮
+    388          ".html": "text/html",
+    389 +        ".txt": "text/plain; charset=utf-8",
+    390          ".png": "image/png",
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+• 路由改好了。我再做一个最小验证，确认这次修改没有引入语法问题，并把关键行号给你。
+
+• Explored
+  └ List ads.txt
+    Read lambda_handler.py
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+• 语法检查刚才被 macOS 的系统缓存目录权限挡住了，不是代码本身报错。我换一个本地可写的缓存目录再验一次。
+
+• Explored
+  └ List .pycache
+
+• Ran PYTHONPYCACHEPREFIX=/Users/liuyan/beautyfit/.pycache python3 -m py_compile /Users/liuyan/beautyfit/backend/
+  │ lambda_handler.py
+  └ (no output)
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+• 问题已经定位并修了。
+
+  你的线上站点不是纯静态托管，前面有一层 Python/Lambda 路由在分发请求。/ads.txt 之所以 404，不是因为文件没生成，而是因为
+  这层路由只把 .js/.css/.html/.png... 当静态文件处理，漏掉了 .txt。本地我确认过 ads.txt 已经存在于 beautyfit/frontend/
+  public/ads.txt 和构建产物 beautyfit/frontend/dist/ads.txt。
+
+  我已经改了 beautyfit/backend/lambda_handler.py:245，把 .txt 纳入静态文件白名单，并在 beautyfit/backend/
+  lambda_handler.py:385 里给它加了 text/plain; charset=utf-8。语法检查也通过了。
+
+  现在还差一步：重新部署。
+  部署完成后再访问 https://beautyfit.online/ads.txt，应该就会返回：
+
+  google.com, pub-4766878123799755, DIRECT, f08c47fec0942fa0

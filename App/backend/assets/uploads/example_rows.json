@@ -1,0 +1,50 @@
+[
+  {
+    "id": "anastasia-beverly-hills-dusty-mauve",
+    "color_family": "dusty-rose",
+    "undertone": "neutral",
+    "finish": "matte",
+    "seasonal_palette": "summer",
+    "visual_vector": [
+      0.506356,
+      0.595293,
+      0.523812,
+      0.979528,
+      0.2346,
+      0.5064
+    ],
+    "semantic_search_text": "Anastasia Beverly Hills | Matte Lipstick | Dusty Mauve | lipstick | dusty-rose | neutral | matte | summer"
+  },
+  {
+    "id": "anastasia-beverly-hills-rum-punch",
+    "color_family": "rose",
+    "undertone": "warm",
+    "finish": "matte",
+    "seasonal_palette": "autumn",
+    "visual_vector": [
+      0.397217,
+      0.655679,
+      0.580785,
+      0.0,
+      0.4273,
+      0.3972
+    ],
+    "semantic_search_text": "Anastasia Beverly Hills | Matte Lipstick | Rum Punch | lipstick | rose | warm | matte | autumn"
+  },
+  {
+    "id": "anastasia-beverly-hills-staunch",
+    "color_family": "rose",
+    "undertone": "warm",
+    "finish": "matte",
+    "seasonal_palette": "spring",
+    "visual_vector": [
+      0.571963,
+      0.614535,
+      0.573515,
+      0.019389,
+      0.4095,
+      0.572
+    ],
+    "semantic_search_text": "Anastasia Beverly Hills | Matte Lipstick | Staunch | lipstick | rose | warm | matte | spring"
+  }
+]

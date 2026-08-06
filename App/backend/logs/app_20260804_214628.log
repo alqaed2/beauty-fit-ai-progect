@@ -1,0 +1,34 @@
+2026-08-04 21:46:28,659 - main - INFO - === Logging system initialized ===
+2026-08-04 21:46:28,659 - main - INFO - Log file: logs/app_20260804_214628.log
+2026-08-04 21:46:28,660 - main - INFO - Log level: INFO
+2026-08-04 21:46:28,660 - main - INFO - Timestamp: 20260804_214628
+2026-08-04 21:46:34,212 - main - INFO - Included router: routers.aihub.router
+2026-08-04 21:46:34,229 - main - INFO - Included router: routers.auth.router
+2026-08-04 21:46:34,238 - main - INFO - Included router: routers.face_analysis.router
+2026-08-04 21:46:34,239 - main - INFO - Included router: routers.health.router
+2026-08-04 21:46:34,340 - routers.lipsticks - INFO - Loaded 6190 lipstick records from /workspaces/beauty-fit-ai-progect/App/backend/data/lipstick_enriched.json
+2026-08-04 21:46:34,351 - main - INFO - Included router: routers.lipsticks.router
+2026-08-04 21:46:34,598 - main - INFO - Included router: routers.payments.router
+2026-08-04 21:46:34,609 - services.pro_tutorial - INFO - [GeminiKeyManager] Initialized with 1 API key(s).
+2026-08-04 21:46:34,620 - main - INFO - Included router: routers.pro_tutorial.router
+2026-08-04 21:46:34,630 - main - INFO - Included router: routers.settings.router
+2026-08-04 21:46:34,649 - main - INFO - Included router: routers.storage.router
+2026-08-04 21:46:34,652 - main - INFO - Included router: routers.user.router
+2026-08-04 21:46:34,906 - main - INFO - === Application startup initiated ===
+2026-08-04 21:46:34,906 - services.database - DEBUG - [DB_OP] Starting database initialization
+2026-08-04 21:46:34,906 - services.database - INFO - 🔧 Starting database initialization...
+2026-08-04 21:46:34,906 - core.database - INFO - Starting database initialization...
+2026-08-04 21:46:34,906 - core.config - DEBUG - Read dynamic attribute database_url from environment variable DATABASE_URL
+2026-08-04 21:46:34,906 - core.database - INFO - Normalizing database URL for async compatibility...
+2026-08-04 21:46:34,907 - core.database - WARNING - Adjusted database URL driver for async compatibility
+2026-08-04 21:46:34,907 - core.database - INFO - Creating async database engine...
+2026-08-04 21:46:34,907 - core.database - INFO - Using QueuePool with connection pooling for non-Lambda environment
+2026-08-04 21:46:34,954 - core.database - INFO - Database engine created successfully
+2026-08-04 21:46:34,955 - core.database - INFO - Creating async session maker...
+2026-08-04 21:46:34,955 - core.database - INFO - Async session maker created successfully
+2026-08-04 21:46:34,955 - core.database - INFO - Database connection initialized successfully
+2026-08-04 21:46:34,955 - services.database - INFO - 🔧 Database connection initialized, now creating tables if tables not exist...
+2026-08-04 21:46:34,955 - core.database - DEBUG - [DB_OP] Starting create_tables
+2026-08-04 21:46:34,955 - core.database - INFO - 🔧 Starting table creation...
+2026-08-04 21:46:35,023 - core.database - ERROR - Failed to create tables: [Errno -2] Name or service not known
+2026-08-04 21:46:35,023 - services.database - ERROR - Failed to initialize database: [Errno -2] Name or service not known

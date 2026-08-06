@@ -1,0 +1,560 @@
+2026-08-04 19:33:32,751 - main - INFO - === Logging system initialized ===
+2026-08-04 19:33:32,751 - main - INFO - Log file: logs/app_20260804_193332.log
+2026-08-04 19:33:32,751 - main - INFO - Log level: INFO
+2026-08-04 19:33:32,751 - main - INFO - Timestamp: 20260804_193332
+2026-08-04 19:33:35,789 - main - INFO - Included router: routers.aihub.router
+2026-08-04 19:33:35,797 - main - INFO - Included router: routers.auth.router
+2026-08-04 19:33:35,813 - main - INFO - Included router: routers.face_analysis.router
+2026-08-04 19:33:35,814 - main - INFO - Included router: routers.health.router
+2026-08-04 19:33:35,911 - routers.lipsticks - INFO - Loaded 6190 lipstick records from /workspaces/beauty-fit-ai-progect/App/backend/data/lipstick_enriched.json
+2026-08-04 19:33:35,929 - main - INFO - Included router: routers.lipsticks.router
+2026-08-04 19:33:35,950 - main - INFO - Included router: routers.payments.router
+2026-08-04 19:33:35,959 - services.pro_tutorial - INFO - [GeminiKeyManager] Initialized with 1 API key(s).
+2026-08-04 19:33:35,962 - main - INFO - Included router: routers.pro_tutorial.router
+2026-08-04 19:33:35,969 - main - INFO - Included router: routers.settings.router
+2026-08-04 19:33:35,986 - main - INFO - Included router: routers.storage.router
+2026-08-04 19:33:35,989 - main - INFO - Included router: routers.user.router
+2026-08-04 19:33:35,990 - main - INFO - === Application startup initiated ===
+2026-08-04 19:33:35,990 - services.database - DEBUG - [DB_OP] Starting database initialization
+2026-08-04 19:33:35,990 - services.database - INFO - 🔧 Starting database initialization...
+2026-08-04 19:33:35,990 - core.database - INFO - Starting database initialization...
+2026-08-04 19:33:35,990 - core.config - DEBUG - Read dynamic attribute database_url from environment variable DATABASE_URL
+2026-08-04 19:33:35,990 - core.database - INFO - Normalizing database URL for async compatibility...
+2026-08-04 19:33:35,991 - core.database - ERROR - Database not found:./dev.db
+2026-08-04 19:33:35,991 - core.database - INFO - Creating async database engine...
+2026-08-04 19:33:35,991 - core.database - INFO - Using QueuePool with connection pooling for non-Lambda environment
+2026-08-04 19:33:36,218 - core.database - INFO - Database engine created successfully
+2026-08-04 19:33:36,218 - core.database - INFO - Creating async session maker...
+2026-08-04 19:33:36,218 - core.database - INFO - Async session maker created successfully
+2026-08-04 19:33:36,218 - core.database - INFO - Database connection initialized successfully
+2026-08-04 19:33:36,218 - services.database - INFO - 🔧 Database connection initialized, now creating tables if tables not exist...
+2026-08-04 19:33:36,218 - core.database - DEBUG - [DB_OP] Starting create_tables
+2026-08-04 19:33:36,219 - core.database - INFO - 🔧 Starting table creation...
+2026-08-04 19:33:36,219 - aiosqlite - DEBUG - executing <function connect.<locals>.connector at 0x738e4510d800>
+2026-08-04 19:33:36,220 - aiosqlite - DEBUG - operation <function connect.<locals>.connector at 0x738e4510d800> completed
+2026-08-04 19:33:36,220 - aiosqlite - DEBUG - executing functools.partial(<built-in method create_function of sqlite3.Connection object at 0x738e45110040>, 'regexp', 2, <function SQLiteDialect_pysqlite.on_connect.<locals>.regexp at 0x738e4510cb80>, deterministic=True)
+2026-08-04 19:33:36,221 - aiosqlite - DEBUG - operation functools.partial(<built-in method create_function of sqlite3.Connection object at 0x738e45110040>, 'regexp', 2, <function SQLiteDialect_pysqlite.on_connect.<locals>.regexp at 0x738e4510cb80>, deterministic=True) completed
+2026-08-04 19:33:36,221 - aiosqlite - DEBUG - executing functools.partial(<built-in method create_function of sqlite3.Connection object at 0x738e45110040>, 'floor', 1, <built-in function floor>, deterministic=True)
+2026-08-04 19:33:36,221 - aiosqlite - DEBUG - operation functools.partial(<built-in method create_function of sqlite3.Connection object at 0x738e45110040>, 'floor', 1, <built-in function floor>, deterministic=True) completed
+2026-08-04 19:33:36,221 - aiosqlite - DEBUG - executing functools.partial(<built-in method cursor of sqlite3.Connection object at 0x738e45110040>)
+2026-08-04 19:33:36,221 - aiosqlite - DEBUG - operation functools.partial(<built-in method cursor of sqlite3.Connection object at 0x738e45110040>) completed
+2026-08-04 19:33:36,221 - aiosqlite - DEBUG - executing functools.partial(<built-in method execute of sqlite3.Cursor object at 0x738e450f26c0>, 'PRAGMA read_uncommitted', [])
+2026-08-04 19:33:36,222 - aiosqlite - DEBUG - operation functools.partial(<built-in method execute of sqlite3.Cursor object at 0x738e450f26c0>, 'PRAGMA read_uncommitted', []) completed
+2026-08-04 19:33:36,222 - aiosqlite - DEBUG - executing functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x738e450f26c0>)
+2026-08-04 19:33:36,222 - aiosqlite - DEBUG - operation functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x738e450f26c0>) completed
+2026-08-04 19:33:36,222 - aiosqlite - DEBUG - executing functools.partial(<built-in method close of sqlite3.Cursor object at 0x738e450f26c0>)
+2026-08-04 19:33:36,222 - aiosqlite - DEBUG - operation functools.partial(<built-in method close of sqlite3.Cursor object at 0x738e450f26c0>) completed
+2026-08-04 19:33:36,222 - aiosqlite - DEBUG - executing functools.partial(<built-in method rollback of sqlite3.Connection object at 0x738e45110040>)
+2026-08-04 19:33:36,222 - aiosqlite - DEBUG - operation functools.partial(<built-in method rollback of sqlite3.Connection object at 0x738e45110040>) completed
+2026-08-04 19:33:36,223 - aiosqlite - DEBUG - executing functools.partial(<built-in method cursor of sqlite3.Connection object at 0x738e45110040>)
+2026-08-04 19:33:36,223 - aiosqlite - DEBUG - operation functools.partial(<built-in method cursor of sqlite3.Connection object at 0x738e45110040>) completed
+2026-08-04 19:33:36,223 - aiosqlite - DEBUG - executing functools.partial(<built-in method execute of sqlite3.Cursor object at 0x738e450f2740>, 'PRAGMA main.table_info("users")', ())
+2026-08-04 19:33:36,223 - aiosqlite - DEBUG - operation functools.partial(<built-in method execute of sqlite3.Cursor object at 0x738e450f2740>, 'PRAGMA main.table_info("users")', ()) completed
+2026-08-04 19:33:36,224 - aiosqlite - DEBUG - executing functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x738e450f2740>)
+2026-08-04 19:33:36,224 - aiosqlite - DEBUG - operation functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x738e450f2740>) completed
+2026-08-04 19:33:36,224 - aiosqlite - DEBUG - executing functools.partial(<built-in method close of sqlite3.Cursor object at 0x738e450f2740>)
+2026-08-04 19:33:36,224 - aiosqlite - DEBUG - operation functools.partial(<built-in method close of sqlite3.Cursor object at 0x738e450f2740>) completed
+2026-08-04 19:33:36,224 - aiosqlite - DEBUG - executing functools.partial(<built-in method cursor of sqlite3.Connection object at 0x738e45110040>)
+2026-08-04 19:33:36,224 - aiosqlite - DEBUG - operation functools.partial(<built-in method cursor of sqlite3.Connection object at 0x738e45110040>) completed
+2026-08-04 19:33:36,225 - aiosqlite - DEBUG - executing functools.partial(<built-in method execute of sqlite3.Cursor object at 0x738e450f2740>, 'PRAGMA temp.table_info("users")', ())
+2026-08-04 19:33:36,225 - aiosqlite - DEBUG - operation functools.partial(<built-in method execute of sqlite3.Cursor object at 0x738e450f2740>, 'PRAGMA temp.table_info("users")', ()) completed
+2026-08-04 19:33:36,225 - aiosqlite - DEBUG - executing functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x738e450f2740>)
+2026-08-04 19:33:36,225 - aiosqlite - DEBUG - operation functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x738e450f2740>) completed
+2026-08-04 19:33:36,225 - aiosqlite - DEBUG - executing functools.partial(<built-in method close of sqlite3.Cursor object at 0x738e450f2740>)
+2026-08-04 19:33:36,225 - aiosqlite - DEBUG - operation functools.partial(<built-in method close of sqlite3.Cursor object at 0x738e450f2740>) completed
+2026-08-04 19:33:36,226 - aiosqlite - DEBUG - executing functools.partial(<built-in method cursor of sqlite3.Connection object at 0x738e45110040>)
+2026-08-04 19:33:36,226 - aiosqlite - DEBUG - operation functools.partial(<built-in method cursor of sqlite3.Connection object at 0x738e45110040>) completed
+2026-08-04 19:33:36,226 - aiosqlite - DEBUG - executing functools.partial(<built-in method execute of sqlite3.Cursor object at 0x738e450f2740>, 'PRAGMA main.table_info("oidc_states")', ())
+2026-08-04 19:33:36,226 - aiosqlite - DEBUG - operation functools.partial(<built-in method execute of sqlite3.Cursor object at 0x738e450f2740>, 'PRAGMA main.table_info("oidc_states")', ()) completed
+2026-08-04 19:33:36,226 - aiosqlite - DEBUG - executing functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x738e450f2740>)
+2026-08-04 19:33:36,226 - aiosqlite - DEBUG - operation functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x738e450f2740>) completed
+2026-08-04 19:33:36,226 - aiosqlite - DEBUG - executing functools.partial(<built-in method close of sqlite3.Cursor object at 0x738e450f2740>)
+2026-08-04 19:33:36,226 - aiosqlite - DEBUG - operation functools.partial(<built-in method close of sqlite3.Cursor object at 0x738e450f2740>) completed
+2026-08-04 19:33:36,227 - aiosqlite - DEBUG - executing functools.partial(<built-in method cursor of sqlite3.Connection object at 0x738e45110040>)
+2026-08-04 19:33:36,227 - aiosqlite - DEBUG - operation functools.partial(<built-in method cursor of sqlite3.Connection object at 0x738e45110040>) completed
+2026-08-04 19:33:36,227 - aiosqlite - DEBUG - executing functools.partial(<built-in method execute of sqlite3.Cursor object at 0x738e450f2740>, 'PRAGMA temp.table_info("oidc_states")', ())
+2026-08-04 19:33:36,227 - aiosqlite - DEBUG - operation functools.partial(<built-in method execute of sqlite3.Cursor object at 0x738e450f2740>, 'PRAGMA temp.table_info("oidc_states")', ()) completed
+2026-08-04 19:33:36,227 - aiosqlite - DEBUG - executing functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x738e450f2740>)
+2026-08-04 19:33:36,227 - aiosqlite - DEBUG - operation functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x738e450f2740>) completed
+2026-08-04 19:33:36,228 - aiosqlite - DEBUG - executing functools.partial(<built-in method close of sqlite3.Cursor object at 0x738e450f2740>)
+2026-08-04 19:33:36,228 - aiosqlite - DEBUG - operation functools.partial(<built-in method close of sqlite3.Cursor object at 0x738e450f2740>) completed
+2026-08-04 19:33:36,229 - aiosqlite - DEBUG - executing functools.partial(<built-in method cursor of sqlite3.Connection object at 0x738e45110040>)
+2026-08-04 19:33:36,229 - aiosqlite - DEBUG - operation functools.partial(<built-in method cursor of sqlite3.Connection object at 0x738e45110040>) completed
+2026-08-04 19:33:36,229 - aiosqlite - DEBUG - executing functools.partial(<built-in method execute of sqlite3.Cursor object at 0x738e450f2740>, '\nCREATE TABLE users (\n\tid VARCHAR(255) NOT NULL, \n\temail VARCHAR(255) NOT NULL, \n\tname VARCHAR(255), \n\trole VARCHAR(50) NOT NULL, \n\tcreated_at DATETIME DEFAULT CURRENT_TIMESTAMP, \n\tlast_login DATETIME, \n\tPRIMARY KEY (id)\n)\n\n', ())
+2026-08-04 19:33:36,233 - aiosqlite - DEBUG - operation functools.partial(<built-in method execute of sqlite3.Cursor object at 0x738e450f2740>, '\nCREATE TABLE users (\n\tid VARCHAR(255) NOT NULL, \n\temail VARCHAR(255) NOT NULL, \n\tname VARCHAR(255), \n\trole VARCHAR(50) NOT NULL, \n\tcreated_at DATETIME DEFAULT CURRENT_TIMESTAMP, \n\tlast_login DATETIME, \n\tPRIMARY KEY (id)\n)\n\n', ()) completed
+2026-08-04 19:33:36,233 - aiosqlite - DEBUG - executing functools.partial(<built-in method close of sqlite3.Cursor object at 0x738e450f2740>)
+2026-08-04 19:33:36,233 - aiosqlite - DEBUG - operation functools.partial(<built-in method close of sqlite3.Cursor object at 0x738e450f2740>) completed
+2026-08-04 19:33:36,234 - aiosqlite - DEBUG - executing functools.partial(<built-in method cursor of sqlite3.Connection object at 0x738e45110040>)
+2026-08-04 19:33:36,234 - aiosqlite - DEBUG - operation functools.partial(<built-in method cursor of sqlite3.Connection object at 0x738e45110040>) completed
+2026-08-04 19:33:36,234 - aiosqlite - DEBUG - executing functools.partial(<built-in method execute of sqlite3.Cursor object at 0x738e450f2740>, 'CREATE INDEX ix_users_id ON users (id)', ())
+2026-08-04 19:33:36,238 - aiosqlite - DEBUG - operation functools.partial(<built-in method execute of sqlite3.Cursor object at 0x738e450f2740>, 'CREATE INDEX ix_users_id ON users (id)', ()) completed
+2026-08-04 19:33:36,238 - aiosqlite - DEBUG - executing functools.partial(<built-in method close of sqlite3.Cursor object at 0x738e450f2740>)
+2026-08-04 19:33:36,238 - aiosqlite - DEBUG - operation functools.partial(<built-in method close of sqlite3.Cursor object at 0x738e450f2740>) completed
+2026-08-04 19:33:36,239 - aiosqlite - DEBUG - executing functools.partial(<built-in method cursor of sqlite3.Connection object at 0x738e45110040>)
+2026-08-04 19:33:36,239 - aiosqlite - DEBUG - operation functools.partial(<built-in method cursor of sqlite3.Connection object at 0x738e45110040>) completed
+2026-08-04 19:33:36,239 - aiosqlite - DEBUG - executing functools.partial(<built-in method execute of sqlite3.Cursor object at 0x738e450f2740>, '\nCREATE TABLE oidc_states (\n\tid INTEGER NOT NULL, \n\tstate VARCHAR(255) NOT NULL, \n\tnonce VARCHAR(255) NOT NULL, \n\tcode_verifier VARCHAR(255) NOT NULL, \n\texpires_at DATETIME NOT NULL, \n\tcreated_at DATETIME DEFAULT CURRENT_TIMESTAMP, \n\tPRIMARY KEY (id)\n)\n\n', ())
+2026-08-04 19:33:36,243 - aiosqlite - DEBUG - operation functools.partial(<built-in method execute of sqlite3.Cursor object at 0x738e450f2740>, '\nCREATE TABLE oidc_states (\n\tid INTEGER NOT NULL, \n\tstate VARCHAR(255) NOT NULL, \n\tnonce VARCHAR(255) NOT NULL, \n\tcode_verifier VARCHAR(255) NOT NULL, \n\texpires_at DATETIME NOT NULL, \n\tcreated_at DATETIME DEFAULT CURRENT_TIMESTAMP, \n\tPRIMARY KEY (id)\n)\n\n', ()) completed
+2026-08-04 19:33:36,243 - aiosqlite - DEBUG - executing functools.partial(<built-in method close of sqlite3.Cursor object at 0x738e450f2740>)
+2026-08-04 19:33:36,243 - aiosqlite - DEBUG - operation functools.partial(<built-in method close of sqlite3.Cursor object at 0x738e450f2740>) completed
+2026-08-04 19:33:36,244 - aiosqlite - DEBUG - executing functools.partial(<built-in method cursor of sqlite3.Connection object at 0x738e45110040>)
+2026-08-04 19:33:36,244 - aiosqlite - DEBUG - operation functools.partial(<built-in method cursor of sqlite3.Connection object at 0x738e45110040>) completed
+2026-08-04 19:33:36,244 - aiosqlite - DEBUG - executing functools.partial(<built-in method execute of sqlite3.Cursor object at 0x738e450f2740>, 'CREATE UNIQUE INDEX ix_oidc_states_state ON oidc_states (state)', ())
+2026-08-04 19:33:36,247 - aiosqlite - DEBUG - operation functools.partial(<built-in method execute of sqlite3.Cursor object at 0x738e450f2740>, 'CREATE UNIQUE INDEX ix_oidc_states_state ON oidc_states (state)', ()) completed
+2026-08-04 19:33:36,247 - aiosqlite - DEBUG - executing functools.partial(<built-in method close of sqlite3.Cursor object at 0x738e450f2740>)
+2026-08-04 19:33:36,247 - aiosqlite - DEBUG - operation functools.partial(<built-in method close of sqlite3.Cursor object at 0x738e450f2740>) completed
+2026-08-04 19:33:36,248 - aiosqlite - DEBUG - executing functools.partial(<built-in method cursor of sqlite3.Connection object at 0x738e45110040>)
+2026-08-04 19:33:36,248 - aiosqlite - DEBUG - operation functools.partial(<built-in method cursor of sqlite3.Connection object at 0x738e45110040>) completed
+2026-08-04 19:33:36,248 - aiosqlite - DEBUG - executing functools.partial(<built-in method execute of sqlite3.Cursor object at 0x738e450f2740>, 'CREATE INDEX ix_oidc_states_id ON oidc_states (id)', ())
+2026-08-04 19:33:36,252 - aiosqlite - DEBUG - operation functools.partial(<built-in method execute of sqlite3.Cursor object at 0x738e450f2740>, 'CREATE INDEX ix_oidc_states_id ON oidc_states (id)', ()) completed
+2026-08-04 19:33:36,252 - aiosqlite - DEBUG - executing functools.partial(<built-in method close of sqlite3.Cursor object at 0x738e450f2740>)
+2026-08-04 19:33:36,252 - aiosqlite - DEBUG - operation functools.partial(<built-in method close of sqlite3.Cursor object at 0x738e450f2740>) completed
+2026-08-04 19:33:36,252 - core.database - INFO - Tables initialized successfully
+2026-08-04 19:33:36,252 - core.database - DEBUG - [DB_OP] Create tables completed in 0.0340s
+2026-08-04 19:33:36,253 - aiosqlite - DEBUG - executing functools.partial(<built-in method commit of sqlite3.Connection object at 0x738e45110040>)
+2026-08-04 19:33:36,253 - aiosqlite - DEBUG - operation functools.partial(<built-in method commit of sqlite3.Connection object at 0x738e45110040>) completed
+2026-08-04 19:33:36,253 - aiosqlite - DEBUG - executing functools.partial(<built-in method rollback of sqlite3.Connection object at 0x738e45110040>)
+2026-08-04 19:33:36,253 - aiosqlite - DEBUG - operation functools.partial(<built-in method rollback of sqlite3.Connection object at 0x738e45110040>) completed
+2026-08-04 19:33:36,253 - services.database - INFO - 🔧 Table creation completed
+2026-08-04 19:33:36,253 - services.database - INFO - Database initialized successfully
+2026-08-04 19:33:36,254 - services.database - DEBUG - [DB_OP] Database initialization completed in 0.2636s
+2026-08-04 19:33:36,254 - services.mock_data - INFO - mock_data directory not found, skipping mock initialization
+2026-08-04 19:33:36,254 - services.database - DEBUG - [DB_OP] Starting database initialization
+2026-08-04 19:33:36,254 - services.database - INFO - 🔧 Starting database initialization...
+2026-08-04 19:33:36,254 - core.database - INFO - Starting database initialization...
+2026-08-04 19:33:36,254 - core.database - INFO - Database already initialized
+2026-08-04 19:33:36,254 - services.database - INFO - 🔧 Database connection initialized, now creating tables if tables not exist...
+2026-08-04 19:33:36,254 - core.database - DEBUG - [DB_OP] Starting create_tables
+2026-08-04 19:33:36,254 - core.database - INFO - Tables already initialized
+2026-08-04 19:33:36,254 - services.database - INFO - 🔧 Table creation completed
+2026-08-04 19:33:36,254 - services.database - INFO - Database initialized successfully
+2026-08-04 19:33:36,254 - services.database - DEBUG - [DB_OP] Database initialization completed in 0.0005s
+2026-08-04 19:33:36,254 - services.auth - WARNING - Admin user ID or email not configured, skipping admin initialization
+2026-08-04 19:33:36,254 - main - INFO - === Application startup completed successfully ===
+2026-08-04 19:41:40,983 - dependencies.auth - DEBUG - Authentication required for request GET /api/v1/auth/me
+2026-08-04 19:42:31,371 - services.face_analysis - INFO - [BeautyFit v2.1] img=800x533 Metrics: face_ratio=1.085, jaw_angle=148.8, jaw_ratio=1.538, forehead_ratio=0.844, chin_ratio=0.286, EAR=0.32, eye_aspect_ratio=2.857, eye_tilt_angle=169.59, lid_visibility=0.536, nose_bridge_height=0.0264, lip_height_ratio=0.1566, cupid_bow_ratio=0.055
+2026-08-04 19:42:43,273 - routers.pro_tutorial - INFO - Generating pro tutorial (testing mode): style=powerful
+2026-08-04 19:42:43,277 - services.style_guide_parser - WARNING - [style_guide_parser] Directory not found in candidates, defaulting to: /workspaces/beauty-fit-ai-progect/App/backend/assets/style_guides
+2026-08-04 19:42:43,277 - services.style_guide_parser - WARNING - [style_guide_parser] Directory not found in candidates, defaulting to: /workspaces/beauty-fit-ai-progect/App/backend/assets/style_guides
+2026-08-04 19:42:43,526 - services.style_guide_parser - WARNING - Style guide not found: /workspaces/beauty-fit-ai-progect/App/backend/assets/style_guides/Sweet.docx
+2026-08-04 19:42:43,526 - services.style_guide_parser - WARNING - Style guide not found: /workspaces/beauty-fit-ai-progect/App/backend/assets/style_guides/Natural.docx
+2026-08-04 19:42:43,526 - services.style_guide_parser - WARNING - Style guide not found: /workspaces/beauty-fit-ai-progect/App/backend/assets/style_guides/Sexy.docx
+2026-08-04 19:42:43,526 - services.style_guide_parser - WARNING - Style guide not found: /workspaces/beauty-fit-ai-progect/App/backend/assets/style_guides/Androgynous.docx
+2026-08-04 19:42:43,526 - services.style_guide_parser - WARNING - Style guide not found: /workspaces/beauty-fit-ai-progect/App/backend/assets/style_guides/Elegant.docx
+2026-08-04 19:42:43,526 - services.style_guide_parser - WARNING - Style guide not found: /workspaces/beauty-fit-ai-progect/App/backend/assets/style_guides/Mature.docx
+2026-08-04 19:42:43,526 - services.style_guide_parser - INFO - [style_guide_parser] loaded catalog from docx for 6 styles: {'sweet': 0, 'natural': 0, 'sexy': 0, 'androgynous': 0, 'elegant': 0, 'mature': 0}
+2026-08-04 19:42:43,526 - services.pro_tutorial - WARNING - [pro_tutorial] no catalog entry for style=powerful — using fallback
+2026-08-04 19:42:43,859 - services.pro_tutorial - INFO - [stylize] Tier 1: Attempting Gemini Model [1/2]: imagen-3.0-generate-001
+2026-08-04 19:42:43,864 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-08-04 19:42:43,866 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2026-08-04 19:42:43,874 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x738e3f7c9c70>
+2026-08-04 19:42:43,874 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x738e3f758bd0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2026-08-04 19:42:43,888 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x738e3f706ab0>
+2026-08-04 19:42:43,888 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2026-08-04 19:42:43,889 - httpcore.http11 - DEBUG - send_request_headers.complete
+2026-08-04 19:42:43,889 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2026-08-04 19:42:43,889 - httpcore.http11 - DEBUG - send_request_body.complete
+2026-08-04 19:42:43,889 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2026-08-04 19:42:50,701 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'X-Gemini-Service-Tier', b'standard'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Encoding', b'gzip'), (b'Date', b'Tue, 04 Aug 2026 19:42:50 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=6808'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2026-08-04 19:42:50,704 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2026-08-04 19:42:50,704 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2026-08-04 19:42:50,705 - httpcore.http11 - DEBUG - receive_response_body.complete
+2026-08-04 19:42:50,705 - httpcore.http11 - DEBUG - response_closed.started
+2026-08-04 19:42:50,705 - httpcore.http11 - DEBUG - response_closed.complete
+2026-08-04 19:42:50,719 - services.pro_tutorial - INFO - [stylize] Tier 1: Attempting Gemini Model [2/2]: imagen-3.0-fast-generate-001
+2026-08-04 19:42:50,721 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-08-04 19:42:50,724 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2026-08-04 19:42:50,725 - httpcore.http11 - DEBUG - send_request_headers.complete
+2026-08-04 19:42:50,725 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2026-08-04 19:42:50,725 - httpcore.http11 - DEBUG - send_request_body.complete
+2026-08-04 19:42:50,725 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2026-08-04 19:42:50,789 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 429, b'Too Many Requests', [(b'X-Gemini-Service-Tier', b'standard'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Tue, 04 Aug 2026 19:42:50 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=61'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2026-08-04 19:42:50,789 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-08-04 19:42:50,789 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2026-08-04 19:42:50,790 - httpcore.http11 - DEBUG - receive_response_body.complete
+2026-08-04 19:42:50,790 - httpcore.http11 - DEBUG - response_closed.started
+2026-08-04 19:42:50,790 - httpcore.http11 - DEBUG - response_closed.complete
+2026-08-04 19:42:50,791 - services.aihub - ERROR - genimg error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 9.221851667s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '9s'}]}}
+2026-08-04 19:42:50,791 - services.pro_tutorial - WARNING - [GeminiKeyManager] Rotation requested but only 1 or 0 keys configured.
+2026-08-04 19:42:50,990 - services.pro_tutorial - INFO - [stylize] Tier 1 exhausted. Proceeding to Tier 2 (OpenRouter)...
+2026-08-04 19:42:51,014 - services.pro_tutorial - INFO - [stylize] Tier 2: Attempting OpenRouter model: black-forest-labs/flux-1-schnell
+2026-08-04 19:42:51,015 - httpcore.connection - DEBUG - connect_tcp.started host='openrouter.ai' port=443 local_address=None timeout=45.0 socket_options=None
+2026-08-04 19:42:51,029 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x738e3f602510>
+2026-08-04 19:42:51,029 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x738e3f7d6c50> server_hostname='openrouter.ai' timeout=45.0
+2026-08-04 19:42:51,035 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x738e3f602420>
+2026-08-04 19:42:51,035 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2026-08-04 19:42:51,035 - httpcore.http11 - DEBUG - send_request_headers.complete
+2026-08-04 19:42:51,035 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2026-08-04 19:42:51,036 - httpcore.http11 - DEBUG - send_request_body.complete
+2026-08-04 19:42:51,036 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2026-08-04 19:42:51,188 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Date', b'Tue, 04 Aug 2026 19:42:51 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Expose-Headers', b'X-Generation-Id,X-Provider-Name,cf-ray'), (b'set-cookie', b'__cf_bm=eZ_e6HBuSTPf3A8Pu_4txCwG1BMeSgd0mk2JpkimA24-1785872571.0325336-1.0.1.1-lV5WAm3POrHIJ.sxZtIqxIll6VvmESN8T2L39rsP8UM0pAFox9cRUEf8.oYRCYLHgKG7u7qU9TkuPYG5KHjlBW7Ih.PRMBw5GGeURzkNZC1YA2NfxL7lXxwZoqfndY8q; HttpOnly; SameSite=None; Secure; Path=/; Domain=openrouter.ai; Expires=Tue, 04 Aug 2026 20:12:51 GMT'), (b'Permissions-Policy', b'payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com" "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")'), (b'Referrer-Policy', b'no-referrer, strict-origin-when-cross-origin'), (b'X-Content-Type-Options', b'nosniff'), (b'Server', b'cloudflare'), (b'CF-RAY', b'a2600c30f9ca8071-AMS')])
+2026-08-04 19:42:51,189 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-08-04 19:42:51,189 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2026-08-04 19:42:51,189 - httpcore.http11 - DEBUG - receive_response_body.complete
+2026-08-04 19:42:51,189 - httpcore.http11 - DEBUG - response_closed.started
+2026-08-04 19:42:51,189 - httpcore.http11 - DEBUG - response_closed.complete
+2026-08-04 19:42:51,190 - services.pro_tutorial - INFO - [stylize] Tier 2: Attempting OpenRouter model: stabilityai/stable-diffusion-3-5-large
+2026-08-04 19:42:51,190 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2026-08-04 19:42:51,191 - httpcore.http11 - DEBUG - send_request_headers.complete
+2026-08-04 19:42:51,191 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2026-08-04 19:42:51,191 - httpcore.http11 - DEBUG - send_request_body.complete
+2026-08-04 19:42:51,191 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2026-08-04 19:42:51,203 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Date', b'Tue, 04 Aug 2026 19:42:51 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Expose-Headers', b'X-Generation-Id,X-Provider-Name,cf-ray'), (b'x-clerk-auth-message', b'Invalid JWT form. A JWT consists of three parts separated by dots. (reason=token-invalid, token-carrier=header)'), (b'x-clerk-auth-reason', b'token-invalid'), (b'x-clerk-auth-status', b'signed-out'), (b'Permissions-Policy', b'payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com" "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")'), (b'Referrer-Policy', b'no-referrer, strict-origin-when-cross-origin'), (b'X-Content-Type-Options', b'nosniff'), (b'Server', b'cloudflare'), (b'CF-RAY', b'a2600c31ed308071-AMS')])
+2026-08-04 19:42:51,204 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-08-04 19:42:51,204 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2026-08-04 19:42:51,204 - httpcore.http11 - DEBUG - receive_response_body.complete
+2026-08-04 19:42:51,204 - httpcore.http11 - DEBUG - response_closed.started
+2026-08-04 19:42:51,204 - httpcore.http11 - DEBUG - response_closed.complete
+2026-08-04 19:42:51,205 - httpcore.connection - DEBUG - close.started
+2026-08-04 19:42:51,205 - httpcore.connection - DEBUG - close.complete
+2026-08-04 19:42:51,205 - services.pro_tutorial - INFO - [stylize] Tier 2 exhausted. Proceeding to Tier 3 (Pollinations AI)...
+2026-08-04 19:42:51,205 - services.pro_tutorial - INFO - [stylize] Tier 3: Generated instant fallback URL via Pollinations AI (Length limited)
+2026-08-04 19:42:52,941 - routers.pro_tutorial - INFO - Stylize request: style=powerful sub_style=overall
+2026-08-04 19:42:53,039 - services.pro_tutorial - INFO - [stylize] Tier 1: Attempting Gemini Model [1/2]: imagen-3.0-generate-001
+2026-08-04 19:42:53,040 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-08-04 19:42:53,042 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2026-08-04 19:42:53,048 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x738e3f603b00>
+2026-08-04 19:42:53,048 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x738e3f7d6bd0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2026-08-04 19:42:53,054 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x738e3f603020>
+2026-08-04 19:42:53,054 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2026-08-04 19:42:53,055 - httpcore.http11 - DEBUG - send_request_headers.complete
+2026-08-04 19:42:53,055 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2026-08-04 19:42:53,055 - httpcore.http11 - DEBUG - send_request_body.complete
+2026-08-04 19:42:53,055 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2026-08-04 19:42:53,115 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 429, b'Too Many Requests', [(b'X-Gemini-Service-Tier', b'standard'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Tue, 04 Aug 2026 19:42:53 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=55'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2026-08-04 19:42:53,116 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-08-04 19:42:53,116 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2026-08-04 19:42:53,117 - httpcore.http11 - DEBUG - receive_response_body.complete
+2026-08-04 19:42:53,117 - httpcore.http11 - DEBUG - response_closed.started
+2026-08-04 19:42:53,117 - httpcore.http11 - DEBUG - response_closed.complete
+2026-08-04 19:42:53,117 - services.aihub - ERROR - genimg error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 6.896588286s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '6s'}]}}
+2026-08-04 19:42:53,118 - services.pro_tutorial - WARNING - [GeminiKeyManager] Rotation requested but only 1 or 0 keys configured.
+2026-08-04 19:42:53,317 - services.pro_tutorial - INFO - [stylize] Tier 1: Attempting Gemini Model [2/2]: imagen-3.0-fast-generate-001
+2026-08-04 19:42:53,318 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-08-04 19:42:53,320 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2026-08-04 19:42:53,321 - httpcore.http11 - DEBUG - send_request_headers.complete
+2026-08-04 19:42:53,321 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2026-08-04 19:42:53,321 - httpcore.http11 - DEBUG - send_request_body.complete
+2026-08-04 19:42:53,321 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2026-08-04 19:42:53,385 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 429, b'Too Many Requests', [(b'X-Gemini-Service-Tier', b'standard'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Tue, 04 Aug 2026 19:42:53 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=61'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2026-08-04 19:42:53,386 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-08-04 19:42:53,386 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2026-08-04 19:42:53,386 - httpcore.http11 - DEBUG - receive_response_body.complete
+2026-08-04 19:42:53,387 - httpcore.http11 - DEBUG - response_closed.started
+2026-08-04 19:42:53,387 - httpcore.http11 - DEBUG - response_closed.complete
+2026-08-04 19:42:53,387 - services.aihub - ERROR - genimg error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 6.625387056s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '6s'}]}}
+2026-08-04 19:42:53,388 - services.pro_tutorial - WARNING - [GeminiKeyManager] Rotation requested but only 1 or 0 keys configured.
+2026-08-04 19:42:53,587 - services.pro_tutorial - INFO - [stylize] Tier 1 exhausted. Proceeding to Tier 2 (OpenRouter)...
+2026-08-04 19:42:53,630 - services.pro_tutorial - INFO - [stylize] Tier 2: Attempting OpenRouter model: black-forest-labs/flux-1-schnell
+2026-08-04 19:42:53,630 - httpcore.connection - DEBUG - connect_tcp.started host='openrouter.ai' port=443 local_address=None timeout=45.0 socket_options=None
+2026-08-04 19:42:53,636 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x738e3f653a40>
+2026-08-04 19:42:53,636 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x738e3f654fd0> server_hostname='openrouter.ai' timeout=45.0
+2026-08-04 19:42:53,643 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x738e3f653950>
+2026-08-04 19:42:53,643 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2026-08-04 19:42:53,644 - httpcore.http11 - DEBUG - send_request_headers.complete
+2026-08-04 19:42:53,644 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2026-08-04 19:42:53,644 - httpcore.http11 - DEBUG - send_request_body.complete
+2026-08-04 19:42:53,644 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2026-08-04 19:42:53,668 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Date', b'Tue, 04 Aug 2026 19:42:53 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Expose-Headers', b'X-Generation-Id,X-Provider-Name,cf-ray'), (b'set-cookie', b'__cf_bm=MPoz.mcAklh3f.zh2MCYLKPXJ7dR07zSROZ39.2IGJA-1785872573.6404603-1.0.1.1-tcPQ0jFgvWxtPfz3BJ.Q8zrrYcAIkogREefoselOaNF7p4GTWsNX2Ee.1wBeRPvd6GXn_nLjZE0jzld6.2ZYsuj2dZhltrgsOPisRmS5t3YI5TQWo2Nwd0rLE24JhnD.; HttpOnly; SameSite=None; Secure; Path=/; Domain=openrouter.ai; Expires=Tue, 04 Aug 2026 20:12:53 GMT'), (b'Permissions-Policy', b'payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com" "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")'), (b'Referrer-Policy', b'no-referrer, strict-origin-when-cross-origin'), (b'X-Content-Type-Options', b'nosniff'), (b'Server', b'cloudflare'), (b'CF-RAY', b'a2600c413c89ef9c-AMS')])
+2026-08-04 19:42:53,668 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-08-04 19:42:53,668 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2026-08-04 19:42:53,669 - httpcore.http11 - DEBUG - receive_response_body.complete
+2026-08-04 19:42:53,669 - httpcore.http11 - DEBUG - response_closed.started
+2026-08-04 19:42:53,669 - httpcore.http11 - DEBUG - response_closed.complete
+2026-08-04 19:42:53,669 - services.pro_tutorial - INFO - [stylize] Tier 2: Attempting OpenRouter model: stabilityai/stable-diffusion-3-5-large
+2026-08-04 19:42:53,670 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2026-08-04 19:42:53,670 - httpcore.http11 - DEBUG - send_request_headers.complete
+2026-08-04 19:42:53,670 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2026-08-04 19:42:53,670 - httpcore.http11 - DEBUG - send_request_body.complete
+2026-08-04 19:42:53,670 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2026-08-04 19:42:53,685 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Date', b'Tue, 04 Aug 2026 19:42:53 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Expose-Headers', b'X-Generation-Id,X-Provider-Name,cf-ray'), (b'x-clerk-auth-message', b'Invalid JWT form. A JWT consists of three parts separated by dots. (reason=token-invalid, token-carrier=header)'), (b'x-clerk-auth-reason', b'token-invalid'), (b'x-clerk-auth-status', b'signed-out'), (b'Permissions-Policy', b'payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com" "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")'), (b'Referrer-Policy', b'no-referrer, strict-origin-when-cross-origin'), (b'X-Content-Type-Options', b'nosniff'), (b'Server', b'cloudflare'), (b'CF-RAY', b'a2600c416d19ef9c-AMS')])
+2026-08-04 19:42:53,686 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-08-04 19:42:53,686 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2026-08-04 19:42:53,686 - httpcore.http11 - DEBUG - receive_response_body.complete
+2026-08-04 19:42:53,686 - httpcore.http11 - DEBUG - response_closed.started
+2026-08-04 19:42:53,686 - httpcore.http11 - DEBUG - response_closed.complete
+2026-08-04 19:42:53,687 - httpcore.connection - DEBUG - close.started
+2026-08-04 19:42:53,687 - httpcore.connection - DEBUG - close.complete
+2026-08-04 19:42:53,687 - services.pro_tutorial - INFO - [stylize] Tier 2 exhausted. Proceeding to Tier 3 (Pollinations AI)...
+2026-08-04 19:42:53,687 - services.pro_tutorial - INFO - [stylize] Tier 3: Generated instant fallback URL via Pollinations AI (Length limited)
+2026-08-04 19:43:51,739 - routers.pro_tutorial - INFO - Generating pro tutorial (testing mode): style=elegant
+2026-08-04 19:43:51,739 - services.pro_tutorial - WARNING - [pro_tutorial] no catalog entry for style=elegant — using fallback
+2026-08-04 19:43:51,841 - services.pro_tutorial - INFO - [stylize] Tier 1: Attempting Gemini Model [1/2]: imagen-3.0-generate-001
+2026-08-04 19:43:51,842 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-08-04 19:43:51,843 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2026-08-04 19:43:51,847 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x738e3f601bb0>
+2026-08-04 19:43:51,847 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x738e3f656450> server_hostname='generativelanguage.googleapis.com' timeout=None
+2026-08-04 19:43:51,852 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x738e3f652300>
+2026-08-04 19:43:51,853 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2026-08-04 19:43:51,853 - httpcore.http11 - DEBUG - send_request_headers.complete
+2026-08-04 19:43:51,853 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2026-08-04 19:43:51,853 - httpcore.http11 - DEBUG - send_request_body.complete
+2026-08-04 19:43:51,853 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2026-08-04 19:43:52,029 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 429, b'Too Many Requests', [(b'X-Gemini-Service-Tier', b'standard'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Tue, 04 Aug 2026 19:43:52 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=173'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2026-08-04 19:43:52,029 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-08-04 19:43:52,029 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2026-08-04 19:43:52,030 - httpcore.http11 - DEBUG - receive_response_body.complete
+2026-08-04 19:43:52,030 - httpcore.http11 - DEBUG - response_closed.started
+2026-08-04 19:43:52,030 - httpcore.http11 - DEBUG - response_closed.complete
+2026-08-04 19:43:52,030 - services.aihub - ERROR - genimg error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 7.981050047s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '7s'}]}}
+2026-08-04 19:43:52,031 - services.pro_tutorial - WARNING - [GeminiKeyManager] Rotation requested but only 1 or 0 keys configured.
+2026-08-04 19:43:52,230 - services.pro_tutorial - INFO - [stylize] Tier 1: Attempting Gemini Model [2/2]: imagen-3.0-fast-generate-001
+2026-08-04 19:43:52,231 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-08-04 19:43:52,232 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2026-08-04 19:43:52,233 - httpcore.http11 - DEBUG - send_request_headers.complete
+2026-08-04 19:43:52,233 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2026-08-04 19:43:52,233 - httpcore.http11 - DEBUG - send_request_body.complete
+2026-08-04 19:43:52,233 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2026-08-04 19:43:52,310 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 429, b'Too Many Requests', [(b'X-Gemini-Service-Tier', b'standard'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Tue, 04 Aug 2026 19:43:52 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=74'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2026-08-04 19:43:52,310 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-08-04 19:43:52,310 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2026-08-04 19:43:52,311 - httpcore.http11 - DEBUG - receive_response_body.complete
+2026-08-04 19:43:52,311 - httpcore.http11 - DEBUG - response_closed.started
+2026-08-04 19:43:52,312 - httpcore.http11 - DEBUG - response_closed.complete
+2026-08-04 19:43:52,312 - services.aihub - ERROR - genimg error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 7.700360904s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '7s'}]}}
+2026-08-04 19:43:52,312 - services.pro_tutorial - WARNING - [GeminiKeyManager] Rotation requested but only 1 or 0 keys configured.
+2026-08-04 19:43:52,512 - services.pro_tutorial - INFO - [stylize] Tier 1 exhausted. Proceeding to Tier 2 (OpenRouter)...
+2026-08-04 19:43:52,537 - services.pro_tutorial - INFO - [stylize] Tier 2: Attempting OpenRouter model: black-forest-labs/flux-1-schnell
+2026-08-04 19:43:52,538 - httpcore.connection - DEBUG - connect_tcp.started host='openrouter.ai' port=443 local_address=None timeout=45.0 socket_options=None
+2026-08-04 19:43:52,542 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x738e3f65fef0>
+2026-08-04 19:43:52,542 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x738e3f656bd0> server_hostname='openrouter.ai' timeout=45.0
+2026-08-04 19:43:52,552 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x738e3f65fe00>
+2026-08-04 19:43:52,552 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2026-08-04 19:43:52,552 - httpcore.http11 - DEBUG - send_request_headers.complete
+2026-08-04 19:43:52,552 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2026-08-04 19:43:52,553 - httpcore.http11 - DEBUG - send_request_body.complete
+2026-08-04 19:43:52,553 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2026-08-04 19:43:52,719 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Date', b'Tue, 04 Aug 2026 19:43:52 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Expose-Headers', b'X-Generation-Id,X-Provider-Name,cf-ray'), (b'set-cookie', b'__cf_bm=OylUP1nLbmZS26EcI6WPfowBW_Rk8YVhWs_r1xNBJIs-1785872632.5503225-1.0.1.1-J8uH.dC3yFi8l6N90RxTcCbc9RF10YZo1rwFE2z_D86ge6uPS8Ah3d6Vg21VgUNoZ.rXKvyXa1RzufVeYqwFg11.Tz5U1T2CmkFhzhyHZYydEYIjeLeQWucBGBJwuyYs; HttpOnly; SameSite=None; Secure; Path=/; Domain=openrouter.ai; Expires=Tue, 04 Aug 2026 20:13:52 GMT'), (b'Permissions-Policy', b'payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com" "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")'), (b'Referrer-Policy', b'no-referrer, strict-origin-when-cross-origin'), (b'X-Content-Type-Options', b'nosniff'), (b'Server', b'cloudflare'), (b'CF-RAY', b'a2600db1688b8071-AMS')])
+2026-08-04 19:43:52,720 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-08-04 19:43:52,720 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2026-08-04 19:43:52,720 - httpcore.http11 - DEBUG - receive_response_body.complete
+2026-08-04 19:43:52,720 - httpcore.http11 - DEBUG - response_closed.started
+2026-08-04 19:43:52,720 - httpcore.http11 - DEBUG - response_closed.complete
+2026-08-04 19:43:52,721 - services.pro_tutorial - INFO - [stylize] Tier 2: Attempting OpenRouter model: stabilityai/stable-diffusion-3-5-large
+2026-08-04 19:43:52,721 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2026-08-04 19:43:52,722 - httpcore.http11 - DEBUG - send_request_headers.complete
+2026-08-04 19:43:52,722 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2026-08-04 19:43:52,722 - httpcore.http11 - DEBUG - send_request_body.complete
+2026-08-04 19:43:52,722 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2026-08-04 19:43:52,739 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Date', b'Tue, 04 Aug 2026 19:43:52 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Expose-Headers', b'X-Generation-Id,X-Provider-Name,cf-ray'), (b'x-clerk-auth-message', b'Invalid JWT form. A JWT consists of three parts separated by dots. (reason=token-invalid, token-carrier=header)'), (b'x-clerk-auth-reason', b'token-invalid'), (b'x-clerk-auth-status', b'signed-out'), (b'Permissions-Policy', b'payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com" "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")'), (b'Referrer-Policy', b'no-referrer, strict-origin-when-cross-origin'), (b'X-Content-Type-Options', b'nosniff'), (b'Server', b'cloudflare'), (b'CF-RAY', b'a2600db27c4a8071-AMS')])
+2026-08-04 19:43:52,739 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-08-04 19:43:52,739 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2026-08-04 19:43:52,740 - httpcore.http11 - DEBUG - receive_response_body.complete
+2026-08-04 19:43:52,740 - httpcore.http11 - DEBUG - response_closed.started
+2026-08-04 19:43:52,740 - httpcore.http11 - DEBUG - response_closed.complete
+2026-08-04 19:43:52,740 - httpcore.connection - DEBUG - close.started
+2026-08-04 19:43:52,741 - httpcore.connection - DEBUG - close.complete
+2026-08-04 19:43:52,741 - services.pro_tutorial - INFO - [stylize] Tier 2 exhausted. Proceeding to Tier 3 (Pollinations AI)...
+2026-08-04 19:43:52,741 - services.pro_tutorial - INFO - [stylize] Tier 3: Generated instant fallback URL via Pollinations AI (Length limited)
+2026-08-04 19:43:54,670 - routers.pro_tutorial - INFO - Stylize request: style=elegant sub_style=overall
+2026-08-04 19:43:54,768 - services.pro_tutorial - INFO - [stylize] Tier 1: Attempting Gemini Model [1/2]: imagen-3.0-generate-001
+2026-08-04 19:43:54,769 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-08-04 19:43:54,771 - httpcore.connection - DEBUG - close.started
+2026-08-04 19:43:54,772 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2026-08-04 19:43:54,773 - httpcore.connection - DEBUG - close.complete
+2026-08-04 19:43:54,778 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x738e3f65f800>
+2026-08-04 19:43:54,779 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x738e3f657f50> server_hostname='generativelanguage.googleapis.com' timeout=None
+2026-08-04 19:43:54,785 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x738e3f65c110>
+2026-08-04 19:43:54,785 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2026-08-04 19:43:54,785 - httpcore.http11 - DEBUG - send_request_headers.complete
+2026-08-04 19:43:54,785 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2026-08-04 19:43:54,786 - httpcore.http11 - DEBUG - send_request_body.complete
+2026-08-04 19:43:54,786 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2026-08-04 19:43:54,851 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 429, b'Too Many Requests', [(b'X-Gemini-Service-Tier', b'standard'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Tue, 04 Aug 2026 19:43:54 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=62'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2026-08-04 19:43:54,851 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-08-04 19:43:54,851 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2026-08-04 19:43:54,852 - httpcore.http11 - DEBUG - receive_response_body.complete
+2026-08-04 19:43:54,852 - httpcore.http11 - DEBUG - response_closed.started
+2026-08-04 19:43:54,852 - httpcore.http11 - DEBUG - response_closed.complete
+2026-08-04 19:43:54,853 - services.aihub - ERROR - genimg error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 5.159064866s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '5s'}]}}
+2026-08-04 19:43:54,853 - services.pro_tutorial - WARNING - [GeminiKeyManager] Rotation requested but only 1 or 0 keys configured.
+2026-08-04 19:43:55,052 - services.pro_tutorial - INFO - [stylize] Tier 1: Attempting Gemini Model [2/2]: imagen-3.0-fast-generate-001
+2026-08-04 19:43:55,053 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-08-04 19:43:55,054 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2026-08-04 19:43:55,055 - httpcore.http11 - DEBUG - send_request_headers.complete
+2026-08-04 19:43:55,055 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2026-08-04 19:43:55,055 - httpcore.http11 - DEBUG - send_request_body.complete
+2026-08-04 19:43:55,055 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2026-08-04 19:43:55,112 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 429, b'Too Many Requests', [(b'X-Gemini-Service-Tier', b'standard'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Tue, 04 Aug 2026 19:43:55 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=54'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2026-08-04 19:43:55,112 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-08-04 19:43:55,113 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2026-08-04 19:43:55,113 - httpcore.http11 - DEBUG - receive_response_body.complete
+2026-08-04 19:43:55,113 - httpcore.http11 - DEBUG - response_closed.started
+2026-08-04 19:43:55,113 - httpcore.http11 - DEBUG - response_closed.complete
+2026-08-04 19:43:55,114 - services.aihub - ERROR - genimg error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 4.898440962s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '4s'}]}}
+2026-08-04 19:43:55,114 - services.pro_tutorial - WARNING - [GeminiKeyManager] Rotation requested but only 1 or 0 keys configured.
+2026-08-04 19:43:55,315 - services.pro_tutorial - INFO - [stylize] Tier 1 exhausted. Proceeding to Tier 2 (OpenRouter)...
+2026-08-04 19:43:55,339 - services.pro_tutorial - INFO - [stylize] Tier 2: Attempting OpenRouter model: black-forest-labs/flux-1-schnell
+2026-08-04 19:43:55,339 - httpcore.connection - DEBUG - connect_tcp.started host='openrouter.ai' port=443 local_address=None timeout=45.0 socket_options=None
+2026-08-04 19:43:55,343 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x738e3f652f90>
+2026-08-04 19:43:55,343 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x738e3f6556d0> server_hostname='openrouter.ai' timeout=45.0
+2026-08-04 19:43:55,349 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x738e3f601c70>
+2026-08-04 19:43:55,349 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2026-08-04 19:43:55,350 - httpcore.http11 - DEBUG - send_request_headers.complete
+2026-08-04 19:43:55,350 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2026-08-04 19:43:55,350 - httpcore.http11 - DEBUG - send_request_body.complete
+2026-08-04 19:43:55,350 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2026-08-04 19:43:55,371 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Date', b'Tue, 04 Aug 2026 19:43:55 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Expose-Headers', b'X-Generation-Id,X-Provider-Name,cf-ray'), (b'set-cookie', b'__cf_bm=kjAxM6Gw.oatSyyz9wa6P4tikOIrqgLA1T9if.nP8Bw-1785872635.3464408-1.0.1.1-H80iiCqUxmTX0iFbA__NLLjLa6ejvut3wKYZQhYQuyADioXVFYhYl4pvcyGIyb6d5MWG4LJkHEOVG.FpqsYpQo129WrRlw5FedHTNAY_LGP9ceShPXxfXpeMOQKNhtuZ; HttpOnly; SameSite=None; Secure; Path=/; Domain=openrouter.ai; Expires=Tue, 04 Aug 2026 20:13:55 GMT'), (b'Permissions-Policy', b'payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com" "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")'), (b'Referrer-Policy', b'no-referrer, strict-origin-when-cross-origin'), (b'X-Content-Type-Options', b'nosniff'), (b'Server', b'cloudflare'), (b'CF-RAY', b'a2600dc2ef8e1ef7-AMS')])
+2026-08-04 19:43:55,371 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-08-04 19:43:55,371 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2026-08-04 19:43:55,372 - httpcore.http11 - DEBUG - receive_response_body.complete
+2026-08-04 19:43:55,372 - httpcore.http11 - DEBUG - response_closed.started
+2026-08-04 19:43:55,372 - httpcore.http11 - DEBUG - response_closed.complete
+2026-08-04 19:43:55,372 - services.pro_tutorial - INFO - [stylize] Tier 2: Attempting OpenRouter model: stabilityai/stable-diffusion-3-5-large
+2026-08-04 19:43:55,373 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2026-08-04 19:43:55,373 - httpcore.http11 - DEBUG - send_request_headers.complete
+2026-08-04 19:43:55,373 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2026-08-04 19:43:55,373 - httpcore.http11 - DEBUG - send_request_body.complete
+2026-08-04 19:43:55,373 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2026-08-04 19:43:55,393 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Date', b'Tue, 04 Aug 2026 19:43:55 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Expose-Headers', b'X-Generation-Id,X-Provider-Name,cf-ray'), (b'x-clerk-auth-message', b'Invalid JWT form. A JWT consists of three parts separated by dots. (reason=token-invalid, token-carrier=header)'), (b'x-clerk-auth-reason', b'token-invalid'), (b'x-clerk-auth-status', b'signed-out'), (b'Permissions-Policy', b'payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com" "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")'), (b'Referrer-Policy', b'no-referrer, strict-origin-when-cross-origin'), (b'X-Content-Type-Options', b'nosniff'), (b'Server', b'cloudflare'), (b'CF-RAY', b'a2600dc308191ef7-AMS')])
+2026-08-04 19:43:55,393 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-08-04 19:43:55,393 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2026-08-04 19:43:55,394 - httpcore.http11 - DEBUG - receive_response_body.complete
+2026-08-04 19:43:55,394 - httpcore.http11 - DEBUG - response_closed.started
+2026-08-04 19:43:55,394 - httpcore.http11 - DEBUG - response_closed.complete
+2026-08-04 19:43:55,394 - httpcore.connection - DEBUG - close.started
+2026-08-04 19:43:55,394 - httpcore.connection - DEBUG - close.complete
+2026-08-04 19:43:55,394 - services.pro_tutorial - INFO - [stylize] Tier 2 exhausted. Proceeding to Tier 3 (Pollinations AI)...
+2026-08-04 19:43:55,394 - services.pro_tutorial - INFO - [stylize] Tier 3: Generated instant fallback URL via Pollinations AI (Length limited)
+2026-08-04 19:45:27,221 - routers.pro_tutorial - INFO - Generating pro tutorial (testing mode): style=powerful
+2026-08-04 19:45:27,221 - services.pro_tutorial - WARNING - [pro_tutorial] no catalog entry for style=powerful — using fallback
+2026-08-04 19:45:27,316 - services.pro_tutorial - INFO - [stylize] Tier 1: Attempting Gemini Model [1/2]: imagen-3.0-generate-001
+2026-08-04 19:45:27,319 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-08-04 19:45:27,321 - httpcore.connection - DEBUG - close.started
+2026-08-04 19:45:27,323 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2026-08-04 19:45:27,323 - httpcore.connection - DEBUG - close.complete
+2026-08-04 19:45:27,329 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x738e3f602ae0>
+2026-08-04 19:45:27,330 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x738e3f67c750> server_hostname='generativelanguage.googleapis.com' timeout=None
+2026-08-04 19:45:27,335 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x738e3f601e50>
+2026-08-04 19:45:27,335 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2026-08-04 19:45:27,336 - httpcore.http11 - DEBUG - send_request_headers.complete
+2026-08-04 19:45:27,336 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2026-08-04 19:45:27,336 - httpcore.http11 - DEBUG - send_request_body.complete
+2026-08-04 19:45:27,336 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2026-08-04 19:45:27,508 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 429, b'Too Many Requests', [(b'X-Gemini-Service-Tier', b'standard'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Tue, 04 Aug 2026 19:45:27 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=169'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2026-08-04 19:45:27,508 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-08-04 19:45:27,508 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2026-08-04 19:45:27,509 - httpcore.http11 - DEBUG - receive_response_body.complete
+2026-08-04 19:45:27,509 - httpcore.http11 - DEBUG - response_closed.started
+2026-08-04 19:45:27,509 - httpcore.http11 - DEBUG - response_closed.complete
+2026-08-04 19:45:27,510 - services.aihub - ERROR - genimg error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 32.502924771s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '32s'}]}}
+2026-08-04 19:45:27,510 - services.pro_tutorial - WARNING - [GeminiKeyManager] Rotation requested but only 1 or 0 keys configured.
+2026-08-04 19:45:27,711 - services.pro_tutorial - INFO - [stylize] Tier 1: Attempting Gemini Model [2/2]: imagen-3.0-fast-generate-001
+2026-08-04 19:45:27,712 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-08-04 19:45:27,714 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2026-08-04 19:45:27,715 - httpcore.http11 - DEBUG - send_request_headers.complete
+2026-08-04 19:45:27,715 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2026-08-04 19:45:27,715 - httpcore.http11 - DEBUG - send_request_body.complete
+2026-08-04 19:45:27,715 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2026-08-04 19:45:27,785 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 429, b'Too Many Requests', [(b'X-Gemini-Service-Tier', b'standard'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Tue, 04 Aug 2026 19:45:27 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=67'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2026-08-04 19:45:27,785 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-08-04 19:45:27,786 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2026-08-04 19:45:27,786 - httpcore.http11 - DEBUG - receive_response_body.complete
+2026-08-04 19:45:27,786 - httpcore.http11 - DEBUG - response_closed.started
+2026-08-04 19:45:27,786 - httpcore.http11 - DEBUG - response_closed.complete
+2026-08-04 19:45:27,787 - services.aihub - ERROR - genimg error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 32.22995188s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '32s'}]}}
+2026-08-04 19:45:27,787 - services.pro_tutorial - WARNING - [GeminiKeyManager] Rotation requested but only 1 or 0 keys configured.
+2026-08-04 19:45:27,986 - services.pro_tutorial - INFO - [stylize] Tier 1 exhausted. Proceeding to Tier 2 (OpenRouter)...
+2026-08-04 19:45:28,011 - services.pro_tutorial - INFO - [stylize] Tier 2: Attempting OpenRouter model: black-forest-labs/flux-1-schnell
+2026-08-04 19:45:28,012 - httpcore.connection - DEBUG - connect_tcp.started host='openrouter.ai' port=443 local_address=None timeout=45.0 socket_options=None
+2026-08-04 19:45:28,016 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x738e3f6531a0>
+2026-08-04 19:45:28,016 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x738e3f6562d0> server_hostname='openrouter.ai' timeout=45.0
+2026-08-04 19:45:28,023 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x738e3f650260>
+2026-08-04 19:45:28,023 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2026-08-04 19:45:28,023 - httpcore.http11 - DEBUG - send_request_headers.complete
+2026-08-04 19:45:28,023 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2026-08-04 19:45:28,024 - httpcore.http11 - DEBUG - send_request_body.complete
+2026-08-04 19:45:28,024 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2026-08-04 19:45:28,178 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Date', b'Tue, 04 Aug 2026 19:45:28 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Expose-Headers', b'X-Generation-Id,X-Provider-Name,cf-ray'), (b'set-cookie', b'__cf_bm=gYXn5qS51AFQ8NHClCaWn5tIj.6D1.klIaIXt7lVhyU-1785872728.0197833-1.0.1.1-sChuhhnQbz3sZKPwkU61KBwIbrc.eEgaxypuljp2IfPfkB889OOKliR4F7jZj1kIMmY2TjX9gMrw7uFoJeV0wyjG2H66SGOM5rjNEQGkFiBsK4o4I8k3PhnRlNbollN_; HttpOnly; SameSite=None; Secure; Path=/; Domain=openrouter.ai; Expires=Tue, 04 Aug 2026 20:15:28 GMT'), (b'Permissions-Policy', b'payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com" "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")'), (b'Referrer-Policy', b'no-referrer, strict-origin-when-cross-origin'), (b'X-Content-Type-Options', b'nosniff'), (b'Server', b'cloudflare'), (b'CF-RAY', b'a26010061f9b1ef7-AMS')])
+2026-08-04 19:45:28,178 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-08-04 19:45:28,179 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2026-08-04 19:45:28,180 - httpcore.http11 - DEBUG - receive_response_body.complete
+2026-08-04 19:45:28,180 - httpcore.http11 - DEBUG - response_closed.started
+2026-08-04 19:45:28,181 - httpcore.http11 - DEBUG - response_closed.complete
+2026-08-04 19:45:28,181 - services.pro_tutorial - INFO - [stylize] Tier 2: Attempting OpenRouter model: stabilityai/stable-diffusion-3-5-large
+2026-08-04 19:45:28,182 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2026-08-04 19:45:28,182 - httpcore.http11 - DEBUG - send_request_headers.complete
+2026-08-04 19:45:28,183 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2026-08-04 19:45:28,183 - httpcore.http11 - DEBUG - send_request_body.complete
+2026-08-04 19:45:28,183 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2026-08-04 19:45:28,200 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Date', b'Tue, 04 Aug 2026 19:45:28 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Expose-Headers', b'X-Generation-Id,X-Provider-Name,cf-ray'), (b'x-clerk-auth-message', b'Invalid JWT form. A JWT consists of three parts separated by dots. (reason=token-invalid, token-carrier=header)'), (b'x-clerk-auth-reason', b'token-invalid'), (b'x-clerk-auth-status', b'signed-out'), (b'Permissions-Policy', b'payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com" "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")'), (b'Referrer-Policy', b'no-referrer, strict-origin-when-cross-origin'), (b'X-Content-Type-Options', b'nosniff'), (b'Server', b'cloudflare'), (b'CF-RAY', b'a26010071bd71ef7-AMS')])
+2026-08-04 19:45:28,201 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-08-04 19:45:28,201 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2026-08-04 19:45:28,202 - httpcore.http11 - DEBUG - receive_response_body.complete
+2026-08-04 19:45:28,202 - httpcore.http11 - DEBUG - response_closed.started
+2026-08-04 19:45:28,202 - httpcore.http11 - DEBUG - response_closed.complete
+2026-08-04 19:45:28,203 - httpcore.connection - DEBUG - close.started
+2026-08-04 19:45:28,203 - httpcore.connection - DEBUG - close.complete
+2026-08-04 19:45:28,203 - services.pro_tutorial - INFO - [stylize] Tier 2 exhausted. Proceeding to Tier 3 (Pollinations AI)...
+2026-08-04 19:45:28,203 - services.pro_tutorial - INFO - [stylize] Tier 3: Generated instant fallback URL via Pollinations AI (Length limited)
+2026-08-04 19:47:54,423 - dependencies.auth - DEBUG - Authentication required for request GET /api/v1/auth/me
+2026-08-04 19:47:54,434 - routers.pro_tutorial - INFO - Generating pro tutorial (testing mode): style=powerful
+2026-08-04 19:47:54,434 - services.pro_tutorial - WARNING - [pro_tutorial] no catalog entry for style=powerful — using fallback
+2026-08-04 19:47:54,531 - services.pro_tutorial - INFO - [stylize] Tier 1: Attempting Gemini Model [1/2]: imagen-3.0-generate-001
+2026-08-04 19:47:54,531 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-08-04 19:47:54,534 - httpcore.connection - DEBUG - connect_tcp.started host='generativelanguage.googleapis.com' port=443 local_address=None timeout=None socket_options=None
+2026-08-04 19:47:54,534 - httpcore.connection - DEBUG - close.started
+2026-08-04 19:47:54,536 - httpcore.connection - DEBUG - close.complete
+2026-08-04 19:47:54,541 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x738e3f650260>
+2026-08-04 19:47:54,542 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x738e3f6579d0> server_hostname='generativelanguage.googleapis.com' timeout=None
+2026-08-04 19:47:54,547 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x738e441113d0>
+2026-08-04 19:47:54,547 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2026-08-04 19:47:54,548 - httpcore.http11 - DEBUG - send_request_headers.complete
+2026-08-04 19:47:54,548 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2026-08-04 19:47:54,548 - httpcore.http11 - DEBUG - send_request_body.complete
+2026-08-04 19:47:54,548 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2026-08-04 19:47:54,731 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 429, b'Too Many Requests', [(b'X-Gemini-Service-Tier', b'standard'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Tue, 04 Aug 2026 19:47:54 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=180'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2026-08-04 19:47:54,731 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-08-04 19:47:54,732 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2026-08-04 19:47:54,732 - httpcore.http11 - DEBUG - receive_response_body.complete
+2026-08-04 19:47:54,732 - httpcore.http11 - DEBUG - response_closed.started
+2026-08-04 19:47:54,732 - httpcore.http11 - DEBUG - response_closed.complete
+2026-08-04 19:47:54,733 - services.aihub - ERROR - genimg error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 5.279543141s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '5s'}]}}
+2026-08-04 19:47:54,733 - services.pro_tutorial - WARNING - [GeminiKeyManager] Rotation requested but only 1 or 0 keys configured.
+2026-08-04 19:47:54,932 - services.pro_tutorial - INFO - [stylize] Tier 1: Attempting Gemini Model [2/2]: imagen-3.0-fast-generate-001
+2026-08-04 19:47:54,933 - google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+2026-08-04 19:47:54,934 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2026-08-04 19:47:54,935 - httpcore.http11 - DEBUG - send_request_headers.complete
+2026-08-04 19:47:54,935 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2026-08-04 19:47:54,935 - httpcore.http11 - DEBUG - send_request_body.complete
+2026-08-04 19:47:54,935 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2026-08-04 19:47:54,990 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 429, b'Too Many Requests', [(b'X-Gemini-Service-Tier', b'standard'), (b'Vary', b'Origin'), (b'Vary', b'X-Origin'), (b'Vary', b'Referer'), (b'Content-Type', b'application/json; charset=UTF-8'), (b'Content-Encoding', b'gzip'), (b'Date', b'Tue, 04 Aug 2026 19:47:54 GMT'), (b'Server', b'scaffolding on HTTPServer2'), (b'X-XSS-Protection', b'0'), (b'X-Frame-Options', b'SAMEORIGIN'), (b'X-Content-Type-Options', b'nosniff'), (b'Server-Timing', b'gfet4t7; dur=53'), (b'Alt-Svc', b'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000'), (b'Transfer-Encoding', b'chunked')])
+2026-08-04 19:47:54,991 - httpx - INFO - HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-08-04 19:47:54,991 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2026-08-04 19:47:54,991 - httpcore.http11 - DEBUG - receive_response_body.complete
+2026-08-04 19:47:54,991 - httpcore.http11 - DEBUG - response_closed.started
+2026-08-04 19:47:54,992 - httpcore.http11 - DEBUG - response_closed.complete
+2026-08-04 19:47:54,992 - services.aihub - ERROR - genimg error: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 5.019717467s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '5s'}]}}
+2026-08-04 19:47:54,992 - services.pro_tutorial - WARNING - [GeminiKeyManager] Rotation requested but only 1 or 0 keys configured.
+2026-08-04 19:47:55,193 - services.pro_tutorial - INFO - [stylize] Tier 1 exhausted. Proceeding to Tier 2 (OpenRouter)...
+2026-08-04 19:47:55,238 - services.pro_tutorial - INFO - [stylize] Tier 2: Attempting OpenRouter model: black-forest-labs/flux-1-schnell
+2026-08-04 19:47:55,239 - httpcore.connection - DEBUG - connect_tcp.started host='openrouter.ai' port=443 local_address=None timeout=45.0 socket_options=None
+2026-08-04 19:47:55,260 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x738e3f6730b0>
+2026-08-04 19:47:55,261 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x738e3f6569d0> server_hostname='openrouter.ai' timeout=45.0
+2026-08-04 19:47:55,269 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x738e3f673020>
+2026-08-04 19:47:55,269 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2026-08-04 19:47:55,269 - httpcore.http11 - DEBUG - send_request_headers.complete
+2026-08-04 19:47:55,270 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2026-08-04 19:47:55,270 - httpcore.http11 - DEBUG - send_request_body.complete
+2026-08-04 19:47:55,270 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2026-08-04 19:47:55,414 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Date', b'Tue, 04 Aug 2026 19:47:55 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Expose-Headers', b'X-Generation-Id,X-Provider-Name,cf-ray'), (b'set-cookie', b'__cf_bm=k1UZJpahtx3LyWtyEkgGMHOvh0t6ElVEnlFoMOEYtHM-1785872875.2659652-1.0.1.1-AFVM266Gaao6Lkib.KGFb300IKg7N3o9k69Lm.F1DftBCQqA1LUXzsze5OAWQOjJYyRuBDXJqw6Txy_fhOfqewfaWFnlVBluMHhb8E93_C22psJ9ry7ua4aiGRJYjD.m; HttpOnly; SameSite=None; Secure; Path=/; Domain=openrouter.ai; Expires=Tue, 04 Aug 2026 20:17:55 GMT'), (b'Permissions-Policy', b'payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com" "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")'), (b'Referrer-Policy', b'no-referrer, strict-origin-when-cross-origin'), (b'X-Content-Type-Options', b'nosniff'), (b'Server', b'cloudflare'), (b'CF-RAY', b'a260139e68181ef7-AMS')])
+2026-08-04 19:47:55,415 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-08-04 19:47:55,416 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2026-08-04 19:47:55,416 - httpcore.http11 - DEBUG - receive_response_body.complete
+2026-08-04 19:47:55,416 - httpcore.http11 - DEBUG - response_closed.started
+2026-08-04 19:47:55,417 - httpcore.http11 - DEBUG - response_closed.complete
+2026-08-04 19:47:55,417 - services.pro_tutorial - INFO - [stylize] Tier 2: Attempting OpenRouter model: stabilityai/stable-diffusion-3-5-large
+2026-08-04 19:47:55,418 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2026-08-04 19:47:55,418 - httpcore.http11 - DEBUG - send_request_headers.complete
+2026-08-04 19:47:55,418 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2026-08-04 19:47:55,419 - httpcore.http11 - DEBUG - send_request_body.complete
+2026-08-04 19:47:55,419 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2026-08-04 19:47:55,435 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 400, b'Bad Request', [(b'Date', b'Tue, 04 Aug 2026 19:47:55 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Access-Control-Allow-Origin', b'*'), (b'Access-Control-Expose-Headers', b'X-Generation-Id,X-Provider-Name,cf-ray'), (b'x-clerk-auth-message', b'Invalid JWT form. A JWT consists of three parts separated by dots. (reason=token-invalid, token-carrier=header)'), (b'x-clerk-auth-reason', b'token-invalid'), (b'x-clerk-auth-status', b'signed-out'), (b'Permissions-Policy', b'payment=(self "https://checkout.stripe.com" "https://connect-js.stripe.com" "https://js.stripe.com" "https://*.js.stripe.com" "https://hooks.stripe.com")'), (b'Referrer-Policy', b'no-referrer, strict-origin-when-cross-origin'), (b'X-Content-Type-Options', b'nosniff'), (b'Server', b'cloudflare'), (b'CF-RAY', b'a260139f5be31ef7-AMS')])
+2026-08-04 19:47:55,436 - httpx - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-08-04 19:47:55,436 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2026-08-04 19:47:55,436 - httpcore.http11 - DEBUG - receive_response_body.complete
+2026-08-04 19:47:55,436 - httpcore.http11 - DEBUG - response_closed.started
+2026-08-04 19:47:55,436 - httpcore.http11 - DEBUG - response_closed.complete
+2026-08-04 19:47:55,437 - httpcore.connection - DEBUG - close.started
+2026-08-04 19:47:55,437 - httpcore.connection - DEBUG - close.complete
+2026-08-04 19:47:55,437 - services.pro_tutorial - INFO - [stylize] Tier 2 exhausted. Proceeding to Tier 3 (Pollinations AI)...
+2026-08-04 19:47:55,439 - services.pro_tutorial - INFO - [stylize] Tier 3: Generated instant fallback URL via Pollinations AI (Length limited)

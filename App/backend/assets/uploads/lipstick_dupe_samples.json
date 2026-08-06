@@ -1,0 +1,3152 @@
+[
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-dusty-mauve",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Dusty Mauve",
+      "color_hex": "#a26970",
+      "color_family": "dusty-rose"
+    },
+    "dupes": [
+      {
+        "candidate_id": "burt-s-bees-butteryblush",
+        "candidate_brand": "Burt's Bees",
+        "candidate_product_line": "Matte Stick",
+        "candidate_shade_name": "butteryblush",
+        "candidate_color_hex": "#9d6a6f",
+        "delta_e_2000": 1.5202,
+        "hue_gap": 1.49,
+        "depth_gap": 0,
+        "dupe_score": 9.605
+      },
+      {
+        "candidate_id": "no-7-excite",
+        "candidate_brand": "No.7",
+        "candidate_product_line": "Sheer Temptation Lipstick",
+        "candidate_shade_name": "Excite",
+        "candidate_color_hex": "#a76872",
+        "delta_e_2000": 1.5452,
+        "hue_gap": 2.15,
+        "depth_gap": 0,
+        "dupe_score": 9.169
+      },
+      {
+        "candidate_id": "rituel-de-fille-prey",
+        "candidate_brand": "Rituel de Fille",
+        "candidate_product_line": "Forbidden Lipstick",
+        "candidate_shade_name": "Prey",
+        "candidate_color_hex": "#9e6973",
+        "delta_e_2000": 1.7064,
+        "hue_gap": 3.95,
+        "depth_gap": 0,
+        "dupe_score": 9.7778
+      },
+      {
+        "candidate_id": "covergirl-streaker",
+        "candidate_brand": "Covergirl",
+        "candidate_product_line": "Exhibitionist Demi-Matte Lipstick",
+        "candidate_shade_name": "Streaker",
+        "candidate_color_hex": "#a56e73",
+        "delta_e_2000": 1.8378,
+        "hue_gap": 1.92,
+        "depth_gap": 0,
+        "dupe_score": 9.2802
+      },
+      {
+        "candidate_id": "mac-cr-me-in-your-coffee",
+        "candidate_brand": "MAC",
+        "candidate_product_line": "Cremesheen Lipstick",
+        "candidate_shade_name": "Crème In Your Coffee",
+        "candidate_color_hex": "#a8676d",
+        "delta_e_2000": 1.9029,
+        "hue_gap": 1.83,
+        "depth_gap": 0,
+        "dupe_score": 8.8166
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-rum-punch",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Rum Punch",
+      "color_hex": "#9d3f3f",
+      "color_family": "rose"
+    },
+    "dupes": [
+      {
+        "candidate_id": "covergirl-bistro-burgundy",
+        "candidate_brand": "Covergirl",
+        "candidate_product_line": "COVERGIRL Continuous Color Lipstick",
+        "candidate_shade_name": "Bistro Burgundy",
+        "candidate_color_hex": "#9c3f3d",
+        "delta_e_2000": 0.7108,
+        "hue_gap": 1.26,
+        "depth_gap": 0,
+        "dupe_score": 10.0182
+      },
+      {
+        "candidate_id": "gucci-202-moira-sienna",
+        "candidate_brand": "Gucci",
+        "candidate_product_line": "Rouge à Lèvres Satin Lipstick",
+        "candidate_shade_name": "202 Moira Sienna",
+        "candidate_color_hex": "#9c3c3d",
+        "delta_e_2000": 0.7436,
+        "hue_gap": 0.62,
+        "depth_gap": 0,
+        "dupe_score": 9.9961
+      },
+      {
+        "candidate_id": "mac-dubonnet",
+        "candidate_brand": "MAC",
+        "candidate_product_line": "Amplified Lipstick",
+        "candidate_shade_name": "Dubonnet",
+        "candidate_color_hex": "#993f3f",
+        "delta_e_2000": 0.8544,
+        "hue_gap": 0.0,
+        "depth_gap": 0,
+        "dupe_score": 10.6956
+      },
+      {
+        "candidate_id": "nudestix-burgundy",
+        "candidate_brand": "Nudestix",
+        "candidate_product_line": "Magnetic Matte Lip Colour",
+        "candidate_shade_name": "Burgundy",
+        "candidate_color_hex": "#973f3d",
+        "delta_e_2000": 1.311,
+        "hue_gap": 1.33,
+        "depth_gap": 0,
+        "dupe_score": 9.8168
+      },
+      {
+        "candidate_id": "gucci-203-mildred-rosewood",
+        "candidate_brand": "Gucci",
+        "candidate_product_line": "Rouge à Lèvres Voile Lipstick",
+        "candidate_shade_name": "203 Mildred Rosewood",
+        "candidate_color_hex": "#a03a3e",
+        "delta_e_2000": 1.3633,
+        "hue_gap": 2.35,
+        "depth_gap": 0,
+        "dupe_score": 9.3475
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-staunch",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Staunch",
+      "color_hex": "#c1756b",
+      "color_family": "rose"
+    },
+    "dupes": [
+      {
+        "candidate_id": "mac-dimasheikhly",
+        "candidate_brand": "MAC",
+        "candidate_product_line": "Lipstick / @dimasheikhly",
+        "candidate_shade_name": "@dimasheikhly",
+        "candidate_color_hex": "#bf756a",
+        "delta_e_2000": 0.5801,
+        "hue_gap": 0.78,
+        "depth_gap": 0,
+        "dupe_score": 10.9569
+      },
+      {
+        "candidate_id": "catrice-010-full-of-braveness",
+        "candidate_brand": "Catrice",
+        "candidate_product_line": "Full Satin Nude Lipstick",
+        "candidate_shade_name": "010 Full Of Braveness",
+        "candidate_color_hex": "#c2756d",
+        "delta_e_2000": 0.7868,
+        "hue_gap": 1.33,
+        "depth_gap": 0,
+        "dupe_score": 9.941
+      },
+      {
+        "candidate_id": "h-m-peach-fuzz",
+        "candidate_brand": "H&M",
+        "candidate_product_line": "Läppstift",
+        "candidate_shade_name": "Peach Fuzz",
+        "candidate_color_hex": "#c0776b",
+        "delta_e_2000": 0.9908,
+        "hue_gap": 1.49,
+        "depth_gap": 0,
+        "dupe_score": 9.7344
+      },
+      {
+        "candidate_id": "h-m-wellies-and-tweed",
+        "candidate_brand": "H&M",
+        "candidate_product_line": "Läppstift",
+        "candidate_shade_name": "Wellies and Tweed",
+        "candidate_color_hex": "#bd736a",
+        "delta_e_2000": 1.0274,
+        "hue_gap": 0.47,
+        "depth_gap": 0,
+        "dupe_score": 10.5148
+      },
+      {
+        "candidate_id": "smashbox-press-tour",
+        "candidate_brand": "Smashbox",
+        "candidate_product_line": "BE LEGENDARY LIPSTICK",
+        "candidate_shade_name": "PRESS TOUR",
+        "candidate_color_hex": "#c07168",
+        "delta_e_2000": 1.2149,
+        "hue_gap": 0.84,
+        "depth_gap": 0,
+        "dupe_score": 10.3211
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-kiss",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Kiss",
+      "color_hex": "#ce8781",
+      "color_family": "rose"
+    },
+    "dupes": [
+      {
+        "candidate_id": "givenchy-n-03-urban-nude",
+        "candidate_brand": "Givenchy",
+        "candidate_product_line": "ROUGE INTERDIT",
+        "candidate_shade_name": "N°03-Urban Nude",
+        "candidate_color_hex": "#d08782",
+        "delta_e_2000": 0.5588,
+        "hue_gap": 0.83,
+        "depth_gap": 0,
+        "dupe_score": 10.1774
+      },
+      {
+        "candidate_id": "maybelline-peach-buff",
+        "candidate_brand": "Maybelline",
+        "candidate_product_line": "Creamy Mattes",
+        "candidate_shade_name": "Peach Buff",
+        "candidate_color_hex": "#d18781",
+        "delta_e_2000": 0.6241,
+        "hue_gap": 0.18,
+        "depth_gap": 0,
+        "dupe_score": 10.5229
+      },
+      {
+        "candidate_id": "natasha-denona-31np-beatrice",
+        "candidate_brand": "Natasha Denona",
+        "candidate_product_line": "I Need a Nude Lipstick",
+        "candidate_shade_name": "31NP Beatrice",
+        "candidate_color_hex": "#d08580",
+        "delta_e_2000": 0.8502,
+        "hue_gap": 0.93,
+        "depth_gap": 0,
+        "dupe_score": 9.8843
+      },
+      {
+        "candidate_id": "milani-61-matte-naked",
+        "candidate_brand": "Milani",
+        "candidate_product_line": "Color Statement Matte Lipstick",
+        "candidate_shade_name": "61 Matte Naked",
+        "candidate_color_hex": "#ca847d",
+        "delta_e_2000": 1.1458,
+        "hue_gap": 0.77,
+        "depth_gap": 0,
+        "dupe_score": 10.7914
+      },
+      {
+        "candidate_id": "revlon-bare-affair",
+        "candidate_brand": "Revlon",
+        "candidate_product_line": "Revlon Super Lustrous™ Lipstick",
+        "candidate_shade_name": "Bare Affair",
+        "candidate_color_hex": "#cb847c",
+        "delta_e_2000": 1.2663,
+        "hue_gap": 1.4,
+        "depth_gap": 0,
+        "dupe_score": 9.4604
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-rage",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Rage",
+      "color_hex": "#863582",
+      "color_family": "berry"
+    },
+    "dupes": [
+      {
+        "candidate_id": "maybelline-wild-violets",
+        "candidate_brand": "Maybelline",
+        "candidate_product_line": "Color Sensational® Shaping Lip Liner",
+        "candidate_shade_name": "Wild Violets",
+        "candidate_color_hex": "#8c347f",
+        "delta_e_2000": 1.7401,
+        "hue_gap": 5.9,
+        "depth_gap": 0,
+        "dupe_score": 9.7116
+      },
+      {
+        "candidate_id": "smashbox-violet-riot-matte",
+        "candidate_brand": "Smashbox",
+        "candidate_product_line": "BE LEGENDARY LIPSTICK",
+        "candidate_shade_name": "VIOLET RIOT MATTE",
+        "candidate_color_hex": "#872b82",
+        "delta_e_2000": 1.9132,
+        "hue_gap": 0.3,
+        "depth_gap": 0,
+        "dupe_score": 9.2318
+      },
+      {
+        "candidate_id": "shiseido-future-shock",
+        "candidate_brand": "Shiseido",
+        "candidate_product_line": "VisionAiry Gel Lipstick",
+        "candidate_shade_name": "Future Shock",
+        "candidate_color_hex": "#833177",
+        "delta_e_2000": 2.3003,
+        "hue_gap": 5.82,
+        "depth_gap": 0,
+        "dupe_score": 9.1527
+      },
+      {
+        "candidate_id": "revlon-hd-twilight",
+        "candidate_brand": "Revlon",
+        "candidate_product_line": "Revlon Ultra HD Gel Lipcolor™",
+        "candidate_shade_name": "HD Twilight",
+        "candidate_color_hex": "#7f2e74",
+        "delta_e_2000": 3.0033,
+        "hue_gap": 5.19,
+        "depth_gap": 0,
+        "dupe_score": 8.4602
+      },
+      {
+        "candidate_id": "buxom-shameless-magenta",
+        "candidate_brand": "BUXOM",
+        "candidate_product_line": "Satin Big & Sexy Bold Gel Lipstick",
+        "candidate_shade_name": "Shameless Magenta",
+        "candidate_color_hex": "#913a7f",
+        "delta_e_2000": 3.4254,
+        "hue_gap": 9.45,
+        "depth_gap": 0,
+        "dupe_score": 7.9671
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-cotton-candy",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Cotton Candy",
+      "color_hex": "#dc528e",
+      "color_family": "berry"
+    },
+    "dupes": [
+      {
+        "candidate_id": "mac-magenta",
+        "candidate_brand": "MAC",
+        "candidate_product_line": "Lipmix",
+        "candidate_shade_name": "Magenta",
+        "candidate_color_hex": "#de5791",
+        "delta_e_2000": 1.1635,
+        "hue_gap": 0.31,
+        "depth_gap": 0,
+        "dupe_score": 10.3813
+      },
+      {
+        "candidate_id": "wet-n-wild-smokin-hot-pink",
+        "candidate_brand": "Wet n Wild",
+        "candidate_product_line": "MegaLast Lip Color",
+        "candidate_shade_name": "Smokin' Hot Pink",
+        "candidate_color_hex": "#d5518b",
+        "delta_e_2000": 1.4326,
+        "hue_gap": 0.27,
+        "depth_gap": 0,
+        "dupe_score": 9.3129
+      },
+      {
+        "candidate_id": "lancome-401-crunchy-myrtille",
+        "candidate_brand": "Lancome",
+        "candidate_product_line": "SPRING 2018 LIMITED EDITION L'ABSOLU ROUGE",
+        "candidate_shade_name": "401 Crunchy Myrtille",
+        "candidate_color_hex": "#d65c92",
+        "delta_e_2000": 1.9451,
+        "hue_gap": 0.47,
+        "depth_gap": 0,
+        "dupe_score": 8.7971
+      },
+      {
+        "candidate_id": "burberry-lilac-424",
+        "candidate_brand": "Burberry",
+        "candidate_product_line": "Lip Velvet",
+        "candidate_shade_name": "Lilac 424",
+        "candidate_color_hex": "#e34e88",
+        "delta_e_2000": 2.1101,
+        "hue_gap": 2.73,
+        "depth_gap": 0,
+        "dupe_score": 8.5944
+      },
+      {
+        "candidate_id": "flower-beauty-pink-orchid-matte",
+        "candidate_brand": "FLOWER BEAUTY",
+        "candidate_product_line": "Petal Pout Lip Color",
+        "candidate_shade_name": "Pink Orchid - Matte",
+        "candidate_color_hex": "#d54f84",
+        "delta_e_2000": 2.3179,
+        "hue_gap": 2.36,
+        "depth_gap": 0,
+        "dupe_score": 8.7928
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-orchid",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Orchid",
+      "color_hex": "#ba4e80",
+      "color_family": "plum"
+    },
+    "dupes": [
+      {
+        "candidate_id": "isadora-68-crystal-rosemauve",
+        "candidate_brand": "IsaDora",
+        "candidate_product_line": "Perfect Moisture Lipstick",
+        "candidate_shade_name": "68 Crystal Rosemauve",
+        "candidate_color_hex": "#b75780",
+        "delta_e_2000": 2.2351,
+        "hue_gap": 2.16,
+        "depth_gap": 0,
+        "dupe_score": 8.4789
+      },
+      {
+        "candidate_id": "rimmel-amethyst-shimmer",
+        "candidate_brand": "Rimmel",
+        "candidate_product_line": "Lasting Finish",
+        "candidate_shade_name": "Amethyst Shimmer",
+        "candidate_color_hex": "#b74b76",
+        "delta_e_2000": 2.3851,
+        "hue_gap": 3.89,
+        "depth_gap": 0,
+        "dupe_score": 8.3001
+      },
+      {
+        "candidate_id": "rimmel-amethyst-shimmer",
+        "candidate_brand": "Rimmel",
+        "candidate_product_line": "Lasting Finish Lipstick",
+        "candidate_shade_name": "Amethyst Shimmer",
+        "candidate_color_hex": "#b74b76",
+        "delta_e_2000": 2.3851,
+        "hue_gap": 3.89,
+        "depth_gap": 0,
+        "dupe_score": 8.3001
+      },
+      {
+        "candidate_id": "sephora-collection-08-hear-me-roar-blackberry-purple",
+        "candidate_brand": "SEPHORA COLLECTION",
+        "candidate_product_line": "Rouge Lacquer Long-Lasting Lipstick",
+        "candidate_shade_name": "08 Hear Me Roar blackberry purple",
+        "candidate_color_hex": "#c54c7f",
+        "delta_e_2000": 2.3903,
+        "hue_gap": 2.49,
+        "depth_gap": 0,
+        "dupe_score": 8.3182
+      },
+      {
+        "candidate_id": "l-or-al-paris-472-purple-studs",
+        "candidate_brand": "L'Oréal Paris",
+        "candidate_product_line": "Color Riche Magnetic Stones Matte Lipstick 471 Voodoo",
+        "candidate_shade_name": "472 Purple Studs",
+        "candidate_color_hex": "#bf4485",
+        "delta_e_2000": 2.6,
+        "hue_gap": 3.93,
+        "depth_gap": 0,
+        "dupe_score": 8.4845
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-rust",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Rust",
+      "color_hex": "#6d3d31",
+      "color_family": "brick"
+    },
+    "dupes": [
+      {
+        "candidate_id": "pat-mcgrath-labs-divine-brown-dark-chocolate-",
+        "candidate_brand": "Pat McGrath Labs",
+        "candidate_product_line": "MatteTrance™Lipstick",
+        "candidate_shade_name": "Divine Brown (Dark Chocolate)",
+        "candidate_color_hex": "#6c392d",
+        "delta_e_2000": 1.2907,
+        "hue_gap": 0.57,
+        "depth_gap": 0,
+        "dupe_score": 9.8498
+      },
+      {
+        "candidate_id": "dose-of-colors-mocha",
+        "candidate_brand": "Dose of Colors",
+        "candidate_product_line": "Satin Lipstick",
+        "candidate_shade_name": "Mocha",
+        "candidate_color_hex": "#6f3a2d",
+        "delta_e_2000": 1.4357,
+        "hue_gap": 0.18,
+        "depth_gap": 0,
+        "dupe_score": 9.3113
+      },
+      {
+        "candidate_id": "sisley-33-orange-sevilla",
+        "candidate_brand": "Sisley",
+        "candidate_product_line": "Le Phyto Rouge",
+        "candidate_shade_name": "33 Orange Sevilla",
+        "candidate_color_hex": "#6d392c",
+        "delta_e_2000": 1.4673,
+        "hue_gap": 0.0,
+        "depth_gap": 0,
+        "dupe_score": 9.2827
+      },
+      {
+        "candidate_id": "victoria-beckham-beauty-fringe",
+        "candidate_brand": "Victoria Beckham Beauty",
+        "candidate_product_line": "Posh Lipstick",
+        "candidate_shade_name": "Fringe",
+        "candidate_color_hex": "#673b30",
+        "delta_e_2000": 1.4967,
+        "hue_gap": 0.0,
+        "depth_gap": 0,
+        "dupe_score": 9.2533
+      },
+      {
+        "candidate_id": "guerlain-017-leather-coffee",
+        "candidate_brand": "Guerlain",
+        "candidate_product_line": "La Petite Robe Noire",
+        "candidate_shade_name": "017 Leather Coffee",
+        "candidate_color_hex": "#714137",
+        "delta_e_2000": 1.6603,
+        "hue_gap": 1.66,
+        "depth_gap": 0,
+        "dupe_score": 9.062
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-stevie",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Stevie",
+      "color_hex": "#924b45",
+      "color_family": "rose"
+    },
+    "dupes": [
+      {
+        "candidate_id": "nyx-empowered",
+        "candidate_brand": "NYX",
+        "candidate_product_line": "Super Cliquey Matte Lipstick",
+        "candidate_shade_name": "Empowered",
+        "candidate_color_hex": "#934c46",
+        "delta_e_2000": 0.3488,
+        "hue_gap": 0.0,
+        "depth_gap": 0,
+        "dupe_score": 11.6012
+      },
+      {
+        "candidate_id": "clinique-08-intimately",
+        "candidate_brand": "Clinique",
+        "candidate_product_line": "Dramatically Different™ Lipstick Shaping Lip Colour",
+        "candidate_shade_name": "08 Intimately",
+        "candidate_color_hex": "#954b44",
+        "delta_e_2000": 0.8193,
+        "hue_gap": 0.51,
+        "depth_gap": 0,
+        "dupe_score": 10.7222
+      },
+      {
+        "candidate_id": "pat-mcgrath-labs-christy-divine-beige-peach-",
+        "candidate_brand": "Pat McGrath Labs",
+        "candidate_product_line": "MatteTrance™Lipstick",
+        "candidate_shade_name": "Christy (Divine Beige Peach)",
+        "candidate_color_hex": "#934e47",
+        "delta_e_2000": 0.927,
+        "hue_gap": 0.85,
+        "depth_gap": 0,
+        "dupe_score": 10.2088
+      },
+      {
+        "candidate_id": "kkw-beauty-nude-6",
+        "candidate_brand": "KKW BEAUTY",
+        "candidate_product_line": "Nude Crème Lipstick",
+        "candidate_shade_name": "Nude 6",
+        "candidate_color_hex": "#8f4842",
+        "delta_e_2000": 1.0366,
+        "hue_gap": 0.0,
+        "depth_gap": 0,
+        "dupe_score": 9.7134
+      },
+      {
+        "candidate_id": "sephora-collection-34-my-rules-brown",
+        "candidate_brand": "SEPHORA COLLECTION",
+        "candidate_product_line": "Rouge Lacquer Long-Lasting Lipstick",
+        "candidate_shade_name": "34 My Rules brown",
+        "candidate_color_hex": "#924844",
+        "delta_e_2000": 1.0487,
+        "hue_gap": 1.6,
+        "depth_gap": 0,
+        "dupe_score": 9.6746
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-rogue",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Rogue",
+      "color_hex": "#90413a",
+      "color_family": "rose"
+    },
+    "dupes": [
+      {
+        "candidate_id": "nyx-rome",
+        "candidate_brand": "NYX",
+        "candidate_product_line": "Soft Matte Lip Cream",
+        "candidate_shade_name": "Rome",
+        "candidate_color_hex": "#90423b",
+        "delta_e_2000": 0.2814,
+        "hue_gap": 0.06,
+        "depth_gap": 0,
+        "dupe_score": 10.8676
+      },
+      {
+        "candidate_id": "cl-de-peau-beaut-101-pouty",
+        "candidate_brand": "Clé de Peau Beauté",
+        "candidate_product_line": "Lipstick Cashmere",
+        "candidate_shade_name": "101 Pouty",
+        "candidate_color_hex": "#94433c",
+        "delta_e_2000": 0.9791,
+        "hue_gap": 0.11,
+        "depth_gap": 0,
+        "dupe_score": 9.7691
+      },
+      {
+        "candidate_id": "lancome-277n-violine-lam-e",
+        "candidate_brand": "Lancome",
+        "candidate_product_line": "Rouge in Love",
+        "candidate_shade_name": "277N Violine Lamée",
+        "candidate_color_hex": "#94413c",
+        "delta_e_2000": 1.0621,
+        "hue_gap": 1.47,
+        "depth_gap": 0,
+        "dupe_score": 9.6634
+      },
+      {
+        "candidate_id": "urban-decay-en-fuego",
+        "candidate_brand": "Urban Decay",
+        "candidate_product_line": "Comfort Matte Vice Lipstick",
+        "candidate_shade_name": "EN FUEGO",
+        "candidate_color_hex": "#93453f",
+        "delta_e_2000": 1.3621,
+        "hue_gap": 0.59,
+        "depth_gap": 0,
+        "dupe_score": 10.5781
+      },
+      {
+        "candidate_id": "colourpop-lay-over",
+        "candidate_brand": "ColourPop",
+        "candidate_product_line": "Crème Lux Lipstick",
+        "candidate_shade_name": "Lay Over",
+        "candidate_color_hex": "#95443e",
+        "delta_e_2000": 1.3784,
+        "hue_gap": 0.74,
+        "depth_gap": 0,
+        "dupe_score": 10.1593
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-rosewood",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Rosewood",
+      "color_hex": "#98453f",
+      "color_family": "mlbb"
+    },
+    "dupes": [
+      {
+        "candidate_id": "colourpop-lay-over",
+        "candidate_brand": "ColourPop",
+        "candidate_product_line": "Crème Lux Lipstick",
+        "candidate_shade_name": "Lay Over",
+        "candidate_color_hex": "#95443e",
+        "delta_e_2000": 0.6843,
+        "hue_gap": 0.1,
+        "depth_gap": 0,
+        "dupe_score": 10.064
+      },
+      {
+        "candidate_id": "bite-beauty-chai",
+        "candidate_brand": "BITE Beauty",
+        "candidate_product_line": "Amuse Bouche Lipstick",
+        "candidate_shade_name": "Chai",
+        "candidate_color_hex": "#954641",
+        "delta_e_2000": 0.9106,
+        "hue_gap": 0.47,
+        "depth_gap": 0,
+        "dupe_score": 9.8316
+      },
+      {
+        "candidate_id": "cl-de-peau-beaut-101-pouty",
+        "candidate_brand": "Clé de Peau Beauté",
+        "candidate_product_line": "Lipstick Cashmere",
+        "candidate_shade_name": "101 Pouty",
+        "candidate_color_hex": "#94433c",
+        "delta_e_2000": 1.0714,
+        "hue_gap": 0.73,
+        "depth_gap": 0,
+        "dupe_score": 9.6664
+      },
+      {
+        "candidate_id": "urban-decay-en-fuego",
+        "candidate_brand": "Urban Decay",
+        "candidate_product_line": "Comfort Matte Vice Lipstick",
+        "candidate_shade_name": "EN FUEGO",
+        "candidate_color_hex": "#93453f",
+        "delta_e_2000": 1.0887,
+        "hue_gap": 0.25,
+        "depth_gap": 0,
+        "dupe_score": 10.0571
+      },
+      {
+        "candidate_id": "elizabeth-arden-ballet-blush",
+        "candidate_brand": "Elizabeth Arden",
+        "candidate_product_line": "Beautiful Color Precision Glide Lip Liner",
+        "candidate_shade_name": "Ballet Blush",
+        "candidate_color_hex": "#97473e",
+        "delta_e_2000": 1.1259,
+        "hue_gap": 2.03,
+        "depth_gap": 0,
+        "dupe_score": 9.5903
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-stargazer",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Stargazer",
+      "color_hex": "#e73768",
+      "color_family": "rose"
+    },
+    "dupes": [
+      {
+        "candidate_id": "nyx-paris",
+        "candidate_brand": "NYX",
+        "candidate_product_line": "Soft Matte Lip Cream",
+        "candidate_shade_name": "Paris",
+        "candidate_color_hex": "#e8336b",
+        "delta_e_2000": 1.0853,
+        "hue_gap": 1.86,
+        "depth_gap": 0,
+        "dupe_score": 10.0337
+      },
+      {
+        "candidate_id": "bobbi-brown-raspberry-pink",
+        "candidate_brand": "Bobbi Brown",
+        "candidate_product_line": "Luxe Lip Color",
+        "candidate_shade_name": "Raspberry Pink",
+        "candidate_color_hex": "#e83463",
+        "delta_e_2000": 1.2195,
+        "hue_gap": 1.03,
+        "depth_gap": 0,
+        "dupe_score": 9.0133
+      },
+      {
+        "candidate_id": "smashbox-9-to-5",
+        "candidate_brand": "Smashbox",
+        "candidate_product_line": "BE LEGENDARY LIPSTICK",
+        "candidate_shade_name": "9 TO 5",
+        "candidate_color_hex": "#ea2b68",
+        "delta_e_2000": 1.2333,
+        "hue_gap": 2.46,
+        "depth_gap": 0,
+        "dupe_score": 10.2757
+      },
+      {
+        "candidate_id": "estee-lauder-most-wanted",
+        "candidate_brand": "Estee Lauder",
+        "candidate_product_line": "Pure Color Envy-lipstick",
+        "candidate_shade_name": "Most Wanted",
+        "candidate_color_hex": "#e64169",
+        "delta_e_2000": 1.4084,
+        "hue_gap": 2.15,
+        "depth_gap": 0,
+        "dupe_score": 9.3058
+      },
+      {
+        "candidate_id": "elizabeth-arden-pink-vibrations",
+        "candidate_brand": "Elizabeth Arden",
+        "candidate_product_line": "Beautiful Color Moisturising Lipstick",
+        "candidate_shade_name": "Pink Vibrations",
+        "candidate_color_hex": "#e7396e",
+        "delta_e_2000": 1.4475,
+        "hue_gap": 1.58,
+        "depth_gap": 0,
+        "dupe_score": 8.7762
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-griffin",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Griffin",
+      "color_hex": "#6c5658",
+      "color_family": "rose"
+    },
+    "dupes": [
+      {
+        "candidate_id": "nyx-moonwalk",
+        "candidate_brand": "NYX",
+        "candidate_product_line": "Suede Matte Lipstick",
+        "candidate_shade_name": "Moonwalk",
+        "candidate_color_hex": "#695352",
+        "delta_e_2000": 1.9187,
+        "hue_gap": 8.06,
+        "depth_gap": 0,
+        "dupe_score": 9.897
+      },
+      {
+        "candidate_id": "fenty-beauty-i-quit-true-mink",
+        "candidate_brand": "Fenty Beauty",
+        "candidate_product_line": "MATTEMOISELLE",
+        "candidate_shade_name": "I Quit - True Mink",
+        "candidate_color_hex": "#705451",
+        "delta_e_2000": 3.2715,
+        "hue_gap": 11.26,
+        "depth_gap": 0,
+        "dupe_score": 8.4908
+      },
+      {
+        "candidate_id": "anastasia-beverly-hills-resin",
+        "candidate_brand": "Anastasia Beverly Hills",
+        "candidate_product_line": "Matte Lipstick",
+        "candidate_shade_name": "Resin",
+        "candidate_color_hex": "#765b60",
+        "delta_e_2000": 3.3034,
+        "hue_gap": 5.66,
+        "depth_gap": 0,
+        "dupe_score": 8.0523
+      },
+      {
+        "candidate_id": "too-faced-throwin-suede",
+        "candidate_brand": "Too Faced",
+        "candidate_product_line": "Natural Nudes Lipstick",
+        "candidate_shade_name": "Throwin' Suede",
+        "candidate_color_hex": "#6f5151",
+        "delta_e_2000": 3.3308,
+        "hue_gap": 5.45,
+        "depth_gap": 0,
+        "dupe_score": 7.3284
+      },
+      {
+        "candidate_id": "maybelline-gone-griege",
+        "candidate_brand": "Maybelline",
+        "candidate_product_line": "Color Sensational® Shaping Lip Liner",
+        "candidate_shade_name": "Gone Griege",
+        "candidate_color_hex": "#6e5052",
+        "delta_e_2000": 3.3462,
+        "hue_gap": 1.45,
+        "depth_gap": 0,
+        "dupe_score": 8.1796
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-dread",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Dread",
+      "color_hex": "#906151",
+      "color_family": "terracotta"
+    },
+    "dupes": [
+      {
+        "candidate_id": "mented-cosmetics-dope-taupe",
+        "candidate_brand": "Mented Cosmetics",
+        "candidate_product_line": "Semi-Matte Lipsticks",
+        "candidate_shade_name": "Dope Taupe",
+        "candidate_color_hex": "#906252",
+        "delta_e_2000": 0.3959,
+        "hue_gap": 0.24,
+        "depth_gap": 0,
+        "dupe_score": 10.7501
+      },
+      {
+        "candidate_id": "mented-cosmetics-dope-taupe",
+        "candidate_brand": "Mented Cosmetics",
+        "candidate_product_line": "Matte Lipsticks",
+        "candidate_shade_name": "Dope Taupe",
+        "candidate_color_hex": "#906252",
+        "delta_e_2000": 0.3959,
+        "hue_gap": 0.24,
+        "depth_gap": 0,
+        "dupe_score": 10.7501
+      },
+      {
+        "candidate_id": "covergirl-caramel-curtsy",
+        "candidate_brand": "Covergirl",
+        "candidate_product_line": "Queen Collection Matte Lip Color",
+        "candidate_shade_name": "Caramel Curtsy",
+        "candidate_color_hex": "#8b6254",
+        "delta_e_2000": 1.745,
+        "hue_gap": 0.03,
+        "depth_gap": 0,
+        "dupe_score": 9.4045
+      },
+      {
+        "candidate_id": "by-terry-n-30-chai-latte",
+        "candidate_brand": "BY TERRY",
+        "candidate_product_line": "Rouge-Expert Click Stick Lipstick",
+        "candidate_shade_name": "N°30 Chai Latte",
+        "candidate_color_hex": "#976553",
+        "delta_e_2000": 2.0515,
+        "hue_gap": 0.64,
+        "depth_gap": 0,
+        "dupe_score": 8.6878
+      },
+      {
+        "candidate_id": "bourjois-22-moka-d-ro",
+        "candidate_brand": "Bourjois",
+        "candidate_product_line": "Rouge Velvet The Lipstick",
+        "candidate_shade_name": "22 Moka-déro",
+        "candidate_color_hex": "#8f5e52",
+        "delta_e_2000": 2.067,
+        "hue_gap": 3.44,
+        "depth_gap": 0,
+        "dupe_score": 8.6257
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-cool-brown",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Cool Brown",
+      "color_hex": "#875242",
+      "color_family": "brown"
+    },
+    "dupes": [
+      {
+        "candidate_id": "kkw-beauty-nude-3",
+        "candidate_brand": "KKW BEAUTY",
+        "candidate_product_line": "Nude Lip Liner",
+        "candidate_shade_name": "Nude 3",
+        "candidate_color_hex": "#855143",
+        "delta_e_2000": 0.9208,
+        "hue_gap": 1.18,
+        "depth_gap": 0,
+        "dupe_score": 9.8095
+      },
+      {
+        "candidate_id": "urban-decay-scorched",
+        "candidate_brand": "Urban Decay",
+        "candidate_product_line": "Naked Heat",
+        "candidate_shade_name": "SCORCHED",
+        "candidate_color_hex": "#8c5242",
+        "delta_e_2000": 1.3053,
+        "hue_gap": 0.94,
+        "depth_gap": 0,
+        "dupe_score": 10.229
+      },
+      {
+        "candidate_id": "estee-lauder-dangerous",
+        "candidate_brand": "Estee Lauder",
+        "candidate_product_line": "Pure Color Envy-lipstick",
+        "candidate_shade_name": "Dangerous",
+        "candidate_color_hex": "#88523e",
+        "delta_e_2000": 1.5843,
+        "hue_gap": 2.31,
+        "depth_gap": 0,
+        "dupe_score": 9.9272
+      },
+      {
+        "candidate_id": "uoma-beauty-nina",
+        "candidate_brand": "UOMA BEAUTY",
+        "candidate_product_line": "BADASS ICON Matte Lipstick",
+        "candidate_shade_name": "Nina",
+        "candidate_color_hex": "#834f42",
+        "delta_e_2000": 1.6367,
+        "hue_gap": 1.91,
+        "depth_gap": 0,
+        "dupe_score": 10.2815
+      },
+      {
+        "candidate_id": "laura-mercier-brun-naturel",
+        "candidate_brand": "Laura Mercier",
+        "candidate_product_line": "Rouge Essentiel Silky Crème Lipstick",
+        "candidate_shade_name": "BRUN NATUREL",
+        "candidate_color_hex": "#80513f",
+        "delta_e_2000": 2.1689,
+        "hue_gap": 2.71,
+        "depth_gap": 0,
+        "dupe_score": 8.5359
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-dead-roses",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Dead Roses",
+      "color_hex": "#9b5f5f",
+      "color_family": "rose"
+    },
+    "dupes": [
+      {
+        "candidate_id": "max-factor-burnt-caramel",
+        "candidate_brand": "Max Factor",
+        "candidate_product_line": "Colour Elixir Lipstick",
+        "candidate_shade_name": "Burnt Caramel",
+        "candidate_color_hex": "#98615f",
+        "delta_e_2000": 1.3182,
+        "hue_gap": 2.11,
+        "depth_gap": 0,
+        "dupe_score": 8.8966
+      },
+      {
+        "candidate_id": "catrice-040-full-of-inspiration",
+        "candidate_brand": "Catrice",
+        "candidate_product_line": "Full Satin Lipstick",
+        "candidate_shade_name": "040 Full Of Inspiration",
+        "candidate_color_hex": "#9f6260",
+        "delta_e_2000": 1.4829,
+        "hue_gap": 1.9,
+        "depth_gap": 0,
+        "dupe_score": 10.0354
+      },
+      {
+        "candidate_id": "nyx-shanghai",
+        "candidate_brand": "NYX",
+        "candidate_product_line": "Soft Matte Lip Cream",
+        "candidate_shade_name": "Shanghai",
+        "candidate_color_hex": "#9d5b5c",
+        "delta_e_2000": 1.486,
+        "hue_gap": 0.91,
+        "depth_gap": 0,
+        "dupe_score": 9.6488
+      },
+      {
+        "candidate_id": "givenchy-n-110-nude-androgyne",
+        "candidate_brand": "Givenchy",
+        "candidate_product_line": "LE ROUGE MAT",
+        "candidate_shade_name": "N°110-Nude Androgyne",
+        "candidate_color_hex": "#9d625f",
+        "delta_e_2000": 1.5388,
+        "hue_gap": 2.9,
+        "depth_gap": 0,
+        "dupe_score": 9.1629
+      },
+      {
+        "candidate_id": "pat-mcgrath-labs-femmebot-mid-tone-neutral-pink-",
+        "candidate_brand": "Pat McGrath Labs",
+        "candidate_product_line": "MatteTrance™Lipstick",
+        "candidate_shade_name": "FemmeBot (Mid-tone Neutral Pink)",
+        "candidate_color_hex": "#a26062",
+        "delta_e_2000": 1.7805,
+        "hue_gap": 1.82,
+        "depth_gap": 0,
+        "dupe_score": 9.3392
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-honey",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Honey",
+      "color_hex": "#e7b2a4",
+      "color_family": "coral"
+    },
+    "dupes": [
+      {
+        "candidate_id": "urban-decay-tower-1",
+        "candidate_brand": "Urban Decay",
+        "candidate_product_line": "Beached Vice Lipstick",
+        "candidate_shade_name": "Tower 1",
+        "candidate_color_hex": "#e1ae9e",
+        "delta_e_2000": 1.6055,
+        "hue_gap": 1.79,
+        "depth_gap": 0,
+        "dupe_score": 9.1147
+      },
+      {
+        "candidate_id": "mac-cr-me-d-nude",
+        "candidate_brand": "MAC",
+        "candidate_product_line": "Cremesheen Lipstick",
+        "candidate_shade_name": "Crème d'Nude",
+        "candidate_color_hex": "#dfb3a6",
+        "delta_e_2000": 2.2781,
+        "hue_gap": 1.14,
+        "depth_gap": 0,
+        "dupe_score": 8.4529
+      },
+      {
+        "candidate_id": "kkw-beauty-nude-0",
+        "candidate_brand": "KKW BEAUTY",
+        "candidate_product_line": "Nude Lip Liner",
+        "candidate_shade_name": "Nude 0",
+        "candidate_color_hex": "#e1b5a8",
+        "delta_e_2000": 2.2829,
+        "hue_gap": 1.14,
+        "depth_gap": 0,
+        "dupe_score": 8.4481
+      },
+      {
+        "candidate_id": "flower-beauty-bare-pout-cream",
+        "candidate_brand": "FLOWER BEAUTY",
+        "candidate_product_line": "Petal Pout Lip Color",
+        "candidate_shade_name": "Bare Pout - Cream",
+        "candidate_color_hex": "#f4b5a9",
+        "delta_e_2000": 2.8932,
+        "hue_gap": 2.94,
+        "depth_gap": 0,
+        "dupe_score": 7.8078
+      },
+      {
+        "candidate_id": "tom-ford-heavenly-creature",
+        "candidate_brand": "Tom Ford",
+        "candidate_product_line": "LIP COLOR MATTE",
+        "candidate_shade_name": "HEAVENLY CREATURE",
+        "candidate_color_hex": "#f5b4a2",
+        "delta_e_2000": 2.9855,
+        "hue_gap": 0.47,
+        "depth_gap": 0,
+        "dupe_score": 8.9567
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-midnight",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Midnight",
+      "color_hex": "#221e1f",
+      "color_family": "rose"
+    },
+    "dupes": [
+      {
+        "candidate_id": "covergirl-perry-panther",
+        "candidate_brand": "Covergirl",
+        "candidate_product_line": "Katy Kat Matte Lipstick",
+        "candidate_shade_name": "Perry Panther",
+        "candidate_color_hex": "#231d1d",
+        "delta_e_2000": 1.379,
+        "hue_gap": 15.0,
+        "depth_gap": 0,
+        "dupe_score": 10.321
+      },
+      {
+        "candidate_id": "smashbox-bankrolled-",
+        "candidate_brand": "Smashbox",
+        "candidate_product_line": "BE LEGENDARY LIPSTICK",
+        "candidate_shade_name": "BANKROLLED ",
+        "candidate_color_hex": "#1e191c",
+        "delta_e_2000": 2.2241,
+        "hue_gap": 21.0,
+        "depth_gap": 0,
+        "dupe_score": 8.1759
+      },
+      {
+        "candidate_id": "mac-stallion",
+        "candidate_brand": "MAC",
+        "candidate_product_line": "Liptensity Lipstick",
+        "candidate_shade_name": "Stallion",
+        "candidate_color_hex": "#1e181c",
+        "delta_e_2000": 3.1305,
+        "hue_gap": 25.0,
+        "depth_gap": 0,
+        "dupe_score": 7.2028
+      },
+      {
+        "candidate_id": "gucci-700-crystal-black",
+        "candidate_brand": "Gucci",
+        "candidate_product_line": "Rouge à Lèvres Satin Lipstick",
+        "candidate_shade_name": "700 Crystal Black",
+        "candidate_color_hex": "#1c1c1c",
+        "delta_e_2000": 3.1488,
+        "hue_gap": 15.0,
+        "depth_gap": 0,
+        "dupe_score": 7.3512
+      },
+      {
+        "candidate_id": "mac-black-night",
+        "candidate_brand": "MAC",
+        "candidate_product_line": "Lipstick / Pretty Punk",
+        "candidate_shade_name": "Black Night",
+        "candidate_color_hex": "#2b2223",
+        "delta_e_2000": 3.3966,
+        "hue_gap": 8.33,
+        "depth_gap": 0,
+        "dupe_score": 8.0146
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-spice",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Spice",
+      "color_hex": "#9e5147",
+      "color_family": "chili"
+    },
+    "dupes": [
+      {
+        "candidate_id": "huda-beauty-first-kiss",
+        "candidate_brand": "Huda Beauty",
+        "candidate_product_line": "Power Bullet Matte Lipstick",
+        "candidate_shade_name": "First Kiss",
+        "candidate_color_hex": "#9d5048",
+        "delta_e_2000": 0.8077,
+        "hue_gap": 1.25,
+        "depth_gap": 0,
+        "dupe_score": 10.3215
+      },
+      {
+        "candidate_id": "lancome-10-pure-brown",
+        "candidate_brand": "Lancome",
+        "candidate_product_line": "LIP KAJAL x PROENZA",
+        "candidate_shade_name": "10 Pure Brown",
+        "candidate_color_hex": "#9c4e44",
+        "delta_e_2000": 0.9621,
+        "hue_gap": 0.08,
+        "depth_gap": 0,
+        "dupe_score": 9.7866
+      },
+      {
+        "candidate_id": "shiseido-semi-nude",
+        "candidate_brand": "Shiseido",
+        "candidate_product_line": "ModernMatte Powder Lipstick",
+        "candidate_shade_name": "Semi Nude",
+        "candidate_color_hex": "#a45248",
+        "delta_e_2000": 1.3365,
+        "hue_gap": 0.38,
+        "depth_gap": 0,
+        "dupe_score": 9.8072
+      },
+      {
+        "candidate_id": "hera-no-432-studio-beige",
+        "candidate_brand": "HERA",
+        "candidate_product_line": "ROUGE HOLIC SHINE",
+        "candidate_shade_name": "NO.432 STUDIO BEIGE",
+        "candidate_color_hex": "#a45248",
+        "delta_e_2000": 1.3365,
+        "hue_gap": 0.38,
+        "depth_gap": 0,
+        "dupe_score": 9.4072
+      },
+      {
+        "candidate_id": "estee-lauder-deny",
+        "candidate_brand": "Estee Lauder",
+        "candidate_product_line": "Pure Color Desire-lipstick",
+        "candidate_shade_name": "Deny",
+        "candidate_color_hex": "#a3514a",
+        "delta_e_2000": 1.5221,
+        "hue_gap": 2.18,
+        "depth_gap": 0,
+        "dupe_score": 9.1916
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-peachy",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Peachy",
+      "color_hex": "#c2715c",
+      "color_family": "rose"
+    },
+    "dupes": [
+      {
+        "candidate_id": "urban-decay-fuel-2-0",
+        "candidate_brand": "Urban Decay",
+        "candidate_product_line": "Cream Vice Lipstick",
+        "candidate_shade_name": "FUEL 2.0",
+        "candidate_color_hex": "#c4735d",
+        "delta_e_2000": 0.7478,
+        "hue_gap": 0.47,
+        "depth_gap": 0,
+        "dupe_score": 10.7944
+      },
+      {
+        "candidate_id": "urban-decay-insanity",
+        "candidate_brand": "Urban Decay",
+        "candidate_product_line": "Cream Vice Lipstick",
+        "candidate_shade_name": "INSANITY",
+        "candidate_color_hex": "#c47058",
+        "delta_e_2000": 1.097,
+        "hue_gap": 0.98,
+        "depth_gap": 0,
+        "dupe_score": 10.4367
+      },
+      {
+        "candidate_id": "nyx-sophisticated",
+        "candidate_brand": "NYX",
+        "candidate_product_line": "Pin-Up Pout Lipstick",
+        "candidate_shade_name": "Sophisticated",
+        "candidate_color_hex": "#bd735d",
+        "delta_e_2000": 1.4266,
+        "hue_gap": 1.4,
+        "depth_gap": 0,
+        "dupe_score": 10.1001
+      },
+      {
+        "candidate_id": "kylie-cosmetics-dulce-de-leche",
+        "candidate_brand": "Kylie Cosmetics",
+        "candidate_product_line": "Crème Lipstick",
+        "candidate_shade_name": "Dulce de Leche",
+        "candidate_color_hex": "#c76e57",
+        "delta_e_2000": 1.5006,
+        "hue_gap": 0.03,
+        "depth_gap": 0,
+        "dupe_score": 10.0489
+      },
+      {
+        "candidate_id": "kkw-beauty-nude-3",
+        "candidate_brand": "KKW BEAUTY",
+        "candidate_product_line": "Nude Crème Lipstick",
+        "candidate_shade_name": "Nude 3",
+        "candidate_color_hex": "#bb705d",
+        "delta_e_2000": 1.5756,
+        "hue_gap": 0.22,
+        "depth_gap": 0,
+        "dupe_score": 9.1707
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-soft-pink",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Soft Pink",
+      "color_hex": "#cf666b",
+      "color_family": "pink"
+    },
+    "dupes": [
+      {
+        "candidate_id": "kkw-beauty-pink-3",
+        "candidate_brand": "KKW BEAUTY",
+        "candidate_product_line": "Pink Crème Lipstick",
+        "candidate_shade_name": "Pink 3",
+        "candidate_color_hex": "#ce696d",
+        "delta_e_2000": 0.7576,
+        "hue_gap": 0.48,
+        "depth_gap": 0,
+        "dupe_score": 10.7844
+      },
+      {
+        "candidate_id": "guerlain-040-coral-collar",
+        "candidate_brand": "Guerlain",
+        "candidate_product_line": "La Petite Robe Noire",
+        "candidate_shade_name": "040 Coral Collar",
+        "candidate_color_hex": "#d3666b",
+        "delta_e_2000": 0.789,
+        "hue_gap": 0.11,
+        "depth_gap": 0,
+        "dupe_score": 9.9592
+      },
+      {
+        "candidate_id": "estee-lauder-seduce",
+        "candidate_brand": "Estee Lauder",
+        "candidate_product_line": "Pure Color Desire-lipstick",
+        "candidate_shade_name": "Seduce",
+        "candidate_color_hex": "#cd6a6d",
+        "delta_e_2000": 1.0662,
+        "hue_gap": 1.04,
+        "depth_gap": 0,
+        "dupe_score": 9.6665
+      },
+      {
+        "candidate_id": "elizabeth-arden-coral",
+        "candidate_brand": "Elizabeth Arden",
+        "candidate_product_line": "Ceramide Ultra Lipstick",
+        "candidate_shade_name": "Coral",
+        "candidate_color_hex": "#cb6769",
+        "delta_e_2000": 1.0836,
+        "hue_gap": 1.66,
+        "depth_gap": 0,
+        "dupe_score": 9.6387
+      },
+      {
+        "candidate_id": "bite-beauty-sorbet",
+        "candidate_brand": "BITE Beauty",
+        "candidate_product_line": "Amuse Bouche Lipstick",
+        "candidate_shade_name": "Sorbet",
+        "candidate_color_hex": "#d46369",
+        "delta_e_2000": 1.1121,
+        "hue_gap": 0.33,
+        "depth_gap": 0,
+        "dupe_score": 9.6324
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-buff",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Buff",
+      "color_hex": "#b16862",
+      "color_family": "nude"
+    },
+    "dupes": [
+      {
+        "candidate_id": "urban-decay-trance",
+        "candidate_brand": "Urban Decay",
+        "candidate_product_line": "Metallized Vice Lipstick",
+        "candidate_shade_name": "TRANCE",
+        "candidate_color_hex": "#b16864",
+        "delta_e_2000": 0.7815,
+        "hue_gap": 1.44,
+        "depth_gap": 0,
+        "dupe_score": 9.9445
+      },
+      {
+        "candidate_id": "h-m-cream-chestnut",
+        "candidate_brand": "H&M",
+        "candidate_product_line": "Läppstift",
+        "candidate_shade_name": "Cream Chestnut",
+        "candidate_color_hex": "#b16763",
+        "delta_e_2000": 0.7925,
+        "hue_gap": 1.48,
+        "depth_gap": 0,
+        "dupe_score": 9.9328
+      },
+      {
+        "candidate_id": "becca-souffle",
+        "candidate_brand": "BECCA",
+        "candidate_product_line": "Ultimate Lipstick Love",
+        "candidate_shade_name": "Souffle",
+        "candidate_color_hex": "#b36660",
+        "delta_e_2000": 0.7953,
+        "hue_gap": 0.22,
+        "depth_gap": 0,
+        "dupe_score": 9.951
+      },
+      {
+        "candidate_id": "maybelline-magnetic-mauve",
+        "candidate_brand": "Maybelline",
+        "candidate_product_line": "Color Sensational® Shaping Lip Liner",
+        "candidate_shade_name": "Magnetic Mauve",
+        "candidate_color_hex": "#b46964",
+        "delta_e_2000": 0.8201,
+        "hue_gap": 0.81,
+        "depth_gap": 0,
+        "dupe_score": 9.4164
+      },
+      {
+        "candidate_id": "paul-joe-206-muget-rose",
+        "candidate_brand": "Paul & Joe",
+        "candidate_product_line": "Lipstick N Medium Finish",
+        "candidate_shade_name": "206 Muget Rose",
+        "candidate_color_hex": "#b06763",
+        "delta_e_2000": 0.8344,
+        "hue_gap": 1.44,
+        "depth_gap": 0,
+        "dupe_score": 9.8916
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-plumeria",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Plumeria",
+      "color_hex": "#8f1f4d",
+      "color_family": "berry"
+    },
+    "dupes": [
+      {
+        "candidate_id": "burt-s-bees-magentarush",
+        "candidate_brand": "Burt's Bees",
+        "candidate_product_line": "Satin Lipstick",
+        "candidate_shade_name": "MagentaRush",
+        "candidate_color_hex": "#93154e",
+        "delta_e_2000": 1.276,
+        "hue_gap": 2.5,
+        "depth_gap": 0,
+        "dupe_score": 9.4323
+      },
+      {
+        "candidate_id": "chantecaille-damask",
+        "candidate_brand": "Chantecaille",
+        "candidate_product_line": "Lip Chic",
+        "candidate_shade_name": "DAMASK",
+        "candidate_color_hex": "#8b2350",
+        "delta_e_2000": 1.3973,
+        "hue_gap": 1.32,
+        "depth_gap": 0,
+        "dupe_score": 10.1307
+      },
+      {
+        "candidate_id": "gucci-409-billie-magenta",
+        "candidate_brand": "Gucci",
+        "candidate_product_line": "Rouge à Lèvres Gothique Lipstick",
+        "candidate_shade_name": "409 Billie Magenta",
+        "candidate_color_hex": "#901b48",
+        "delta_e_2000": 1.4595,
+        "hue_gap": 1.56,
+        "depth_gap": 0,
+        "dupe_score": 9.2645
+      },
+      {
+        "candidate_id": "by-terry-n-14-plump-plump-girl",
+        "candidate_brand": "BY TERRY",
+        "candidate_product_line": "Hyaluronic Sheer Rouge Plumping & Hydrating Lipstick",
+        "candidate_shade_name": "N°14 Plump Plump Girl",
+        "candidate_color_hex": "#8f244a",
+        "delta_e_2000": 1.632,
+        "hue_gap": 3.33,
+        "depth_gap": 0,
+        "dupe_score": 9.0625
+      },
+      {
+        "candidate_id": "milani-200-bitten",
+        "candidate_brand": "Milani",
+        "candidate_product_line": "Color Fetish Shine Lipstick",
+        "candidate_shade_name": "200 Bitten",
+        "candidate_color_hex": "#98154e",
+        "delta_e_2000": 1.7794,
+        "hue_gap": 1.47,
+        "depth_gap": 0,
+        "dupe_score": 8.9461
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-latte",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Latte",
+      "color_hex": "#985c52",
+      "color_family": "milk-tea"
+    },
+    "dupes": [
+      {
+        "candidate_id": "dose-of-colors-ditto",
+        "candidate_brand": "Dose of Colors",
+        "candidate_product_line": "Lipstick",
+        "candidate_shade_name": "Ditto",
+        "candidate_color_hex": "#9a5b52",
+        "delta_e_2000": 0.765,
+        "hue_gap": 1.07,
+        "depth_gap": 0,
+        "dupe_score": 9.9672
+      },
+      {
+        "candidate_id": "victoria-beckham-beauty-pose",
+        "candidate_brand": "Victoria Beckham Beauty",
+        "candidate_product_line": "Posh Lipstick",
+        "candidate_shade_name": "Pose",
+        "candidate_color_hex": "#9b5f54",
+        "delta_e_2000": 1.172,
+        "hue_gap": 0.73,
+        "depth_gap": 0,
+        "dupe_score": 9.5658
+      },
+      {
+        "candidate_id": "oriflame-peach-spritz",
+        "candidate_brand": "Oriflame",
+        "candidate_product_line": "THE ONE-Power Shine HD Lipstick",
+        "candidate_shade_name": "Peach Spritz",
+        "candidate_color_hex": "#9d5d53",
+        "delta_e_2000": 1.1969,
+        "hue_gap": 0.46,
+        "depth_gap": 0,
+        "dupe_score": 9.5454
+      },
+      {
+        "candidate_id": "wet-n-wild-sand-storm",
+        "candidate_brand": "Wet n Wild",
+        "candidate_product_line": "MegaLast Lip Color",
+        "candidate_shade_name": "Sand Storm",
+        "candidate_color_hex": "#9d5d54",
+        "delta_e_2000": 1.286,
+        "hue_gap": 1.17,
+        "depth_gap": 0,
+        "dupe_score": 9.4445
+      },
+      {
+        "candidate_id": "cl-de-peau-beaut-12-power-mauve",
+        "candidate_brand": "Clé de Peau Beauté",
+        "candidate_product_line": "Lipstick",
+        "candidate_shade_name": "12 Power Mauve",
+        "candidate_color_hex": "#9a5f57",
+        "delta_e_2000": 1.3889,
+        "hue_gap": 1.41,
+        "depth_gap": 0,
+        "dupe_score": 8.8376
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-smoke",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Smoke",
+      "color_hex": "#60656b",
+      "color_family": "rose"
+    },
+    "dupes": [
+      {
+        "candidate_id": "nyx-smudge-me",
+        "candidate_brand": "NYX",
+        "candidate_product_line": "Suede Matte Lipstick",
+        "candidate_shade_name": "Smudge Me",
+        "candidate_color_hex": "#55616e",
+        "delta_e_2000": 4.2423,
+        "hue_gap": 1.53,
+        "depth_gap": 1,
+        "dupe_score": 7.0822
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-ruby",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Ruby",
+      "color_hex": "#a02528",
+      "color_family": "red"
+    },
+    "dupes": [
+      {
+        "candidate_id": "dior-851-ultra-shock",
+        "candidate_brand": "Dior",
+        "candidate_product_line": "Rouge Dior Ultra Rouge",
+        "candidate_shade_name": "851 ULTRA SHOCK",
+        "candidate_color_hex": "#9d2929",
+        "delta_e_2000": 0.7439,
+        "hue_gap": 1.46,
+        "depth_gap": 0,
+        "dupe_score": 10.7818
+      },
+      {
+        "candidate_id": "hera-no-338-one-perfect-red",
+        "candidate_brand": "HERA",
+        "candidate_product_line": "ROUGE HOLIC SHINE",
+        "candidate_shade_name": "NO.338 ONE PERFECT RED",
+        "candidate_color_hex": "#9e2a2b",
+        "delta_e_2000": 0.8282,
+        "hue_gap": 0.94,
+        "depth_gap": 0,
+        "dupe_score": 10.7061
+      },
+      {
+        "candidate_id": "lancome-047-rouge-rayonnant",
+        "candidate_brand": "Lancome",
+        "candidate_product_line": "L'Absolu Rouge Cream",
+        "candidate_shade_name": "047 Rouge rayonnant",
+        "candidate_color_hex": "#9b2929",
+        "delta_e_2000": 1.0231,
+        "hue_gap": 1.46,
+        "depth_gap": 0,
+        "dupe_score": 10.5026
+      },
+      {
+        "candidate_id": "mac-glossed-and-found",
+        "candidate_brand": "MAC",
+        "candidate_product_line": "Lustreglass Sheer-Shine Lipstick",
+        "candidate_shade_name": "Glossed And Found",
+        "candidate_color_hex": "#9e2625",
+        "delta_e_2000": 1.0557,
+        "hue_gap": 1.96,
+        "depth_gap": 0,
+        "dupe_score": 10.4616
+      },
+      {
+        "candidate_id": "marc-jacobs-le-marc-core-cora-234",
+        "candidate_brand": "Marc Jacobs",
+        "candidate_product_line": "Le Marc-Lip Crème",
+        "candidate_shade_name": "Le Marc Core Cora 234",
+        "candidate_color_hex": "#9c2228",
+        "delta_e_2000": 1.2188,
+        "hue_gap": 1.49,
+        "depth_gap": 0,
+        "dupe_score": 10.3064
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-insomniac",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Insomniac",
+      "color_hex": "#3c8d87",
+      "color_family": "rose"
+    },
+    "dupes": []
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-cobalt",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Cobalt",
+      "color_hex": "#202871",
+      "color_family": "rose"
+    },
+    "dupes": [
+      {
+        "candidate_id": "covergirl-steal",
+        "candidate_brand": "Covergirl",
+        "candidate_product_line": "Exhibitionist Metallic Lipstick",
+        "candidate_shade_name": "Steal",
+        "candidate_color_hex": "#332b76",
+        "delta_e_2000": 3.1088,
+        "hue_gap": 12.33,
+        "depth_gap": 0,
+        "dupe_score": 8.2357
+      },
+      {
+        "candidate_id": "mac-canal-blue",
+        "candidate_brand": "MAC",
+        "candidate_product_line": "Lipstick / VIVA GLAM X KEITH HARING",
+        "candidate_shade_name": "Canal Blue",
+        "candidate_color_hex": "#2f2f81",
+        "delta_e_2000": 3.3555,
+        "hue_gap": 5.93,
+        "depth_gap": 0,
+        "dupe_score": 8.0957
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-resin",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Resin",
+      "color_hex": "#765b60",
+      "color_family": "rose"
+    },
+    "dupes": [
+      {
+        "candidate_id": "guerlain-074-plum-passion",
+        "candidate_brand": "Guerlain",
+        "candidate_product_line": "La Petite Robe Noire",
+        "candidate_shade_name": "074 Plum Passion",
+        "candidate_color_hex": "#7c5b62",
+        "delta_e_2000": 2.2595,
+        "hue_gap": 1.62,
+        "depth_gap": 1,
+        "dupe_score": 7.8635
+      },
+      {
+        "candidate_id": "anastasia-beverly-hills-griffin",
+        "candidate_brand": "Anastasia Beverly Hills",
+        "candidate_product_line": "Matte Lipstick",
+        "candidate_shade_name": "Griffin",
+        "candidate_color_hex": "#6c5658",
+        "delta_e_2000": 3.3034,
+        "hue_gap": 5.66,
+        "depth_gap": 0,
+        "dupe_score": 8.0523
+      },
+      {
+        "candidate_id": "mac-plum",
+        "candidate_brand": "MAC",
+        "candidate_product_line": "Lip Pencil",
+        "candidate_shade_name": "Plum",
+        "candidate_color_hex": "#825d63",
+        "delta_e_2000": 3.6868,
+        "hue_gap": 1.38,
+        "depth_gap": 1,
+        "dupe_score": 6.4402
+      },
+      {
+        "candidate_id": "bourjois-17-from-paris-with-mauve",
+        "candidate_brand": "Bourjois",
+        "candidate_product_line": "Rouge Velvet The Lipstick",
+        "candidate_shade_name": "17 From Paris with Mauve",
+        "candidate_color_hex": "#805a62",
+        "delta_e_2000": 3.8003,
+        "hue_gap": 1.52,
+        "depth_gap": 1,
+        "dupe_score": 6.3244
+      },
+      {
+        "candidate_id": "smashbox-punked-matte",
+        "candidate_brand": "Smashbox",
+        "candidate_product_line": "BE LEGENDARY LIPSTICK",
+        "candidate_shade_name": "PUNKED MATTE",
+        "candidate_color_hex": "#74616b",
+        "delta_e_2000": 4.1302,
+        "hue_gap": 20.47,
+        "depth_gap": 1,
+        "dupe_score": 6.0786
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-brandy",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Brandy",
+      "color_hex": "#612a23",
+      "color_family": "rose"
+    },
+    "dupes": [
+      {
+        "candidate_id": "bourjois-12-brunette",
+        "candidate_brand": "Bourjois",
+        "candidate_product_line": "Rouge Velvet The Lipstick",
+        "candidate_shade_name": "12 Brunette",
+        "candidate_color_hex": "#612c26",
+        "delta_e_2000": 0.8689,
+        "hue_gap": 0.67,
+        "depth_gap": 0,
+        "dupe_score": 9.8699
+      },
+      {
+        "candidate_id": "dose-of-colors-lava-cake",
+        "candidate_brand": "Dose of Colors",
+        "candidate_product_line": "Satin Lipstick",
+        "candidate_shade_name": "Lava Cake",
+        "candidate_color_hex": "#612521",
+        "delta_e_2000": 1.6647,
+        "hue_gap": 3.02,
+        "depth_gap": 0,
+        "dupe_score": 9.035
+      },
+      {
+        "candidate_id": "yves-saint-laurent-206-grenat-satisfaction-brown-red-",
+        "candidate_brand": "Yves Saint Laurent",
+        "candidate_product_line": "Rouge Pur Couture Lipstick",
+        "candidate_shade_name": "206 Grenat Satisfaction - Brown Red ",
+        "candidate_color_hex": "#61251d",
+        "delta_e_2000": 1.7068,
+        "hue_gap": 0.29,
+        "depth_gap": 0,
+        "dupe_score": 9.0384
+      },
+      {
+        "candidate_id": "paul-joe-306-cerise-noir",
+        "candidate_brand": "Paul & Joe",
+        "candidate_product_line": "Lipstick N Full Pigment",
+        "candidate_shade_name": "306 Cerise Noir",
+        "candidate_color_hex": "#623028",
+        "delta_e_2000": 1.8176,
+        "hue_gap": 1.51,
+        "depth_gap": 0,
+        "dupe_score": 9.7072
+      },
+      {
+        "candidate_id": "e-l-f-razzle-dazzle",
+        "candidate_brand": "e.l.f",
+        "candidate_product_line": "Moisturizing Lipstick",
+        "candidate_shade_name": "Razzle Dazzle",
+        "candidate_color_hex": "#662f2a",
+        "delta_e_2000": 1.9033,
+        "hue_gap": 1.77,
+        "depth_gap": 0,
+        "dupe_score": 9.6172
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-soft-touch",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Soft Touch",
+      "color_hex": "#da7a62",
+      "color_family": "dusty-rose"
+    },
+    "dupes": [
+      {
+        "candidate_id": "nyx-on-the-dl",
+        "candidate_brand": "NYX",
+        "candidate_product_line": "Super Cliquey Matte Lipstick",
+        "candidate_shade_name": "On The DL",
+        "candidate_color_hex": "#d77c64",
+        "delta_e_2000": 0.8311,
+        "hue_gap": 0.52,
+        "depth_gap": 0,
+        "dupe_score": 10.3102
+      },
+      {
+        "candidate_id": "sephora-collection-90-taurus-plummy-nude-brown",
+        "candidate_brand": "SEPHORA COLLECTION",
+        "candidate_product_line": "Astrology Lip Stories Lipstick",
+        "candidate_shade_name": "90 Taurus plummy nude brown",
+        "candidate_color_hex": "#d77862",
+        "delta_e_2000": 0.9431,
+        "hue_gap": 0.72,
+        "depth_gap": 0,
+        "dupe_score": 9.7949
+      },
+      {
+        "candidate_id": "sisley-l28-rose-corail",
+        "candidate_brand": "Sisley",
+        "candidate_product_line": "Hydrating Long Lasting Lipstick",
+        "candidate_shade_name": "L28 Rose Corail",
+        "candidate_color_hex": "#d87964",
+        "delta_e_2000": 1.0317,
+        "hue_gap": 1.14,
+        "depth_gap": 0,
+        "dupe_score": 9.6993
+      },
+      {
+        "candidate_id": "morphe-kissy-face",
+        "candidate_brand": "Morphe",
+        "candidate_product_line": "Mega Matte Nude Lipstick",
+        "candidate_shade_name": "Kissy Face",
+        "candidate_color_hex": "#d57960",
+        "delta_e_2000": 1.0888,
+        "hue_gap": 0.82,
+        "depth_gap": 0,
+        "dupe_score": 10.0475
+      },
+      {
+        "candidate_id": "elizabeth-arden-natural-blush-09",
+        "candidate_brand": "Elizabeth Arden",
+        "candidate_product_line": "Plush Up Lip Gelato",
+        "candidate_shade_name": "Natural Blush 09",
+        "candidate_color_hex": "#d6765e",
+        "delta_e_2000": 1.2737,
+        "hue_gap": 0.0,
+        "depth_gap": 0,
+        "dupe_score": 9.4763
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-hollywood",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Hollywood",
+      "color_hex": "#d26d4f",
+      "color_family": "coral"
+    },
+    "dupes": [
+      {
+        "candidate_id": "hourglass-explorer",
+        "candidate_brand": "Hourglass",
+        "candidate_product_line": "Girl Lip Stylo",
+        "candidate_shade_name": "EXPLORER",
+        "candidate_color_hex": "#da6e54",
+        "delta_e_2000": 2.1254,
+        "hue_gap": 2.1,
+        "depth_gap": 1,
+        "dupe_score": 8.7896
+      },
+      {
+        "candidate_id": "lipstick-queen-coral-red",
+        "candidate_brand": "Lipstick Queen",
+        "candidate_product_line": "Sinner",
+        "candidate_shade_name": "CORAL RED",
+        "candidate_color_hex": "#d26d56",
+        "delta_e_2000": 2.174,
+        "hue_gap": 2.61,
+        "depth_gap": 0,
+        "dupe_score": 9.3325
+      },
+      {
+        "candidate_id": "lipstick-queen-coral-red",
+        "candidate_brand": "Lipstick Queen",
+        "candidate_product_line": "Sinner 90 Percent Pigment",
+        "candidate_shade_name": "CORAL RED",
+        "candidate_color_hex": "#d26d56",
+        "delta_e_2000": 2.174,
+        "hue_gap": 2.61,
+        "depth_gap": 0,
+        "dupe_score": 9.3325
+      },
+      {
+        "candidate_id": "laura-mercier-soiree",
+        "candidate_brand": "Laura Mercier",
+        "candidate_product_line": "Velour Extreme Matte Lipstick Limited Edition",
+        "candidate_shade_name": "SOIREE",
+        "candidate_color_hex": "#db6647",
+        "delta_e_2000": 2.3546,
+        "hue_gap": 1.17,
+        "depth_gap": 0,
+        "dupe_score": 9.5759
+      },
+      {
+        "candidate_id": "fenty-beauty-s1ngle-blushing-nude",
+        "candidate_brand": "Fenty Beauty",
+        "candidate_product_line": "MATTEMOISELLE",
+        "candidate_shade_name": "S1ngle - Blushing Nude",
+        "candidate_color_hex": "#ca6747",
+        "delta_e_2000": 2.4563,
+        "hue_gap": 0.92,
+        "depth_gap": 0,
+        "dupe_score": 8.6784
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-sedona",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Sedona",
+      "color_hex": "#da6a61",
+      "color_family": "red"
+    },
+    "dupes": [
+      {
+        "candidate_id": "smashbox-standing-o",
+        "candidate_brand": "Smashbox",
+        "candidate_product_line": "BE LEGENDARY LIPSTICK",
+        "candidate_shade_name": "STANDING O",
+        "candidate_color_hex": "#d8695f",
+        "delta_e_2000": 0.5879,
+        "hue_gap": 0.5,
+        "depth_gap": 1,
+        "dupe_score": 10.3538
+      },
+      {
+        "candidate_id": "max-factor-ever-sumptuous",
+        "candidate_brand": "Max Factor",
+        "candidate_product_line": "Lipfinity Long Lasting Lipstick",
+        "candidate_shade_name": "Ever Sumptuous",
+        "candidate_color_hex": "#dd6b60",
+        "delta_e_2000": 0.898,
+        "hue_gap": 0.82,
+        "depth_gap": 0,
+        "dupe_score": 10.6383
+      },
+      {
+        "candidate_id": "hourglass-no-one-knows",
+        "candidate_brand": "Hourglass",
+        "candidate_product_line": "Confession Ultra Slim High Intensity Refillable Lipstick",
+        "candidate_shade_name": "NO ONE KNOWS",
+        "candidate_color_hex": "#d6675e",
+        "delta_e_2000": 1.1208,
+        "hue_gap": 0.04,
+        "depth_gap": 1,
+        "dupe_score": 9.8285
+      },
+      {
+        "candidate_id": "hourglass-no-one-knows",
+        "candidate_brand": "Hourglass",
+        "candidate_product_line": "Confession Ultra Slim High Intensity Lipstick Refill",
+        "candidate_shade_name": "NO ONE KNOWS",
+        "candidate_color_hex": "#d6675e",
+        "delta_e_2000": 1.1208,
+        "hue_gap": 0.04,
+        "depth_gap": 1,
+        "dupe_score": 9.8285
+      },
+      {
+        "candidate_id": "laura-geller-wistful-apricot-nectar",
+        "candidate_brand": "Laura Geller",
+        "candidate_product_line": "Modern Classic Lipstick",
+        "candidate_shade_name": "Wistful - apricot nectar",
+        "candidate_color_hex": "#d5695e",
+        "delta_e_2000": 1.1821,
+        "hue_gap": 1.09,
+        "depth_gap": 1,
+        "dupe_score": 8.9497
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-nude",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Nude",
+      "color_hex": "#d98964",
+      "color_family": "nude"
+    },
+    "dupes": [
+      {
+        "candidate_id": "fenty-beauty-up-2-no-good-nude-peach",
+        "candidate_brand": "Fenty Beauty",
+        "candidate_product_line": "MATTEMOISELLE",
+        "candidate_shade_name": "Up 2 No Good - Nude Peach",
+        "candidate_color_hex": "#e08c68",
+        "delta_e_2000": 1.5781,
+        "hue_gap": 0.97,
+        "depth_gap": 0,
+        "dupe_score": 9.5557
+      },
+      {
+        "candidate_id": "smashbox-nylon-nude",
+        "candidate_brand": "Smashbox",
+        "candidate_product_line": "BE LEGENDARY LIPSTICK",
+        "candidate_shade_name": "NYLON NUDE",
+        "candidate_color_hex": "#d18666",
+        "delta_e_2000": 2.0089,
+        "hue_gap": 1.03,
+        "depth_gap": 0,
+        "dupe_score": 9.5239
+      },
+      {
+        "candidate_id": "natasha-denona-1b-charlotte",
+        "candidate_brand": "Natasha Denona",
+        "candidate_product_line": "I Need a Nude Lipstick",
+        "candidate_shade_name": "1B Charlotte",
+        "candidate_color_hex": "#da8d6f",
+        "delta_e_2000": 2.3746,
+        "hue_gap": 2.15,
+        "depth_gap": 0,
+        "dupe_score": 9.1396
+      },
+      {
+        "candidate_id": "sephora-collection-sr30-love-life",
+        "candidate_brand": "SEPHORA COLLECTION",
+        "candidate_product_line": "Rouge Cream Lipstick",
+        "candidate_shade_name": "SR30 Love Life",
+        "candidate_color_hex": "#d98566",
+        "delta_e_2000": 2.3752,
+        "hue_gap": 2.8,
+        "depth_gap": 0,
+        "dupe_score": 8.3281
+      },
+      {
+        "candidate_id": "hourglass-believer",
+        "candidate_brand": "Hourglass",
+        "candidate_product_line": "Girl Lip Stylo",
+        "candidate_shade_name": "BELIEVER",
+        "candidate_color_hex": "#cf8a6b",
+        "delta_e_2000": 2.4791,
+        "hue_gap": 0.37,
+        "depth_gap": 0,
+        "dupe_score": 8.2647
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-sweet-pea",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Sweet Pea",
+      "color_hex": "#c9727a",
+      "color_family": "rose"
+    },
+    "dupes": [
+      {
+        "candidate_id": "lipstick-queen-bright-natural-saint",
+        "candidate_brand": "Lipstick Queen",
+        "candidate_product_line": "Saint 10 Percent Pigment Lipstick",
+        "candidate_shade_name": "BRIGHT NATURAL SAINT",
+        "candidate_color_hex": "#c9737c",
+        "delta_e_2000": 0.5262,
+        "hue_gap": 0.76,
+        "depth_gap": 1,
+        "dupe_score": 9.6111
+      },
+      {
+        "candidate_id": "bareminerals-petal",
+        "candidate_brand": "bareMinerals",
+        "candidate_product_line": "BAREPRO® Longwear Lipstick",
+        "candidate_shade_name": "Petal",
+        "candidate_color_hex": "#ca757c",
+        "delta_e_2000": 0.8519,
+        "hue_gap": 0.58,
+        "depth_gap": 1,
+        "dupe_score": 9.2884
+      },
+      {
+        "candidate_id": "tom-ford-delectable",
+        "candidate_brand": "Tom Ford",
+        "candidate_product_line": "ULTRA SHINE LIP COLOR",
+        "candidate_shade_name": "DELECTABLE",
+        "candidate_color_hex": "#c67176",
+        "delta_e_2000": 1.206,
+        "hue_gap": 1.99,
+        "depth_gap": 0,
+        "dupe_score": 10.3108
+      },
+      {
+        "candidate_id": "lipstick-queen-pinky-nude-saint",
+        "candidate_brand": "Lipstick Queen",
+        "candidate_product_line": "Saint 10 Percent Pigment Lipstick",
+        "candidate_shade_name": "PINKY NUDE SAINT",
+        "candidate_color_hex": "#c5747d",
+        "delta_e_2000": 1.2583,
+        "hue_gap": 1.15,
+        "depth_gap": 0,
+        "dupe_score": 9.4725
+      },
+      {
+        "candidate_id": "clarins-752-rosewood",
+        "candidate_brand": "Clarins",
+        "candidate_product_line": "Joli Rouge",
+        "candidate_shade_name": "752 rosewood",
+        "candidate_color_hex": "#c27178",
+        "delta_e_2000": 1.4319,
+        "hue_gap": 0.33,
+        "depth_gap": 0,
+        "dupe_score": 8.8126
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anastasia-beverly-hills-petal",
+      "brand": "Anastasia Beverly Hills",
+      "product_line": "Matte Lipstick",
+      "shade_name": "Petal",
+      "color_hex": "#d67868",
+      "color_family": "pink"
+    },
+    "dupes": [
+      {
+        "candidate_id": "vapour-bare",
+        "candidate_brand": "Vapour",
+        "candidate_product_line": "High Voltage Lipstick",
+        "candidate_shade_name": "Bare",
+        "candidate_color_hex": "#d87666",
+        "delta_e_2000": 0.6639,
+        "hue_gap": 0.31,
+        "depth_gap": 0,
+        "dupe_score": 10.0809
+      },
+      {
+        "candidate_id": "mac-doe",
+        "candidate_brand": "MAC",
+        "candidate_product_line": "Liptensity Lipstick",
+        "candidate_shade_name": "Doe",
+        "candidate_color_hex": "#da7665",
+        "delta_e_2000": 1.0013,
+        "hue_gap": 0.01,
+        "depth_gap": 0,
+        "dupe_score": 9.7485
+      },
+      {
+        "candidate_id": "dior-219-rose-montaigne",
+        "candidate_brand": "Dior",
+        "candidate_product_line": "Rouge Dior",
+        "candidate_shade_name": "219 Rose Montaigne",
+        "candidate_color_hex": "#d07866",
+        "delta_e_2000": 1.4028,
+        "hue_gap": 1.46,
+        "depth_gap": 0,
+        "dupe_score": 9.3229
+      },
+      {
+        "candidate_id": "natasha-denona-15nb-claudia",
+        "candidate_brand": "Natasha Denona",
+        "candidate_product_line": "I Need a Nude Lipstick",
+        "candidate_shade_name": "15NB Claudia",
+        "candidate_color_hex": "#d57569",
+        "delta_e_2000": 1.516,
+        "hue_gap": 2.06,
+        "depth_gap": 0,
+        "dupe_score": 9.1997
+      },
+      {
+        "candidate_id": "surratt-ritzy",
+        "candidate_brand": "Surratt",
+        "candidate_product_line": "Lipslique",
+        "candidate_shade_name": "RITZY",
+        "candidate_color_hex": "#d87c6f",
+        "delta_e_2000": 1.594,
+        "hue_gap": 1.3,
+        "depth_gap": 0,
+        "dupe_score": 9.1343
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anna-sui-pale-aqua-hydrangea",
+      "brand": "Anna Sui",
+      "product_line": "Sheer Finish Lipstick",
+      "shade_name": "Pale Aqua Hydrangea",
+      "color_hex": "#acd7e2",
+      "color_family": "rose"
+    },
+    "dupes": []
+  },
+  {
+    "query": {
+      "id": "anna-sui-shiny-coral-cattleya",
+      "brand": "Anna Sui",
+      "product_line": "Sheer Finish Lipstick",
+      "shade_name": "Shiny Coral Cattleya",
+      "color_hex": "#b2434a",
+      "color_family": "coral"
+    },
+    "dupes": [
+      {
+        "candidate_id": "chantecaille-impatiens",
+        "candidate_brand": "Chantecaille",
+        "candidate_product_line": "Lip Veil",
+        "candidate_shade_name": "IMPATIENS",
+        "candidate_color_hex": "#b2434a",
+        "delta_e_2000": 0.0,
+        "hue_gap": 0.0,
+        "depth_gap": 0,
+        "dupe_score": 10.75
+      },
+      {
+        "candidate_id": "catrice-060-thank-nude-next",
+        "candidate_brand": "Catrice",
+        "candidate_product_line": "Clean ID Ultra High Shine Lipstick",
+        "candidate_shade_name": "060 Thank Nude Next",
+        "candidate_color_hex": "#b44448",
+        "delta_e_2000": 1.1383,
+        "hue_gap": 1.64,
+        "depth_gap": 0,
+        "dupe_score": 9.9844
+      },
+      {
+        "candidate_id": "yves-saint-laurent-89-rose-blazer-plum-rose",
+        "candidate_brand": "Yves Saint Laurent",
+        "candidate_product_line": "ROUGE VOLUPTÉ SHINE OIL-IN-STICK",
+        "candidate_shade_name": "89 - Rose Blazer - Plum Rose",
+        "candidate_color_hex": "#ad454c",
+        "delta_e_2000": 1.1749,
+        "hue_gap": 0.26,
+        "depth_gap": 0,
+        "dupe_score": 9.4708
+      },
+      {
+        "candidate_id": "chanel-rouge-vie",
+        "candidate_brand": "Chanel",
+        "candidate_product_line": "ROUGE ALLURE VELVET",
+        "candidate_shade_name": "Rouge vie",
+        "candidate_color_hex": "#b64348",
+        "delta_e_2000": 1.2372,
+        "hue_gap": 1.17,
+        "depth_gap": 0,
+        "dupe_score": 9.4933
+      },
+      {
+        "candidate_id": "kiko-milano-07-light-crimson",
+        "candidate_brand": "KIKO Milano",
+        "candidate_product_line": "Powder Power Lipstick",
+        "candidate_shade_name": "07 Light Crimson",
+        "candidate_color_hex": "#b23d46",
+        "delta_e_2000": 1.2622,
+        "hue_gap": 0.84,
+        "depth_gap": 0,
+        "dupe_score": 9.4738
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anna-sui-orange-red-lilly",
+      "brand": "Anna Sui",
+      "product_line": "Sheer Finish Lipstick",
+      "shade_name": "Orange Red Lilly",
+      "color_hex": "#92321b",
+      "color_family": "red"
+    },
+    "dupes": [
+      {
+        "candidate_id": "too-faced-chill-pill",
+        "candidate_brand": "Too Faced",
+        "candidate_product_line": "Peach Kiss Lipstick",
+        "candidate_shade_name": "Chill Pill",
+        "candidate_color_hex": "#9c341b",
+        "delta_e_2000": 2.1357,
+        "hue_gap": 0.03,
+        "depth_gap": 0,
+        "dupe_score": 8.6138
+      },
+      {
+        "candidate_id": "charlotte-tilbury-birkin-brown",
+        "candidate_brand": "Charlotte Tilbury",
+        "candidate_product_line": "Matte Revolution",
+        "candidate_shade_name": "Birkin Brown",
+        "candidate_color_hex": "#8c2914",
+        "delta_e_2000": 2.2274,
+        "hue_gap": 1.1,
+        "depth_gap": 0,
+        "dupe_score": 8.5043
+      },
+      {
+        "candidate_id": "mac-marrakesh",
+        "candidate_brand": "MAC",
+        "candidate_product_line": "Matte Lipstick",
+        "candidate_shade_name": "Marrakesh",
+        "candidate_color_hex": "#9b381e",
+        "delta_e_2000": 2.356,
+        "hue_gap": 0.88,
+        "depth_gap": 0,
+        "dupe_score": 8.3793
+      },
+      {
+        "candidate_id": "yves-saint-laurent-92-rouge-caftan",
+        "candidate_brand": "Yves Saint Laurent",
+        "candidate_product_line": "ROUGE VOLUPTÉ SHINE OIL-IN-STICK",
+        "candidate_shade_name": "92 - Rouge Caftan",
+        "candidate_color_hex": "#903928",
+        "delta_e_2000": 2.8063,
+        "hue_gap": 1.79,
+        "depth_gap": 0,
+        "dupe_score": 8.7139
+      },
+      {
+        "candidate_id": "elizabeth-arden-honey",
+        "candidate_brand": "Elizabeth Arden",
+        "candidate_product_line": "Eight Hour® Cream Lip Protectant Stick Sheer Tint Sunscreen SPF 15",
+        "candidate_shade_name": "Honey",
+        "candidate_color_hex": "#8b3a1d",
+        "delta_e_2000": 2.9814,
+        "hue_gap": 4.22,
+        "depth_gap": 0,
+        "dupe_score": 7.6983
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anna-sui-plum-red-dehlia",
+      "brand": "Anna Sui",
+      "product_line": "Sheer Finish Lipstick",
+      "shade_name": "Plum Red Dehlia",
+      "color_hex": "#1d0b0b",
+      "color_family": "red"
+    },
+    "dupes": [
+      {
+        "candidate_id": "rituel-de-fille-moonseed",
+        "candidate_brand": "Rituel de Fille",
+        "candidate_product_line": "Enchanted Lip Sheer",
+        "candidate_shade_name": "Moonseed",
+        "candidate_color_hex": "#170407",
+        "delta_e_2000": 2.0472,
+        "hue_gap": 9.47,
+        "depth_gap": 0,
+        "dupe_score": 9.745
+      },
+      {
+        "candidate_id": "pat-mcgrath-labs-deep-void-deep-blackened-purple-",
+        "candidate_brand": "Pat McGrath Labs",
+        "candidate_product_line": "MatteTrance™Lipstick",
+        "candidate_shade_name": "Deep Void (Deep Blackened Purple)",
+        "candidate_color_hex": "#180c0c",
+        "delta_e_2000": 3.2335,
+        "hue_gap": 0.0,
+        "depth_gap": 0,
+        "dupe_score": 7.5165
+      },
+      {
+        "candidate_id": "makeup-revolution-untouched",
+        "candidate_brand": "Makeup Revolution",
+        "candidate_product_line": "Revolution Renaissance Lipstick",
+        "candidate_shade_name": "Untouched",
+        "candidate_color_hex": "#240e10",
+        "delta_e_2000": 3.6052,
+        "hue_gap": 5.45,
+        "depth_gap": 0,
+        "dupe_score": 6.554
+      },
+      {
+        "candidate_id": "mac-burgundy",
+        "candidate_brand": "MAC",
+        "candidate_product_line": "Lipmix",
+        "candidate_shade_name": "Burgundy",
+        "candidate_color_hex": "#23141d",
+        "delta_e_2000": 5.5042,
+        "hue_gap": 36.0,
+        "depth_gap": 0,
+        "dupe_score": 4.6458
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anna-sui-apricot-iris",
+      "brand": "Anna Sui",
+      "product_line": "Sheer Finish Lipstick",
+      "shade_name": "Apricot Iris",
+      "color_hex": "#aa5842",
+      "color_family": "peach"
+    },
+    "dupes": [
+      {
+        "candidate_id": "nyx-peach-don-t-kill-my-vibe",
+        "candidate_brand": "NYX",
+        "candidate_product_line": "Suede Matte Lipstick",
+        "candidate_shade_name": "Peach Don't Kill My Vibe",
+        "candidate_color_hex": "#ab5a41",
+        "delta_e_2000": 1.1678,
+        "hue_gap": 1.46,
+        "depth_gap": 0,
+        "dupe_score": 10.3579
+      },
+      {
+        "candidate_id": "nars-morocco",
+        "candidate_brand": "NARS",
+        "candidate_product_line": "Semi Matte Lipstick",
+        "candidate_shade_name": "Morocco",
+        "candidate_color_hex": "#ae5744",
+        "delta_e_2000": 1.4306,
+        "hue_gap": 1.94,
+        "depth_gap": 0,
+        "dupe_score": 9.2871
+      },
+      {
+        "candidate_id": "clarins-758l-sandy-pink",
+        "candidate_brand": "Clarins",
+        "candidate_product_line": "Joli Rouge Lacquer",
+        "candidate_shade_name": "758L sandy pink",
+        "candidate_color_hex": "#af5845",
+        "delta_e_2000": 1.5766,
+        "hue_gap": 1.94,
+        "depth_gap": 0,
+        "dupe_score": 9.1411
+      },
+      {
+        "candidate_id": "becca-taupe",
+        "candidate_brand": "BECCA",
+        "candidate_product_line": "Ultimate Lipstick Love",
+        "candidate_shade_name": "Taupe",
+        "candidate_color_hex": "#a65b48",
+        "delta_e_2000": 1.6384,
+        "hue_gap": 0.56,
+        "depth_gap": 0,
+        "dupe_score": 9.1023
+      },
+      {
+        "candidate_id": "mac-mocha-",
+        "candidate_brand": "MAC",
+        "candidate_product_line": "“READ MY LIPSTICK” LIMITED-EDITION LIPSTICK CASE",
+        "candidate_shade_name": "Mocha ",
+        "candidate_color_hex": "#b15641",
+        "delta_e_2000": 1.6767,
+        "hue_gap": 1.44,
+        "depth_gap": 0,
+        "dupe_score": 9.0493
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anna-sui-pink-dianthus",
+      "brand": "Anna Sui",
+      "product_line": "Full Pigment Lipstick",
+      "shade_name": "Pink Dianthus",
+      "color_hex": "#df5f60",
+      "color_family": "pink"
+    },
+    "dupes": [
+      {
+        "candidate_id": "rituel-de-fille-whitethorn",
+        "candidate_brand": "Rituel de Fille",
+        "candidate_product_line": "Enchanted Lip Sheer",
+        "candidate_shade_name": "Whitethorn",
+        "candidate_color_hex": "#dc6260",
+        "delta_e_2000": 0.9213,
+        "hue_gap": 1.44,
+        "depth_gap": 0,
+        "dupe_score": 9.8047
+      },
+      {
+        "candidate_id": "tom-ford-lavish",
+        "candidate_brand": "Tom Ford",
+        "candidate_product_line": "ULTRA SHINE LIP COLOR",
+        "candidate_shade_name": "LAVISH",
+        "candidate_color_hex": "#e15e64",
+        "delta_e_2000": 1.4082,
+        "hue_gap": 2.28,
+        "depth_gap": 0,
+        "dupe_score": 9.3038
+      },
+      {
+        "candidate_id": "laura-geller-wise-light-pink",
+        "candidate_brand": "Laura Geller",
+        "candidate_product_line": "Smart Pout Transfer-Proof Lipstick",
+        "candidate_shade_name": "Wise - light pink",
+        "candidate_color_hex": "#d85c5e",
+        "delta_e_2000": 1.6553,
+        "hue_gap": 0.5,
+        "depth_gap": 0,
+        "dupe_score": 10.2864
+      },
+      {
+        "candidate_id": "too-faced-peach-beach",
+        "candidate_brand": "Too Faced",
+        "candidate_product_line": "Peach Kiss Lipstick",
+        "candidate_shade_name": "Peach Beach",
+        "candidate_color_hex": "#d96663",
+        "delta_e_2000": 1.7519,
+        "hue_gap": 2.0,
+        "depth_gap": 0,
+        "dupe_score": 9.3648
+      },
+      {
+        "candidate_id": "bite-beauty-p-che",
+        "candidate_brand": "BITE Beauty",
+        "candidate_product_line": "Matte Crème Lip Crayon",
+        "candidate_shade_name": "Pêche",
+        "candidate_color_hex": "#d95c5a",
+        "delta_e_2000": 1.7549,
+        "hue_gap": 1.41,
+        "depth_gap": 0,
+        "dupe_score": 8.9716
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anna-sui-red-pink-camellia",
+      "brand": "Anna Sui",
+      "product_line": "Full Pigment Lipstick",
+      "shade_name": "Red Pink Camellia",
+      "color_hex": "#c72940",
+      "color_family": "red"
+    },
+    "dupes": [
+      {
+        "candidate_id": "clinique-ginger-flower",
+        "candidate_brand": "Clinique",
+        "candidate_product_line": "Long Last Lipstick",
+        "candidate_shade_name": "Ginger Flower",
+        "candidate_color_hex": "#c9253e",
+        "delta_e_2000": 0.5555,
+        "hue_gap": 0.42,
+        "depth_gap": 0,
+        "dupe_score": 11.3875
+      },
+      {
+        "candidate_id": "chanel-la-bouleversante",
+        "candidate_brand": "Chanel",
+        "candidate_product_line": "ROUGE ALLURE VELVET",
+        "candidate_shade_name": "La bouleversante",
+        "candidate_color_hex": "#c42f42",
+        "delta_e_2000": 0.7247,
+        "hue_gap": 1.08,
+        "depth_gap": 0,
+        "dupe_score": 10.8073
+      },
+      {
+        "candidate_id": "dior-666-matte-kisss",
+        "candidate_brand": "Dior",
+        "candidate_product_line": "ROUGE DIOR - LIMITED EDITION",
+        "candidate_shade_name": "666 MATTE KISSS",
+        "candidate_color_hex": "#c32e3f",
+        "delta_e_2000": 0.9212,
+        "hue_gap": 1.88,
+        "depth_gap": 0,
+        "dupe_score": 10.5975
+      },
+      {
+        "candidate_id": "chanel-instinct",
+        "candidate_brand": "Chanel",
+        "candidate_product_line": "ROUGE COCO FLASH",
+        "candidate_shade_name": "Instinct",
+        "candidate_color_hex": "#cd2340",
+        "delta_e_2000": 1.032,
+        "hue_gap": 1.51,
+        "depth_gap": 0,
+        "dupe_score": 10.8928
+      },
+      {
+        "candidate_id": "guerlain-m376-daring-pink",
+        "candidate_brand": "Guerlain",
+        "candidate_product_line": "KissKiss Matte",
+        "candidate_shade_name": "M376 Daring Pink",
+        "candidate_color_hex": "#cb2b43",
+        "delta_e_2000": 1.0341,
+        "hue_gap": 0.27,
+        "depth_gap": 0,
+        "dupe_score": 9.7114
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anna-sui-rose-red",
+      "brand": "Anna Sui",
+      "product_line": "Full Pigment Lipstick",
+      "shade_name": "Rose Red",
+      "color_hex": "#64050b",
+      "color_family": "red"
+    },
+    "dupes": [
+      {
+        "candidate_id": "mac-maison-rouge",
+        "candidate_brand": "MAC",
+        "candidate_product_line": "Love Me Lipstick",
+        "candidate_shade_name": "Maison Rouge",
+        "candidate_color_hex": "#66000b",
+        "delta_e_2000": 0.7698,
+        "hue_gap": 2.68,
+        "depth_gap": 0,
+        "dupe_score": 11.1355
+      },
+      {
+        "candidate_id": "axiology-true",
+        "candidate_brand": "Axiology",
+        "candidate_product_line": "Axiology Beauty Lipstick",
+        "candidate_shade_name": "TRUE",
+        "candidate_color_hex": "#640708",
+        "delta_e_2000": 0.9851,
+        "hue_gap": 3.14,
+        "depth_gap": 0,
+        "dupe_score": 10.9126
+      },
+      {
+        "candidate_id": "hourglass-visionairy",
+        "candidate_brand": "Hourglass",
+        "candidate_product_line": "Girl Lip Stylo",
+        "candidate_shade_name": "VISIONAIRY",
+        "candidate_color_hex": "#640910",
+        "delta_e_2000": 1.0326,
+        "hue_gap": 0.83,
+        "depth_gap": 0,
+        "dupe_score": 10.9036
+      },
+      {
+        "candidate_id": "chanel-etienne",
+        "candidate_brand": "Chanel",
+        "candidate_product_line": "ROUGE COCO",
+        "candidate_shade_name": "Etienne",
+        "candidate_color_hex": "#64000d",
+        "delta_e_2000": 1.2799,
+        "hue_gap": 4.01,
+        "depth_gap": 0,
+        "dupe_score": 10.6033
+      },
+      {
+        "candidate_id": "kosas-fringe",
+        "candidate_brand": "Kosas",
+        "candidate_product_line": "Weightless Lip Color",
+        "candidate_shade_name": "Fringe",
+        "candidate_color_hex": "#661313",
+        "delta_e_2000": 1.8131,
+        "hue_gap": 3.79,
+        "depth_gap": 0,
+        "dupe_score": 10.0737
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anna-sui-orange-tulip",
+      "brand": "Anna Sui",
+      "product_line": "Full Pigment Lipstick",
+      "shade_name": "Orange Tulip",
+      "color_hex": "#ca352f",
+      "color_family": "orange"
+    },
+    "dupes": [
+      {
+        "candidate_id": "revolution-beauty-cherry",
+        "candidate_brand": "Revolution Beauty",
+        "candidate_product_line": "Revolution Pro X Nath Lipstick",
+        "candidate_shade_name": "Cherry",
+        "candidate_color_hex": "#cc312f",
+        "delta_e_2000": 0.7058,
+        "hue_gap": 1.56,
+        "depth_gap": 0,
+        "dupe_score": 10.4182
+      },
+      {
+        "candidate_id": "by-terry-n-12-naked-nectar",
+        "candidate_brand": "BY TERRY",
+        "candidate_product_line": "Rouge-Expert Click Stick Lipstick",
+        "candidate_shade_name": "N°12 Naked Nectar",
+        "candidate_color_hex": "#cb392f",
+        "delta_e_2000": 0.9862,
+        "hue_gap": 1.53,
+        "depth_gap": 0,
+        "dupe_score": 10.1383
+      },
+      {
+        "candidate_id": "gucci-500-odalie-red",
+        "candidate_brand": "Gucci",
+        "candidate_product_line": "Rouge à Lèvres Satin Lipstick",
+        "candidate_shade_name": "500 Odalie Red",
+        "candidate_color_hex": "#ce2e2f",
+        "delta_e_2000": 1.1883,
+        "hue_gap": 2.7,
+        "depth_gap": 0,
+        "dupe_score": 9.9167
+      },
+      {
+        "candidate_id": "maybelline-craving-coral",
+        "candidate_brand": "Maybelline",
+        "candidate_product_line": "Creamy Mattes",
+        "candidate_shade_name": "Craving Coral",
+        "candidate_color_hex": "#cd2f30",
+        "delta_e_2000": 1.2214,
+        "hue_gap": 2.7,
+        "depth_gap": 0,
+        "dupe_score": 9.4836
+      },
+      {
+        "candidate_id": "bite-beauty-orange-fizz",
+        "candidate_brand": "BITE Beauty",
+        "candidate_product_line": "Outburst Longwear Lip Stain",
+        "candidate_shade_name": "Orange Fizz",
+        "candidate_color_hex": "#cd2b29",
+        "delta_e_2000": 1.2679,
+        "hue_gap": 1.59,
+        "depth_gap": 0,
+        "dupe_score": 10.2556
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "anna-sui-pale-pink-peony",
+      "brand": "Anna Sui",
+      "product_line": "Full Pigment Lipstick",
+      "shade_name": "Pale Pink Peony",
+      "color_hex": "#cc6a5c",
+      "color_family": "pink"
+    },
+    "dupes": [
+      {
+        "candidate_id": "clarins-711-papaya",
+        "candidate_brand": "Clarins",
+        "candidate_product_line": "Joli Rouge",
+        "candidate_shade_name": "711 papaya",
+        "candidate_color_hex": "#d06a5c",
+        "delta_e_2000": 0.7808,
+        "hue_gap": 0.26,
+        "depth_gap": 0,
+        "dupe_score": 10.3649
+      },
+      {
+        "candidate_id": "elizabeth-arden-ginger",
+        "candidate_brand": "Elizabeth Arden",
+        "candidate_product_line": "Ceramide Ultra Lipstick",
+        "candidate_shade_name": "Ginger",
+        "candidate_color_hex": "#ce6758",
+        "delta_e_2000": 0.9709,
+        "hue_gap": 0.13,
+        "depth_gap": 0,
+        "dupe_score": 10.1769
+      },
+      {
+        "candidate_id": "urban-decay-interrogate",
+        "candidate_brand": "Urban Decay",
+        "candidate_product_line": "Cream Vice Lipstick",
+        "candidate_shade_name": "INTERROGATE",
+        "candidate_color_hex": "#d16858",
+        "delta_e_2000": 1.3055,
+        "hue_gap": 0.43,
+        "depth_gap": 0,
+        "dupe_score": 9.4373
+      },
+      {
+        "candidate_id": "natasha-denona-3b-sami",
+        "candidate_brand": "Natasha Denona",
+        "candidate_product_line": "I Need a Nude Lipstick",
+        "candidate_shade_name": "3B Sami",
+        "candidate_color_hex": "#c86b5a",
+        "delta_e_2000": 1.3057,
+        "hue_gap": 1.77,
+        "depth_gap": 0,
+        "dupe_score": 9.8148
+      },
+      {
+        "candidate_id": "nyx-cannes",
+        "candidate_brand": "NYX",
+        "candidate_product_line": "Soft Matte Lip Cream",
+        "candidate_shade_name": "Cannes",
+        "candidate_color_hex": "#d26c60",
+        "delta_e_2000": 1.5015,
+        "hue_gap": 1.18,
+        "depth_gap": 0,
+        "dupe_score": 9.2288
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "artdeco-724-mat-terracotta",
+      "brand": "ARTDECO",
+      "product_line": "High Performance Lipstick",
+      "shade_name": "724 Mat Terracotta",
+      "color_hex": "#be6462",
+      "color_family": "terracotta"
+    },
+    "dupes": [
+      {
+        "candidate_id": "lipstick-queen-blooming-blush",
+        "candidate_brand": "Lipstick Queen",
+        "candidate_product_line": "Nothing But The Nudes Lipstick",
+        "candidate_shade_name": "BLOOMING BLUSH",
+        "candidate_color_hex": "#bf6565",
+        "delta_e_2000": 0.8516,
+        "hue_gap": 1.3,
+        "depth_gap": 0,
+        "dupe_score": 10.2767
+      },
+      {
+        "candidate_id": "cl-de-peau-beaut-112-agent-of-change",
+        "candidate_brand": "Clé de Peau Beauté",
+        "candidate_product_line": "Lipstick Matte",
+        "candidate_shade_name": "112 Agent of Change",
+        "candidate_color_hex": "#c16664",
+        "delta_e_2000": 0.8658,
+        "hue_gap": 0.01,
+        "depth_gap": 0,
+        "dupe_score": 9.884
+      },
+      {
+        "candidate_id": "milani-25-naturally-chic",
+        "candidate_brand": "Milani",
+        "candidate_product_line": "Color Statement Lipstick",
+        "candidate_shade_name": "25 Naturally Chic",
+        "candidate_color_hex": "#b96462",
+        "delta_e_2000": 1.0589,
+        "hue_gap": 0.08,
+        "depth_gap": 0,
+        "dupe_score": 10.0898
+      },
+      {
+        "candidate_id": "sephora-collection-r61-lucky-one",
+        "candidate_brand": "SEPHORA COLLECTION",
+        "candidate_product_line": "Rouge Cream Lipstick",
+        "candidate_shade_name": "R61 Lucky One",
+        "candidate_color_hex": "#b96362",
+        "delta_e_2000": 1.1956,
+        "hue_gap": 0.61,
+        "depth_gap": 0,
+        "dupe_score": 9.5442
+      },
+      {
+        "candidate_id": "sephora-collection-14-visionary-redish-brown-",
+        "candidate_brand": "SEPHORA COLLECTION",
+        "candidate_product_line": "Rouge Lacquer Long-Lasting Lipstick",
+        "candidate_shade_name": "14 Visionary redish brown ",
+        "candidate_color_hex": "#c36263",
+        "delta_e_2000": 1.3213,
+        "hue_gap": 1.92,
+        "depth_gap": 0,
+        "dupe_score": 9.3967
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "artdeco-738-mat-crimson-red",
+      "brand": "ARTDECO",
+      "product_line": "High Performance Lipstick",
+      "shade_name": "738 Mat Crimson Red",
+      "color_hex": "#71212e",
+      "color_family": "red"
+    },
+    "dupes": [
+      {
+        "candidate_id": "flower-beauty-wild-berry-matte",
+        "candidate_brand": "FLOWER BEAUTY",
+        "candidate_product_line": "Petal Pout Lip Color",
+        "candidate_shade_name": "Wild Berry - Matte",
+        "candidate_color_hex": "#751c2d",
+        "delta_e_2000": 1.2549,
+        "hue_gap": 1.71,
+        "depth_gap": 0,
+        "dupe_score": 8.9666
+      },
+      {
+        "candidate_id": "bite-beauty-beetroot",
+        "candidate_brand": "BITE Beauty",
+        "candidate_product_line": "Amuse Bouche Lipstick",
+        "candidate_shade_name": "Beetroot",
+        "candidate_color_hex": "#741b2d",
+        "delta_e_2000": 1.3109,
+        "hue_gap": 2.38,
+        "depth_gap": 0,
+        "dupe_score": 10.0994
+      },
+      {
+        "candidate_id": "cl-de-peau-beaut-15-desert-rose",
+        "candidate_brand": "Clé de Peau Beauté",
+        "candidate_product_line": "Lipstick",
+        "candidate_shade_name": "15 Desert Rose",
+        "candidate_color_hex": "#701b29",
+        "delta_e_2000": 1.3824,
+        "hue_gap": 0.13,
+        "depth_gap": 0,
+        "dupe_score": 9.2654
+      },
+      {
+        "candidate_id": "max-factor-mulberry",
+        "candidate_brand": "Max Factor",
+        "candidate_product_line": "Colour Elixir Lipstick",
+        "candidate_shade_name": "Mulberry",
+        "candidate_color_hex": "#6e252d",
+        "delta_e_2000": 1.4762,
+        "hue_gap": 3.17,
+        "depth_gap": 0,
+        "dupe_score": 9.121
+      },
+      {
+        "candidate_id": "nyx-siren",
+        "candidate_brand": "NYX",
+        "candidate_product_line": "Matte Lipstick",
+        "candidate_shade_name": "Siren",
+        "candidate_color_hex": "#75202b",
+        "delta_e_2000": 1.7123,
+        "hue_gap": 1.99,
+        "depth_gap": 0,
+        "dupe_score": 9.3045
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "artdeco-749-mat-garnet-red",
+      "brand": "ARTDECO",
+      "product_line": "High Performance Lipstick",
+      "shade_name": "749 Mat Garnet Red",
+      "color_hex": "#60232b",
+      "color_family": "red"
+    },
+    "dupes": [
+      {
+        "candidate_id": "paul-joe-213-fruit-rouge",
+        "candidate_brand": "Paul & Joe",
+        "candidate_product_line": "Lipstick N Medium Finish",
+        "candidate_shade_name": "213 Fruit Rouge",
+        "candidate_color_hex": "#61212b",
+        "delta_e_2000": 0.7279,
+        "hue_gap": 1.51,
+        "depth_gap": 0,
+        "dupe_score": 11.1969
+      },
+      {
+        "candidate_id": "yves-saint-laurent-54-prune-avenue-dark-maroon-",
+        "candidate_brand": "Yves Saint Laurent",
+        "candidate_product_line": "Rouge Pur Couture Lipstick",
+        "candidate_shade_name": "54 Prune Avenue - Dark Maroon ",
+        "candidate_color_hex": "#5e2329",
+        "delta_e_2000": 0.8232,
+        "hue_gap": 1.77,
+        "depth_gap": 0,
+        "dupe_score": 11.0973
+      },
+      {
+        "candidate_id": "dior-924-sauvage",
+        "candidate_brand": "Dior",
+        "candidate_product_line": "DIOR ADDICT LACQUER STICK",
+        "candidate_shade_name": "924 Sauvage",
+        "candidate_color_hex": "#602127",
+        "delta_e_2000": 1.3481,
+        "hue_gap": 2.16,
+        "depth_gap": 0,
+        "dupe_score": 10.1659
+      },
+      {
+        "candidate_id": "linda-hallberg-garnet",
+        "candidate_brand": "Linda Hallberg",
+        "candidate_product_line": "Fantastick Multi-use Lipstick SP15",
+        "candidate_shade_name": "Garnet",
+        "candidate_color_hex": "#63212d",
+        "delta_e_2000": 1.3864,
+        "hue_gap": 3.04,
+        "depth_gap": 0,
+        "dupe_score": 10.0129
+      },
+      {
+        "candidate_id": "kiko-milano-08-cherry-red",
+        "candidate_brand": "KIKO Milano",
+        "candidate_product_line": "Hydra Shiny Lip Stylo",
+        "candidate_shade_name": "08 Cherry Red",
+        "candidate_color_hex": "#611d28",
+        "delta_e_2000": 1.5275,
+        "hue_gap": 1.84,
+        "depth_gap": 0,
+        "dupe_score": 9.9918
+      }
+    ]
+  },
+  {
+    "query": {
+      "id": "artdeco-762-mat-grape-juice",
+      "brand": "ARTDECO",
+      "product_line": "High Performance Lipstick",
+      "shade_name": "762 Mat Grape Juice",
+      "color_hex": "#72374b",
+      "color_family": "mauve"
+    },
+    "dupes": [
+      {
+        "candidate_id": "guerlain-363-fabulous-rose",
+        "candidate_brand": "Guerlain",
+        "candidate_product_line": "KissKiss",
+        "candidate_shade_name": "363 Fabulous Rose",
+        "candidate_color_hex": "#77364a",
+        "delta_e_2000": 1.4511,
+        "hue_gap": 1.88,
+        "depth_gap": 0,
+        "dupe_score": 9.6676
+      },
+      {
+        "candidate_id": "mac-dark-side",
+        "candidate_brand": "MAC",
+        "candidate_product_line": "Amplified Lipstick",
+        "candidate_shade_name": "Dark Side",
+        "candidate_color_hex": "#713c4d",
+        "delta_e_2000": 1.634,
+        "hue_gap": 1.09,
+        "depth_gap": 0,
+        "dupe_score": 10.2978
+      },
+      {
+        "candidate_id": "sephora-collection-30-goddess-burgundy",
+        "candidate_brand": "SEPHORA COLLECTION",
+        "candidate_product_line": "Rouge Lacquer Long-Lasting Lipstick",
+        "candidate_shade_name": "30 Goddess burgundy",
+        "candidate_color_hex": "#773449",
+        "delta_e_2000": 1.7029,
+        "hue_gap": 1.53,
+        "depth_gap": 0,
+        "dupe_score": 9.0216
+      },
+      {
+        "candidate_id": "nyx-flashy",
+        "candidate_brand": "NYX",
+        "candidate_product_line": "Pin-Up Pout Lipstick",
+        "candidate_shade_name": "Flashy",
+        "candidate_color_hex": "#74324b",
+        "delta_e_2000": 1.7406,
+        "hue_gap": 2.39,
+        "depth_gap": 0,
+        "dupe_score": 10.1696
+      },
+      {
+        "candidate_id": "marc-jacobs-le-marc-boy-gorgeous-222",
+        "candidate_brand": "Marc Jacobs",
+        "candidate_product_line": "Le Marc-Lip Crème",
+        "candidate_shade_name": "Le Marc Boy Gorgeous 222",
+        "candidate_color_hex": "#79374a",
+        "delta_e_2000": 1.9991,
+        "hue_gap": 3.07,
+        "depth_gap": 0,
+        "dupe_score": 9.8997
+      }
+    ]
+  }
+]

@@ -1,0 +1,50 @@
+Here's a clean summary of all the rule changes across our conversation:
+
+**face_height baseline**
+- Old: `pts[8].y – pts[27].y` (chin to nose root — only lower half face)
+- New: `lm[152].y – lm[10].y` (chin to forehead top — full face height)
+
+**forehead_width**
+- Old: `pts[17].x – pts[26].x` (inner eyebrow corners — too narrow)
+- New: `lm[70].x – lm[300].x` (outer eyebrow ends — closer to true forehead width)
+
+**HEART — forehead_ratio threshold**
+- Old: `> 1.02`
+- New: `> 0.95`
+
+**SQUARE — full condition rewrite**
+- Old: `jaw_angle < 118° AND jaw_ratio >= 0.90 AND face_ratio < 1.40`
+- New: `jaw_angle < 115° AND jaw_ratio <= 1.08 AND face_ratio < 1.40`
+- Key changes: angle tightened, lower bound removed, upper bound added (this was the critical missing constraint)
+
+**ROUND — all three conditions tightened**
+- Old: `face_ratio < 1.22 AND jaw_angle > 125° AND chin_width > 0.20×cheekbone`
+- New: `face_ratio < 1.15 AND jaw_angle > 128° AND chin_width > 0.22×cheekbone`
+
+**OVAL — unconditional fallback**
+- Old: had its own face_ratio condition `1.25 <= face_ratio <= 1.55`, could fail to match
+- New: unconditional fallback — if nothing else matches, output OVAL
+
+**Eye — MONOLID/HOODED detection**
+- Old: based on `lid_visibility` and `eye_height` absolute values (dlib)
+- New: `MONOLID = EAR < 0.20 AND lid_visibility < 0.30`, `HOODED = EAR >= 0.20 AND lid_visibility < 0.32`, with dead zone 0.32–0.40 before DOUBLE_LID
+
+**Eye — ALMOND/UPTURNED/DOWNTURNED boundaries**
+- Old: mixed `<=` and `<`, caused boundary overlap at ±4°
+- New: strict open intervals throughout — `UPTURNED < –4°`, `ALMOND –4° < tilt < +4°`, `DOWNTURNED > +4°`
+
+**Eye — eye_spacing_ratio**
+- Old: using inner eye corner landmarks
+- New: using iris centers lm[468] and lm[473] — more accurate
+
+**Nose bridge height**
+- Old: 2D y-distance projection (fundamentally limited)
+- New: 3D z-coordinate difference `lm[168].z – lm[6].z` (nose root depth minus mid-bridge depth)
+
+**cupid_bow_ratio — formula direction fix**
+- Old: formula was inverted, positive value meant flat lip (bug)
+- New: `(peak_avg – lm[0].y) / lip_height_raw` — positive value correctly means defined bow (M-lip)
+
+**lid_visibility — divide-by-zero protection**
+- Old: no guard
+- New: `max(lm[105].y – lm[159].y, face_height × 0.02)` as denominator

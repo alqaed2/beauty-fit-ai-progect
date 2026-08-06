@@ -57,6 +57,10 @@ def _guides_dir() -> str:
 
     current_file_dir = os.path.dirname(os.path.abspath(__file__))
     candidates = [
+        # Also consider uploaded assets directory (new style guides may be placed here)
+        os.path.join(os.path.dirname(current_file_dir), "assets", "uploads"),
+        # Project-level uploads path
+        os.path.join(os.getcwd(), "App", "backend", "assets", "uploads"),
         # Relative to current file: App/backend/services -> App/backend/assets/style_guides
         os.path.join(os.path.dirname(current_file_dir), "assets", "style_guides"),
         # Relative to project root
@@ -241,8 +245,24 @@ def get_catalog() -> Dict[str, ParsedStyle]:
 
     catalog: Dict[str, ParsedStyle] = {}
     guides_dir = _guides_dir()
+    # Allow flexible filenames: e.g. "BeautyFit_Sweet_Style_Guide.docx"
+    try:
+        available = [p for p in os.listdir(guides_dir) if p.lower().endswith(".docx")]
+    except Exception:
+        available = []
+
     for f in _FILES:
-        path = os.path.join(guides_dir, f"{f}.docx")
+        # prefer exact match, else substring match
+        matches = [p for p in available if p.lower() == f.lower() + ".docx"]
+        if not matches:
+            matches = [p for p in available if f.lower() in p.lower()]
+
+        if matches:
+            path = os.path.join(guides_dir, matches[0])
+        else:
+            path = os.path.join(guides_dir, f"{f}.docx")
+
+        logger.info("[style_guide_parser] attempting to parse style '%s' from file: %s", f, os.path.basename(path))
         sub_styles = _parse_one_docx(path)
         catalog[f.lower()] = {"sub_styles": sub_styles}
     logger.info(

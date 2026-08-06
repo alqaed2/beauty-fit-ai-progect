@@ -1,2 +1,4 @@
 *.mp4
 assets/videos/
+.env
+.env.local
